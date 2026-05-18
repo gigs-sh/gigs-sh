@@ -118,6 +118,8 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
 ├── CONTRIBUTING.md              # how to add or update a gig
 ├── LICENSE                      # MIT (code)
 ├── LICENSE-CONTENT              # CC-BY-4.0 (content)
+├── design/
+│   └── landing-page-brief.md    # self-contained brief for the v1 landing page design pass
 └── research/
     └── 03-agent-mining.md       # source data for the v1 listing cohort
 ```

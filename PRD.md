@@ -468,6 +468,61 @@ We **allow** ClaudeBot, GPTBot, Perplexity, GoogleBot, Google-Extended. We **blo
 
 ---
 
+### F14. Homepage / landing page
+
+**What.** The brand entry point at `gigs.sh/`. Modeled on [skills.sh](https://www.skills.sh/) — monospace-heavy, ASCII-art logo, install-command-as-hero, browsable cohort below the fold. Adapted for gigs.sh: the dominant filter is **onboarding friction**, not popularity, because we don't have install volume at launch.
+
+**Why.** First-impression conversion. Skills.sh hit tens of thousands of installs within weeks largely because the homepage made the install moment legible in three seconds. We want the same outcome for `npx gigs find` and the MCP install buttons.
+
+**Page anatomy (top → bottom):**
+
+| # | Section | Job | Key elements |
+|---|---|---|---|
+| 1 | Header / nav | Brand + wayfinding | Monospace logo, nav: Gigs · Categories · Templates · MCP · Docs · GitHub |
+| 2 | Hero | Value prop | ASCII-art "GIGS" wordmark, one-line tagline ("the directory for platforms where AI agents earn money"), sub-line ("19 platforms verified · last updated [date]") |
+| 3 | Quick-start command | Conversion moment | `$ npx gigs find "prediction-market"` in a code block with copy button; alt example below: `$ npx gigs view polymarket`. This is the install moment — must be visually dominant. |
+| 4 | Install in your agent | Lower friction for the agent audience | 4-6 client buttons (Claude Desktop, Cursor, ChatGPT, custom MCP via copy-URL); each is a one-click deeplink that registers the gigs.sh MCP endpoint with that client |
+| 5 | Browse the gigs | Discovery surface (the meat) | Search input + **friction-tier segmented control** (Instant / Easy / Moderate / Hard) as the primary filter chip row + secondary category chip row + tier-grouped cards rendering the 19 listings |
+| 6 | Featured: Polymarket starter | Showcase the action loop | Single highlighted card with "Deploy to Railway" button + link to `gigs-sh/polymarket-starter` repo. Sets visitor expectation that templated starters are the differentiator. |
+| 7 | Category index | Topical entry for SEO and discovery | 11 categories as compact cards, each linking to `/c/[category]` |
+| 8 | Trust strip | Editorial credibility | "19 platforms verified · last updated [date] · MIT/CC-BY · No sponsored placement" |
+| 9 | Newsletter signup | Owned-channel capture | Single email field, Loops-backed |
+| 10 | Footer | Secondary nav + license | Multi-column: Browse · Categories · Agent surfaces · Project · Legal |
+
+**Visual language:**
+
+- Monospace-heavy typography (system mono stack or JetBrains Mono). Sans-serif (Inter or system) only for body prose.
+- ASCII-art logo treatment (the `.sh` TLD reinforces a terminal aesthetic).
+- White or off-white background; dark mode via `prefers-color-scheme` (no manual toggle in v1).
+- Single accent color (suggest: green `#16a34a` for "go" friction signals, used sparingly).
+- **No photos, gradients, illustrations, or animations.** Typography + ASCII + Lucide icons only.
+- High info density in the browse section; spacious in hero and CTA blocks.
+
+**Skills.sh patterns to keep:**
+- ASCII-art brand mark in hero.
+- Quick-start command as the first below-hero CTA.
+- Agent-client logo grid early on the page.
+- Browsable cohort as the dominant content.
+- Restrained palette and zero visual flair.
+
+**Skills.sh patterns to NOT copy:**
+- Their popularity leaderboard (install counts). We don't have volume data at launch; faking it is worse than not having it. Use editorially-curated tiers instead.
+- Their "Trending 24h / Hot / All Time" filter. We use friction tiers as the headline filter.
+- Their dense table of 200+ rows. Our 19 listings work better as cards grouped by tier than as a flat table.
+
+**Design brief** (self-contained, copy-paste-able to a design AI): see [`design/landing-page-brief.md`](./design/landing-page-brief.md).
+
+**Acceptance criteria:**
+- Above-the-fold renders in <1s on Vercel preview.
+- Lighthouse Performance ≥ 95, Accessibility ≥ 95, SEO ≥ 95.
+- Quick-start command is legible and copy-pasteable at 320px viewport width.
+- Friction-tier segmented control is the visually dominant filter on the page.
+- MCP install buttons render correct deeplinks for Claude Desktop, Cursor, and ChatGPT.
+- Dark mode supported via `prefers-color-scheme`.
+- Zero photos, gradients, illustrations, or animations.
+
+---
+
 ## 7. Launch listings (v1 cohort — 19 verified)
 
 Source data: `research/03-agent-mining.md` + verified May 17–18, 2026 via two parallel research passes. All 19 listings below have **agent posture** and **onboarding friction** confirmed against the platform's own documentation or first-party copy — not inferred.
