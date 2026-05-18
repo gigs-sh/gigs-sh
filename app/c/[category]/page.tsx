@@ -11,6 +11,7 @@ import {
   tierLabel,
   type Category,
 } from "@/lib/listings";
+import { getCategoryFaq } from "@/lib/seo-content";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ListingCard } from "@/components/listing/ListingCard";
@@ -63,6 +64,7 @@ export default async function CategoryPage({
   const listings = all.filter((l) => l.categories.includes(category));
   const stats = getCategoryStats(category);
   const guidance = categoryGuidance(category);
+  const faq = getCategoryFaq(category);
 
   const otherCategories = CATEGORIES.filter((c) => c !== category)
     .map((c) => ({
@@ -92,6 +94,21 @@ export default async function CategoryPage({
     },
   };
 
+  const faqLd = faq.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faq.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: f.a,
+          },
+        })),
+      }
+    : null;
+
   const breadcrumbLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -111,6 +128,12 @@ export default async function CategoryPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
+      {faqLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+      )}
       <Header />
       <main className="index-page">
         <div className="wrap">
@@ -196,6 +219,22 @@ export default async function CategoryPage({
             <p className="index-empty mono">
               No listings in this category yet.
             </p>
+          )}
+
+          {faq.length > 0 && (
+            <section className="cat-faq" id="faq">
+              <h2 className="section-h">
+                <span className="mono">Common questions</span>
+              </h2>
+              <div className="faq-list">
+                {faq.map((item) => (
+                  <details className="faq-item" key={item.q}>
+                    <summary className="faq-q">{item.q}</summary>
+                    <p className="faq-a">{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
           )}
 
           <section className="index-other">

@@ -1,5 +1,14 @@
 import Link from "next/link";
 import { CATEGORIES, categoryLabel } from "@/lib/listings";
+import { AGENT_PERSONAS } from "@/lib/seo-content";
+
+const AGENT_LABELS: Record<string, string> = {
+  "claude-code": "Claude Code",
+  cursor: "Cursor",
+  devin: "Devin",
+  langchain: "LangChain",
+  crewai: "CrewAI",
+};
 
 type FooterLink = {
   label: string;
@@ -109,6 +118,22 @@ export function Footer() {
                   <FooterItem
                     key={c}
                     link={{ label: categoryLabel(c), href: `/c/${c}` }}
+                    mono
+                  />
+                ))}
+              </ul>
+            </div>
+
+            <div className="foot-col">
+              <div className="foot-h mono">By agent</div>
+              <ul>
+                {AGENT_PERSONAS.map((a) => (
+                  <FooterItem
+                    key={a}
+                    link={{
+                      label: AGENT_LABELS[a] ?? a,
+                      href: `/agent/${a}`,
+                    }}
                     mono
                   />
                 ))}

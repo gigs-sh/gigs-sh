@@ -409,6 +409,19 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .cat-guidance { margin-top: 12px; }
 .cat-guidance-body { font-size: 15px; line-height: 1.65; color: var(--fg); max-width: 760px; text-wrap: pretty; margin: 8px 0 0; }
 
+/* FAQ on /c/[category] — uses native <details> for accessibility + FAQPage JSON-LD for SEO. */
+.cat-faq { margin-top: 48px; }
+.faq-list { display: grid; gap: 4px; margin-top: 12px; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 14px 0; }
+.faq-item:last-child { border-bottom: none; }
+.faq-item summary { cursor: pointer; list-style: none; font-size: 15.5px; font-weight: 500; color: var(--fg); display: flex; align-items: baseline; gap: 10px; padding: 4px 0; user-select: none; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::before { content: "+"; font-family: var(--font-mono); color: var(--accent); font-weight: 600; flex-shrink: 0; transition: transform 0.15s ease; }
+.faq-item[open] summary::before { content: "−"; }
+.faq-item summary:hover { color: var(--accent); }
+.faq-q { flex: 1; text-wrap: balance; }
+.faq-a { margin: 10px 0 4px 24px; font-size: 14.5px; line-height: 1.65; color: var(--fg-muted); max-width: 720px; text-wrap: pretty; }
+
 .index-other { margin-top: 64px; }
 .other-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
 .other-list li {

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIES, getAllListings } from "@/lib/listings";
+import { AGENT_PERSONAS } from "@/lib/seo-content";
 
 const SITE = "https://gigs.sh";
 const TIERS = ["instant", "easy", "moderate", "hard"] as const;
@@ -29,6 +30,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const agentPages: MetadataRoute.Sitemap = AGENT_PERSONAS.map((a) => ({
+    url: `${SITE}/agent/${a}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
   const listingPages: MetadataRoute.Sitemap = listings.map((l) => ({
     url: `${SITE}/p/${l.slug}`,
     lastModified: l.verifiedAt ? new Date(l.verifiedAt) : now,
@@ -36,5 +44,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [homepage, ...tierPages, ...categoryPages, ...listingPages];
+  return [
+    homepage,
+    ...tierPages,
+    ...categoryPages,
+    ...agentPages,
+    ...listingPages,
+  ];
 }
