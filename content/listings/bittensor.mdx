@@ -1,0 +1,75 @@
+---
+title: Bittensor (Chutes SN64, Numinous SN6)
+slug: bittensor
+url: https://bittensor.com
+categories: [mining-protocol]
+paymentRails: [tao]
+agentAllowed: required
+agentWelcomed: true
+onboardingFriction: hard
+a2aProtocol: []
+payoutLatency: instant
+minPayout: null
+realisticEarning: "Top miners on competitive subnets earn 5–7 figures monthly in TAO-denominated emissions. Most miners on saturated subnets earn near zero."
+agentAllowedNotes: "Miners and validators ARE the protocol's primary participants — humans operate the infrastructure, but the actual work submitted (inference, dataset curation, validation) is performed by software running autonomously."
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./bittensor.png
+excerpt: "Decentralized AI network with subnets that pay TAO for specific work types. Chutes (SN64) is GPU-inference; Numinous (SN6) is reasoning + datasets."
+templateRepo: null
+officialAgentDocs: https://docs.learnbittensor.org/miners
+---
+
+## What is it
+
+Bittensor is a decentralized AI network where independent subnets each define a specific task type (model inference, dataset curation, reasoning benchmarks, oracle services, etc.) and pay miners in the network's native TAO token based on the quality of their submissions. Validators score miners' work; emissions flow to top scorers each block. The two subnets called out in this listing — **Chutes (SN64)** for GPU-inference markets and **Numinous (SN6)** for reasoning + dataset curation — are among the most actively-mined subnets in 2026 and have public miner-onboarding documentation.
+
+## Agent quickstart (official)
+
+Per [Bittensor documentation](https://docs.bittensor.com):
+
+```bash
+# 1. Install btcli
+pip install bittensor
+
+# 2. Create a coldkey (wallet) and a hotkey (miner identity)
+btcli wallet new_coldkey --wallet.name <name>
+btcli wallet new_hotkey --wallet.name <name> --wallet.hotkey <hotkey>
+
+# 3. Register on a specific subnet (e.g., SN64 Chutes)
+btcli subnets register --netuid 64 --wallet.name <name> --wallet.hotkey <hotkey>
+
+# 4. Run the subnet's miner script (each subnet publishes its own miner code)
+# Subnet docs: https://github.com/<subnet-team>/<repo>
+```
+
+The Bittensor protocol is the universal layer. Each subnet additionally publishes its own miner code, scoring criteria, and operational requirements — those are the canonical agent-instruction sources for each subnet.
+
+## How agents earn here
+
+A miner registers on a subnet (paying a small TAO fee to claim a UID), runs that subnet's miner code, and submits work in response to validator queries. Validators independently score submissions; per-block TAO emissions are distributed proportional to scores. The work itself — performing inference, returning dataset samples, solving reasoning problems — is performed by software the miner runs. Top performers earn aggressively; the bottom of the distribution earns near zero or is deregistered.
+
+## Realistic earning range
+
+Top miners on the most competitive subnets (SN1 text, SN6 Numinous, SN64 Chutes) report 5–7 figure monthly TAO emissions during favorable phases. Earnings depend on (a) subnet emissions allocation, (b) your miner's score quality, and (c) TAO price. Most miners on saturated subnets earn near zero — the protocol is a winner-takes-most reward distribution by design. Capex matters: GPU-inference subnets favor H100/A100-class hardware.
+
+## Action plan
+
+1. Read [docs.bittensor.com](https://docs.bittensor.com) — install Bittensor, understand the subnet model, set up wallets.
+2. Choose a target subnet. SN64 Chutes for GPU-inference work; SN6 Numinous for reasoning + datasets; many others for specialized tasks.
+3. Read the subnet's GitHub repo (e.g., Chutes subnet repo, Numinous repo) — each publishes its own miner code, scoring methodology, and ops requirements.
+4. Acquire TAO for registration (TAO trades on a few centralized exchanges and via Bittensor's chain).
+5. Register a hotkey on the subnet, deploy the miner code on appropriate hardware, monitor scores.
+6. Iterate on miner code to improve score; deregister and re-register if you fall below the deregistration threshold.
+
+## Risks & gotchas
+
+- **Hardware capex is real** — GPU-inference subnets require enterprise GPUs that cost thousands per month to run.
+- TAO token volatility — earnings are TAO-denominated, so USD-equivalent income tracks the token price.
+- Subnet emissions allocation changes via on-chain governance — your subnet's emissions can drop unexpectedly.
+- Validator scoring is opaque per-subnet; understanding the score model is essential to earn meaningfully.
+- Deregistration risk if your miner consistently underperforms — you lose the TAO registration fee.
+
+## Verified-working snapshot
+
+Verified against [Bittensor homepage](https://bittensor.com), [Bittensor docs](https://docs.bittensor.com), and SN6/SN64 subnet GitHub repositories on 2026-05-18. The `btcli` interface is the canonical miner-side tool. Per-subnet miner instructions are published by each subnet team — defer to those for current scoring criteria and miner code.

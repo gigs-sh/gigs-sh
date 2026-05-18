@@ -118,18 +118,19 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
 ├── CONTRIBUTING.md              # how to add or update a gig
 ├── LICENSE                      # MIT (code)
 ├── LICENSE-CONTENT              # CC-BY-4.0 (content)
+├── content/
+│   └── listings/                # 19 v1 listings as MDX (one file per platform)
+├── starters/                    # agent templates (subdirectories — not sibling repos)
+│   └── polymarket/              # v1 — Python entrypoint + Railway one-click deploy
+├── packages/
+│   └── gigs-cli/                # v1 — npm package source (published as `gigs`)
 ├── design/
 │   └── landing-page-brief.md    # self-contained brief for the v1 landing page design pass
 └── research/
     └── 03-agent-mining.md       # source data for the v1 listing cohort
 ```
 
-Once the v1 scaffold lands, the Next.js app + the `gigs/` content directory join this tree.
-
-**Sibling repos** under the [`gigs-sh`](https://github.com/gigs-sh) GitHub org (created during the v1 sprint):
-
-- [`gigs-sh/polymarket-starter`](https://github.com/gigs-sh/polymarket-starter) — Python agent template; one-click Railway deploy
-- [`gigs-sh/gigs-cli`](https://github.com/gigs-sh/gigs-cli) — npm package: `gigs` CLI
+**Single-repo architecture** (decided 2026-05-18): everything for v1 lives in this one repo — website, content, agent starter templates, npm CLI source. No sibling repos. One source of truth, one CI/CD, one license bundle.
 
 ## Build the website
 

@@ -1,0 +1,54 @@
+---
+title: Polymarket
+slug: polymarket
+url: https://polymarket.com
+categories: [prediction-market]
+paymentRails: [usdc-polygon]
+agentAllowed: yes
+agentWelcomed: false
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: instant
+minPayout: 1
+realisticEarning: "$10–$10,000/mo per agent typical; top wallets 6–7 figures. 37% of agent wallets profitable vs 7–13% of human wallets (per Polymarket public analytics)."
+agentAllowedNotes: "ToS allows automated trading; not actively invited but de facto agent-heavy. 14 of the top 20 most-profitable wallets are bots as of May 2026."
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./polymarket.png
+excerpt: "Prediction-market platform on Polygon. Public REST API, USDC payouts. Agent wallets meaningfully outperform humans on profitability."
+templateRepo: starters/polymarket
+officialAgentDocs: https://docs.polymarket.com/llms.txt
+---
+
+## What is it
+
+Polymarket is the largest open prediction-market platform, with markets covering politics, sports, crypto, weather, geopolitics, and pop culture. Markets are USDC-denominated on Polygon, prices reflect crowd-implied probabilities, and resolution is handled by a decentralized oracle (UMA). Trading is non-custodial — bettors keep USDC in their own wallets and approve the Polymarket CTF Exchange contracts.
+
+## How agents earn here
+
+An agent runs a trading strategy: identifies markets with mispriced odds, places limit or market orders via the public REST/WebSocket API, manages positions as new information arrives, and exits at market resolution or earlier liquidity events. Common agent strategies include news-driven event detection, calibration-arb (taking advantage of poorly-calibrated retail liquidity), and market-making on lower-volume tails. Profits accrue as USDC settled to the agent's wallet on every winning position; losses are also in USDC.
+
+## Realistic earning range
+
+Polymarket's public analytics show 37% of agent wallets are profitable on a 90-day basis vs 7–13% of human wallets. Median profitable agent earns low-to-mid 4 figures per month; top wallets (e.g., "Theo," "Lasagna") have reportedly earned 7 figures cumulatively. A new agent with a credible edge can realistically target $10–$10,000/mo in the first year. Hyperliquid-quality alpha is rare; most agents lose money.
+
+## Action plan
+
+1. Get a Polygon wallet (MetaMask, Phantom for Polygon, or programmatic — `web3.py`, `ethers`).
+2. Fund with USDC.e on Polygon (bridge from Ethereum or buy on Coinbase + withdraw).
+3. Approve the Polymarket CTF Exchange contracts (`USDC.approve(CTFExchange, MAX)`).
+4. Use the public API at [docs.polymarket.com](https://docs.polymarket.com) to fetch markets, place orders, and manage positions.
+5. Start with paper trading or tiny size. Validate that your strategy's backtested edge survives live execution costs.
+
+For a runnable starter, see [`starters/polymarket/`](../../starters/polymarket/) — Python entrypoint with a baseline strategy, MIT licensed, one-click deploy to Railway.
+
+## Risks & gotchas
+
+- US users are subject to evolving regulatory posture — verify your jurisdiction's stance before trading at size.
+- Resolution disputes resolve via UMA's optimistic-oracle process; edge-case markets can resolve unexpectedly.
+- Liquidity is thin outside flagship markets — slippage on low-volume tails can erase backtested edge.
+- ToS allows automation but not explicit invitation — Polymarket can change posture; monitor announcements.
+
+## Verified-working snapshot
+
+Verified against [Polymarket public docs](https://docs.polymarket.com) and on-chain wallet analytics on 2026-05-18: public REST/WebSocket API live, USDC-on-Polygon settlement confirmed, agent wallets active in measurable size (14 of top 20 by 90-day profit). Profitability stats cited from Polymarket's public transparency dashboard.

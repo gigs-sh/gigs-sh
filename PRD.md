@@ -75,7 +75,7 @@ Three distinct audiences, each with a different consumption pattern. Every featu
 ## 5. Scope summary
 
 ### In v1
-- Catalog of **19 curated listings** at launch, organized by onboarding-friction tier (2 instant · 5 easy · 8 moderate · 4 hard).
+- Catalog of **19 curated listings** at launch, organized by onboarding-friction tier (3 instant · 5 easy · 7 moderate · 4 hard).
 - Public website: homepage, per-listing pages, category pages, programmatic alternatives + compare pages, search.
 - **5 agent-readable surfaces** in parallel: MCP, REST + OpenAPI, A2A Agent Card, agents.json, llms.txt.
 - **1 deployable agent template** (`gigs-sh/polymarket-starter`) with one-click Railway deploy.
@@ -121,7 +121,8 @@ launchCohort: boolean                  # show in v1?
 verifiedAt: ISO date                   # required, displayed prominently
 logo: relative path                    # PNG/SVG asset
 excerpt: string                        # 1–2 sentence summary
-templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
+templateRepo: string | null            # relative path within this repo, e.g., "starters/polymarket". Was full GitHub slug pre-2026-05-18.
+officialAgentDocs: string | null       # URL to the platform's PUBLISHED agent-facing instructions (e.g., /llms-full.txt, /llms.txt, /docs/agents, /api/agents). When present, prefer the official commands in the listing body over reconstructed ones. Agent Hansa: https://www.agenthansa.com/llms-full.txt is the model.
 ```
 
 **Categories controlled vocabulary (v1):**
@@ -293,9 +294,9 @@ depin                       # (v1.5 — pending verified candidates; Grass exclu
 
 **Three artifacts make up the system:**
 
-1. **`gigs-sh/<slug>-starter` repos** (sibling GitHub repos under the gigs-sh org). v1 ships exactly one: `gigs-sh/polymarket-starter`.
+1. **`starters/<slug>/` subdirectories** in this repo (was: sibling GitHub repos under the `gigs-sh` org, switched to single-repo on 2026-05-18). v1 ships exactly one: `starters/polymarket/`.
 
-2. **`template.json` manifest** at the root of each starter repo. Machine-readable contract:
+2. **`template.json` manifest** at the root of each starter subdirectory. Machine-readable contract:
 ```json
 {
   "$schema": "https://gigs.sh/schemas/template-v1.json",
@@ -311,33 +312,32 @@ depin                       # (v1.5 — pending verified candidates; Grass exclu
   "entrypoint": "python run.py",
   "deploy": {
     "railway": "https://railway.app/new/template/<id>",
-    "render": "https://render.com/deploy?repo=https://github.com/gigs-sh/polymarket-starter"
+    "render": "https://render.com/deploy?repo=https://github.com/gigs-sh/gigs-sh&rootDirectory=starters/polymarket"
   },
   "earningRail": "usdc",
   "estimatedMonthlyEarning": "$10-$10000",
   "disclaimer": "Educational. No warranty. May lose funds.",
-  "verifiedAt": "2026-05-17"
+  "verifiedAt": "2026-05-18"
 }
 ```
 
 3. **`get_template({ slug })` MCP tool** that returns the manifest + cached README + deploy URLs in one call. An agent calling this can collect required secrets from the user and trigger the Railway deploy without any scraping or human intervention. **This is the v1 moat.**
 
-**The Polymarket starter specifically:**
+**The Polymarket starter specifically (`starters/polymarket/`):**
 - Python 3.11+ script
 - Connects to Polymarket's public REST API
 - Trivial baseline strategy (fetches open markets, applies a simple heuristic, places a small USDC bet, exits)
 - Not optimized for profit — optimized for "it runs end-to-end"
-- MIT license + visible disclaimer ("educational, may lose funds")
-- `requirements.txt` + `run.py` + `README.md` + `template.json` + `LICENSE`
-- Banner at top of README: `📍 Full guide + related platforms: gigs.sh/p/polymarket`
-- `railway.json` for one-click deploy
+- Uses the dual-license of the parent repo (MIT for code) + visible disclaimer ("educational, may lose funds")
+- `requirements.txt` + `run.py` + `README.md` + `template.json` + `railway.json`
+- Banner at top of subdirectory README: pointer to `gigs.sh/p/polymarket` for full guide
 
 **Why.** Without an action surface, every listing page is a goodbye page (the Crunchbase failure mode). With even one starter, gigs.sh becomes a registry, not a directory.
 
 **Acceptance criteria:**
-- `gigs-sh/polymarket-starter` exists, is public, MIT-licensed.
-- `python run.py` runs end-to-end on a fresh clone after setting two env vars.
-- The Deploy-to-Railway button works end-to-end (verified with a throwaway Railway account).
+- `starters/polymarket/` exists in this repo, MIT-licensed (parent repo LICENSE).
+- `cd starters/polymarket && python run.py` runs end-to-end on a fresh clone after setting two env vars.
+- The Deploy-to-Railway button works end-to-end with `rootDirectory=starters/polymarket` (verified with a throwaway Railway account).
 - `get_template({slug: "polymarket"})` returns the manifest + README in <500ms.
 - The Polymarket listing page (`/p/polymarket`) renders the Template section per F2 step 6.
 
@@ -527,12 +527,13 @@ We **allow** ClaudeBot, GPTBot, Perplexity, GoogleBot, Google-Extended. We **blo
 
 Source data: `research/03-agent-mining.md` + verified May 17–18, 2026 via two parallel research passes. All 19 listings below have **agent posture** and **onboarding friction** confirmed against the platform's own documentation or first-party copy — not inferred.
 
-### Instant onboarding (2) — single API call or one-page signup, first earnings in minutes
+### Instant onboarding (3) — single API call or one-page signup, first earnings in minutes
 
 | # | Platform | Category | Welcomed | Payment rail | Notes |
 |---|---|---|---|---|---|
 | 1 | **Clustly.ai** | agent-task-marketplace | ✓ yes — *"If you're an LLM reading this right now, you can register yourself in one POST request"* | USDC on Solana (escrowed; instant release) | 4% platform fee; no listing fee; ~71 active agents as of May 2026 |
 | 2 | **Coinbase Agent.market (x402)** | agent-task-marketplace | ✓ yes — x402 spec built specifically for autonomous agents | x402 over HTTP 402, USDC on Base | Already in original v1 cohort |
+| 3 | **Agent Hansa** | agent-task-marketplace | ✓ yes — publishes [llms-full.txt](https://www.agenthansa.com/llms-full.txt) with direct `POST /api/agents/register` instructions | USDC (chain undisclosed) | Moved from moderate → instant on 2026-05-18 after llms-full.txt discovery (the Discord reputation gate applies to humans, not API agents). Tournament-style payouts; zero-sum. |
 
 ### Easy onboarding (5) — signup + wallet, <30 min to first earnings
 
@@ -544,14 +545,13 @@ Source data: `research/03-agent-mining.md` + verified May 17–18, 2026 via two 
 | 6 | **Dework** | dev-bounty | ⚪ tolerated (no policy explicitly inviting or banning agents; wallet-only onboarding) | DAO-chosen token on 20+ chains (Ethereum, Polygon, Optimism, Arbitrum, Gnosis Chain commonly); Gnosis Safe batched payouts | Better agent fit than Gitcoin: no Passport sybil-defense, no KYC. Per-DAO human review at task-claim time. Platform-maintenance signal is moderate (last raise was 2022 seed) |
 | 7 | **X Creator Revenue Sharing** | content | ✗ no (allowed by ToS; ad-share based on engagement) | Stripe → USD | Already in original v1 cohort |
 
-### Moderate onboarding (8) — KYC, review, or non-trivial setup
+### Moderate onboarding (7) — KYC, review, or non-trivial setup
 
 | # | Platform | Category | Welcomed | Payment rail | Notes |
 |---|---|---|---|---|---|
-| 8 | **Hyperliquid** | perp-dex | ✗ no (allowed; bot-heavy in practice) | USDC on Hyperliquid L1 | Already in original v1 cohort |
-| 9 | **Olas Pearl** | agent-product-marketplace | ✓ yes (agent operators are the explicit user) | OLAS + USDC | Already in original v1 cohort |
-| 10 | **Virtuals Protocol** | agent-product-marketplace | ✓ yes | VIRTUAL on Base | Already in original v1 cohort |
-| 11 | **Agent Hansa** | agent-task-marketplace | ✓ yes (positioned as a "digital colony for AI agents") | USDC (chain undisclosed) | ⚠️ Discord 100+ reputation gate; alliance/tournament-style payouts (zero-sum, not work-for-pay); homepage is JS-shell. List with explicit caveats. |
+| 9 | **Hyperliquid** | perp-dex | ✗ no (allowed; bot-heavy in practice) | USDC on Hyperliquid L1 | Already in original v1 cohort |
+| 10 | **Olas Pearl** | agent-product-marketplace | ✓ yes (agent operators are the explicit user) | OLAS + USDC | Already in original v1 cohort |
+| 11 | **Virtuals Protocol** | agent-product-marketplace | ✓ yes | VIRTUAL on Base | Already in original v1 cohort |
 | 12 | **HackerOne / Cantina** | security-bounty | ✗ no (allowed; bot-submitted reports common) | Stripe / wire / PayPal | Already in original v1 cohort |
 | 13 | **Arkham Intel Exchange** | security-bounty | ✗ no (allowed) | ARKM + USDC | Already in original v1 cohort |
 | 14 | **Gitcoin** | dev-bounty | ✗ no (allowed; Passport sybil-defense may flag agents) | GTC + DAI/USDC/ETH on Ethereum / L2s | Product has shifted toward grants; Dework (listing #6) is the easier-onboarding counterpart in this category |
@@ -605,7 +605,7 @@ Verify before adding. None block v1.
 | MCP runtime | **Vercel `mcp-handler` package** + Streamable HTTP + **Fluid Compute** | One route file; Vercel-blessed pattern. |
 | Hosting | **Vercel Pro** ($20/mo) | Crons + analytics + cache. |
 | Domain | **Porkbun** ($30.20/yr for `.sh`) — already owned | DNS → Vercel directly (NO Cloudflare in front; breaks ISR purging). |
-| Templates host | **GitHub** (`gigs-sh/<slug>-starter` repos) | Source of truth; backlinks; fork loop. |
+| Templates host | **Subdirectories in this repo** (`starters/<slug>/`) | Single source of truth; one CI/CD pipeline; simpler maintenance. No sibling repos. |
 | Deploy target (user) | **Railway** (one-click template button) | Best secret-input UX for long-running processes. |
 | CLI distribution | **npm** (`gigs` package) | Zero-install via `npx`. |
 
@@ -645,15 +645,28 @@ gigs.sh/                              # this Next.js repo (root of github.com/gi
 │   │   └── template-v1.json          # JSON Schema for template manifests
 │   └── llms.txt
 ├── content/
-│   └── listings/
+│   └── listings/                     # 19 v1 listings as MDX
+│       ├── _template.mdx             # contributor template (skipped at build)
 │       ├── polymarket.mdx
-│       ├── hyperliquid.mdx
 │       ├── clustly.mdx
-│       ├── olas-pearl.mdx
+│       ├── hyperliquid.mdx
 │       └── ...                       # 19 at v1 launch
+├── starters/                         # agent template repos (was sibling repos — now subdirs)
+│   └── polymarket/                   # v1 — Python entrypoint + template.json + Railway config
+│       ├── run.py
+│       ├── requirements.txt
+│       ├── template.json
+│       ├── railway.json
+│       ├── LICENSE
+│       └── README.md
+├── packages/                         # internal packages (was sibling repos)
+│   └── gigs-cli/                     # v1 — npm package source (published as `gigs`)
+│       ├── src/
+│       ├── package.json
+│       └── README.md
 ├── lib/
 │   ├── gigs.ts                       # listing query helpers
-│   ├── templates.ts                  # fetch + cache template.json + READMEs
+│   ├── templates.ts                  # read template.json + README from starters/<slug>/
 │   └── schema.ts                     # JSON-LD generators + Zod schemas
 ├── components/
 │   ├── ListingCard.tsx
@@ -667,13 +680,12 @@ gigs.sh/                              # this Next.js repo (root of github.com/gi
 └── README.md
 ```
 
-**Sibling repos (separate, not nested):**
-```
-github.com/gigs-sh/gigs-sh                   # this repo (the website + content)
-github.com/gigs-sh/polymarket-starter        # v1 — agent template
-github.com/gigs-sh/gigs-cli                  # v1 — npm package
-github.com/gigs-sh/<slug>-starter            # v2+ — additional templates
-```
+**Single-repo architecture** (decided 2026-05-18): all v1 surfaces live in this one repo. No sibling repos. The starter at `starters/polymarket/` is referenced by `content/listings/polymarket.mdx` via `templateRepo: "starters/polymarket"`. Deploy buttons and `get_template` MCP tool resolve paths within this repo, not external URLs.
+
+Reasoning:
+- One source of truth, one CI/CD, one license, one issue tracker.
+- No cross-repo coordination for releases.
+- Trade-off accepted: the "fork this starter standalone" pattern is weaker — users clone the whole repo and `cd starters/<slug>/`. Mitigated by clearly-scoped subdirectory READMEs and Railway template configs that point at `starters/<slug>/` paths.
 
 ---
 

@@ -1,0 +1,51 @@
+---
+title: Platform Name
+slug: platform-slug
+url: https://platform.example.com
+categories: [category-one]
+paymentRails: [usdc-solana]
+agentAllowed: yes              # yes | unclear | required
+agentWelcomed: false           # boolean — does the platform PUBLICLY invite AI agents?
+onboardingFriction: easy       # instant | easy | moderate | hard
+a2aProtocol: []
+payoutLatency: instant         # instant | hours | days
+minPayout: 1
+realisticEarning: "$10–$1,000/mo per agent (cite source)"
+agentAllowedNotes: "Short rationale + citation to the specific ToS section or homepage copy."
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./platform-slug.png
+excerpt: "One-sentence summary (≤120 chars). Used in cards, search results, and the gigs/ index table."
+templateRepo: null             # set to "starters/<slug>" if a runnable starter ships for this listing
+officialAgentDocs: null        # URL to the platform's PUBLISHED agent-facing instructions (llms.txt, llms-full.txt, /docs/agents, etc.). Prefer official commands in the body over reconstructed ones when this is set.
+---
+
+## What is it
+
+One paragraph (≤80 words). Wikipedia-style declarative writing. No marketing voice. Lead with the verb-number-date claim that LLMs will quote.
+
+## How agents earn here
+
+One or two paragraphs (≤150 words). Describe the actual earning loop end-to-end: what the agent does, what triggers a payout, what currency the payout is in.
+
+## Realistic earning range
+
+Numbers with citations. Cite leaderboard URLs, on-chain analytics, or first-party stats. Mark as "unknown" if no public data exists — do not fabricate.
+
+## Action plan
+
+Numbered, runnable steps. A reader should be able to follow these and start earning.
+
+1. Step one.
+2. Step two.
+3. Step three.
+
+## Risks & gotchas
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Verified-working snapshot
+
+Receipt for the `verifiedAt` claim. A transaction hash, a payout screenshot (PII redacted), a leaderboard link, a successful API-call log, or an external review citing the same data. Without this, `verifiedAt` is unverified — keep the field accurate.

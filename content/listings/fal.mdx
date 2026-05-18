@@ -1,0 +1,67 @@
+---
+title: FAL
+slug: fal
+url: https://fal.ai
+categories: [api-monetization]
+paymentRails: [stripe-usd]
+agentAllowed: yes
+agentWelcomed: false
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: days
+minPayout: null
+realisticEarning: "Unknown publicly. fal hit ~$100M ARR in 2025; payouts skew toward established model labs (Freepik, etc.), not solo agent operators. Cold-start earnings are minimal."
+agentAllowedNotes: "Standard publishing supported; marketplace listing (the revenue-generating tier) is approval-gated via email-the-team contact."
+officialAgentDocs: https://fal.ai/docs/llms.txt
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./fal.png
+excerpt: "AI model-hosting platform. Self-serve deployment is instant; revenue-generating Marketplace listing is approval-gated (email-the-team)."
+templateRepo: null
+---
+
+## What is it
+
+fal.ai is a serverless AI model-hosting platform that emphasizes low cold-start latency for diffusion and other generative models. Its target users are model authors and AI product teams who need a hosting + inference layer without managing GPUs themselves. The platform monetizes both as compute-billing (customers pay for inference) and through a Marketplace where model authors can list their models for downstream consumption with revenue share. The Marketplace listing is the agent-earner-relevant tier and is approval-gated, not self-serve.
+
+## Agent quickstart (official)
+
+No `llms.txt` or agent-specific endpoint documented. Standard creator-side flow:
+
+```bash
+# 1. Sign up at fal.ai with a developer account
+# 2. Push a model via the fal CLI or via API (see fal.ai/docs)
+# 3. For Marketplace listing (revenue-share): contact the fal team
+#    https://fal.ai/docs/documentation/serverless/publishing-to-marketplace
+```
+
+Self-serve deployment lands instantly. Marketplace listing requires email contact and team approval.
+
+## How agents earn here
+
+A model author or operator deploys a model to fal's serverless infrastructure. The model becomes callable via fal's API; end users pay for inference. For revenue share to flow back to the author, the model must be listed in the **Marketplace** with `shared` auth mode — this is documented but requires emailing the fal team to be unhidden in the public catalog. Once listed, "each caller is billed for their own usage" and the revenue split flows to the author. Self-served deployments (without Marketplace listing) are still useful for distribution but don't pay the author directly.
+
+## Realistic earning range
+
+No published creator payouts. fal hit ~$100M ARR in 2025 per Latka; partnerships with established model providers (e.g., Freepik) suggest the revenue split skews toward big-name model labs and research-affiliated authors. A solo agent-operator publishing a model is likely earning $0–$100/month until traffic routing favors them. Treat as unknown for new entrants.
+
+## Action plan
+
+1. Sign up at [fal.ai](https://fal.ai) and complete developer onboarding.
+2. Build or fork a model. Common patterns: fine-tuned diffusion variants, specialized image-to-image transforms, voice synthesis, specialty embeddings.
+3. Deploy via fal CLI or API — this is self-serve and instant.
+4. Read [Publishing to Marketplace docs](https://fal.ai/docs/documentation/serverless/publishing-to-marketplace) and configure `shared` auth mode.
+5. **Email the fal team** to get listed in the public Marketplace catalog (the step that unlocks third-party traffic and revenue).
+6. Monitor billing dashboard for inference revenue + Marketplace billing.
+
+## Risks & gotchas
+
+- **Marketplace approval is the gating step** — the "instant" self-serve deployment does not automatically generate revenue without it.
+- Revenue split percentages are not public. Non-commercial-license models get a different split per third-party reporting (Sacra).
+- Routing favors established model authors / labs — cold-start earnings for indie operators are near zero.
+- Stripe payout rail likely requires KYC at payout time (standard Stripe Connect onboarding) — same constraint as Toku.
+- Model takedown for license-violating derivatives is real; verify your derivative-base licenses.
+
+## Verified-working snapshot
+
+Verified against [fal.ai homepage](https://fal.ai), [Publishing to Marketplace docs](https://fal.ai/docs/documentation/serverless/publishing-to-marketplace), and [Sacra: fal.ai revenue & business model](https://sacra.com/c/fal-ai/) on 2026-05-18. Marketplace approval-gating confirmed. Revenue split percentages not publicly disclosed by fal; cited indirectly via Sacra.

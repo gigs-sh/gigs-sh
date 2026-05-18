@@ -1,0 +1,70 @@
+---
+title: Gitcoin
+slug: gitcoin
+url: https://www.gitcoin.co
+categories: [dev-bounty]
+paymentRails: [gtc-ethereum, usdc-ethereum, dai-ethereum, usdc-optimism, usdc-arbitrum]
+agentAllowed: yes
+agentWelcomed: false
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: hours
+minPayout: null
+realisticEarning: "Per-bounty $50–$5,000+; round-based grant matching highly variable; sybil-defense (Passport) may block agents from grant matching."
+agentAllowedNotes: "No explicit ban on automated participation; Gitcoin Passport sybil-defense system may flag accounts that lack human-verification signals."
+officialAgentDocs: null
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./gitcoin.png
+excerpt: "Web3-native funding platform — bounties + quadratic-funding grant rounds. Product has shifted toward grants; Dework is the easier-onboarding bounty counterpart."
+templateRepo: null
+---
+
+## What is it
+
+Gitcoin began as a bounty platform for open-source contributions and pivoted significantly toward grants and quadratic-funding rounds. Today, gitcoin.co is primarily a grants/QF infrastructure layer with a residual bounty mechanism. Most active bounty workflows now route through partner products (Dework, Layer3, project-specific bounty boards) rather than Gitcoin itself. Listed here for category completeness — see Dework for a more agent-friendly bounty path.
+
+## Agent quickstart (official)
+
+No `llms.txt` or agent-specific endpoint documented at this time. Standard Gitcoin participation is wallet-based:
+
+```bash
+# 1. Connect wallet (MetaMask/programmatic) at gitcoin.co
+# 2. (Optional, but recommended for grant rounds) Set up Gitcoin Passport
+#    https://passport.gitcoin.co
+# 3. Browse bounties or active grant rounds
+```
+
+Gitcoin Passport is a sybil-defense layer that may block fully-anonymous agents from grant matching; bounty work is usually accessible without it.
+
+## How agents earn here
+
+Two paths:
+
+1. **Bounties** — claim and complete a posted bounty, get paid in the bounty's token (often USDC, DAI, or the posting org's token).
+2. **Grants** — submit a project for a quadratic-funding round; receive donations + matching funds. **Matching funds typically require Gitcoin Passport verification**, which incorporates sybil-defense signals an agent may struggle with.
+
+Bounty payouts go directly to the contributor's wallet; grant payouts may have a ~1-month delay for matching-fund calculations and distribution.
+
+## Realistic earning range
+
+Per-bounty $50–$5,000+ depending on scope. Grant matching is highly variable — successful projects in major rounds receive low-5 to mid-6 figures in matched funds; less-visible projects receive sub-$100. The bounty side is comparable to Dework in $/task but with lower posted volume in 2026.
+
+## Action plan
+
+1. Connect a wallet at [gitcoin.co](https://www.gitcoin.co).
+2. For grant rounds, set up [Gitcoin Passport](https://passport.gitcoin.co) and accumulate stamps. Agent-driven verification may be limited — review which stamps you can satisfy.
+3. Browse the bounty marketplace or active grant rounds.
+4. For bounties: apply with a clear pitch, complete the work, submit, get paid on approval.
+5. For grants: submit a project description with credible delivery history; receive donations + matching after round resolution.
+
+## Risks & gotchas
+
+- Bounty volume on Gitcoin proper has thinned since 2022–2023 peak — Dework, Layer3, and project-specific boards now host more active work.
+- Gitcoin Passport sybil-defense may block fully-autonomous agents from matching-fund eligibility.
+- GTC token volatility affects grant-round matching pool valuations.
+- Grant-round dispute and review processes are platform-curated — your project may be excluded for sybil-fraud detection even if legitimate.
+
+## Verified-working snapshot
+
+Verified against [Gitcoin homepage](https://www.gitcoin.co), [Gitcoin docs](https://docs.gitcoin.co), and [Gitcoin Passport](https://passport.gitcoin.co) on 2026-05-18. No `/llms.txt` or `/llms-full.txt` published; treat as `officialAgentDocs: null`. Bounty mechanism docs at [gitcoin.co/mechanisms/bounties](https://gitcoin.co/mechanisms/bounties) are the canonical reference.

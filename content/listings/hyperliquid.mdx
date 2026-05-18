@@ -1,0 +1,57 @@
+---
+title: Hyperliquid
+slug: hyperliquid
+url: https://hyperliquid.xyz
+categories: [perp-dex]
+paymentRails: [usdc-hyperliquid]
+agentAllowed: yes
+agentWelcomed: false
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: instant
+minPayout: null
+realisticEarning: "Top market-making bots and HFT operators report 5–7 figure annual P&L. Most retail bots lose money."
+agentAllowedNotes: "ToS allows automated trading; the platform is bot-heavy in practice. The native order book design favors low-latency programmatic traders."
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./hyperliquid.png
+excerpt: "Perpetual futures DEX with a fully on-chain CLOB on a custom L1. Latency-competitive, USDC-collateralized, deep liquidity."
+templateRepo: null
+officialAgentDocs: https://hyperliquid.gitbook.io/hyperliquid-docs/llms.txt
+---
+
+## What is it
+
+Hyperliquid is a fully on-chain perpetual-futures decentralized exchange running on a purpose-built L1. Unlike most "on-chain perps" projects, the order book is fully on-chain (not just settlement), with sub-second matching. Collateral is USDC bridged into Hyperliquid's L1. The platform's architecture was designed from day one to support programmatic market makers and HFT-style strategies; latency is competitive with centralized exchanges for non-co-located traders.
+
+## How agents earn here
+
+Two primary modes:
+
+1. **Market making / liquidity provision.** Place resting bids and asks on the on-chain CLOB, capture spread on every fill. Hyperliquid's HLP (Hyperliquid Pool) program offers additional incentives for designated market makers.
+2. **Directional trading and arbitrage.** Cross-venue arb (Hyperliquid vs Binance/OKX), funding-rate strategies, news-driven directional plays, and basis trades. The on-chain order book and public state make strategy backtesting and execution accurate.
+
+All accounting is USDC-denominated on Hyperliquid's L1; PnL settles continuously with each fill.
+
+## Realistic earning range
+
+Top market-making firms and HFT operators have publicly reported 6–7 figure quarterly P&L on Hyperliquid. The HLP vault has paid millions in cumulative fees back to depositors. Most retail directional bots underperform; the venue rewards latency and quote quality, not directional alpha alone.
+
+## Action plan
+
+1. Get a wallet (MetaMask or similar) and bridge USDC to Hyperliquid's L1 via the [official bridge](https://app.hyperliquid.xyz/trade).
+2. Approve trading and review the documented [API endpoints](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api).
+3. For MM bots, study the [Python SDK](https://github.com/hyperliquid-dex/hyperliquid-python-sdk) and HLP guidelines. Start with small size and tight spreads.
+4. For directional/arb bots, set up WebSocket subscriptions for order-book and fill streams. Implement your strategy; backtest against archived order-book data.
+5. Begin with paper money or minimal capital. Hyperliquid's matching is unforgiving — adverse selection is severe for slow quotes.
+
+## Risks & gotchas
+
+- US users are subject to a geo-block; check ToS before trading.
+- Custodial bridge risk — funds in the Hyperliquid L1 are subject to the bridge's smart-contract security.
+- Adverse selection on the CLOB is brutal for non-low-latency MM bots. Edge requires meaningful infrastructure investment.
+- Funding rates can flip rapidly during volatile sessions — directional bots holding overnight pay/receive meaningful funding.
+
+## Verified-working snapshot
+
+Verified against [Hyperliquid developer docs](https://hyperliquid.gitbook.io/hyperliquid-docs) and the [Python SDK GitHub repo](https://github.com/hyperliquid-dex/hyperliquid-python-sdk) on 2026-05-18: fully on-chain CLOB, public REST and WebSocket APIs, USDC bridged collateral, HLP MM program live. Top-MM P&L figures are public via wallet analytics; cumulative HLP fees are reported in their docs.

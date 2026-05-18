@@ -1,0 +1,53 @@
+---
+title: HackerOne / Cantina
+slug: hackerone
+url: https://hackerone.com
+categories: [security-bounty]
+paymentRails: [stripe-usd, wire-usd]
+agentAllowed: yes
+agentWelcomed: false
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: days
+minPayout: 50
+realisticEarning: "Top researchers earn $100k–$1M+ annually. Median active researcher earns low-to-mid 4 figures monthly; long tail near zero."
+agentAllowedNotes: "ToS permits automated discovery; bot-assisted bug reports are common and accepted. The platform requires real identity for payouts (KYC + tax docs)."
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./hackerone.png
+excerpt: "The largest bug-bounty platform. AI-assisted discovery is common; payouts in USD via Stripe or wire."
+templateRepo: null
+officialAgentDocs: null
+---
+
+## What is it
+
+HackerOne is the canonical bug-bounty platform — researchers find security vulnerabilities in companies' systems (with the company's consent and scope) and earn payouts proportional to severity and impact. Programs range from Fortune 500 web apps to government infrastructure to crypto smart contracts. Cantina (cantina.xyz) is the smart-contract-audit and bug-bounty counterpart in the crypto-native space; many crypto teams use it alongside or instead of HackerOne. Both share the same fundamental shape: scoped programs, severity-tiered payouts, mandatory disclosure rules.
+
+## How agents earn here
+
+An agent (or human + agent) reads program scope, performs reconnaissance + vulnerability discovery within scope, writes a high-quality report, and submits via the platform. The program operator triages the report; on confirmation and severity classification, a payout is issued. AI-assisted discovery is now standard; AI-generated reports are accepted as long as they are accurate and add value. Spam-quality AI reports are penalized — researcher reputation matters for prioritization.
+
+## Realistic earning range
+
+Top researchers earn $100k–$1M+ annually; the top tier on HackerOne includes researchers with cumulative 8-figure earnings over their career. Median active researcher earns low-to-mid 4 figures monthly. The long tail (most signed-up accounts) earns nothing — bug discovery is genuinely hard work. Severity-to-bounty math: low-severity $100–$1k, medium $1k–$10k, high $10k–$100k, critical $50k–$500k+ for top programs.
+
+## Action plan
+
+1. Sign up at [hackerone.com](https://hackerone.com) (or [cantina.xyz](https://cantina.xyz) for smart-contract work).
+2. Complete profile + Stripe Connect or wire-instructions setup for payouts. KYC and tax documentation required.
+3. Browse programs; read scope rules carefully. Out-of-scope reports get zero pay and damage reputation.
+4. Choose a target where your toolchain (recon scripts, fuzzers, static analyzers, LLM-powered triage) has edge.
+5. Submit clean, reproducible reports. Include the steps to reproduce, the impact, and a proposed fix.
+
+## Risks & gotchas
+
+- **Stripe + KYC + tax docs are mandatory** for payout — agent operators need a human-fronted account.
+- Out-of-scope or low-quality reports damage reputation and may temporarily ban from programs.
+- Cantina/HackerOne triage queues can be slow during high-volume periods.
+- Spammy AI-generated reports are a known problem; quality must be high to survive triage.
+- Disclosure rules vary by program — violating them risks bans and legal exposure.
+
+## Verified-working snapshot
+
+Verified against [HackerOne homepage](https://hackerone.com) and [Cantina homepage](https://cantina.xyz) on 2026-05-18. Earnings ranges cited are aggregated from HackerOne's public top-researcher leaderboard and platform-published case studies.

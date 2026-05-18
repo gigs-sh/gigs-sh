@@ -1,0 +1,72 @@
+---
+title: Akash Network
+slug: akash
+url: https://akash.network
+categories: [compute-marketplace]
+paymentRails: [akt, usdc-akash]
+agentAllowed: yes
+agentWelcomed: true
+onboardingFriction: hard
+a2aProtocol: []
+payoutLatency: instant
+minPayout: null
+realisticEarning: "~$20/day per NVIDIA GPU baseline at ~74% utilization (Messari Q3 2025). CPU-only providers earn far less; idle GPUs earn $0."
+agentAllowedNotes: "Provider mode is permissionless — no KYC, no agent-specific restriction. The 'agent' here is the daemon software running on the operator's hardware; the protocol is indifferent to whether a human or a script orchestrates the cluster."
+officialAgentDocs: https://akash.network/docs/providers/setup-and-installation/
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./akash.png
+excerpt: "Decentralized GPU/CPU cloud. Permissionless provider registration; requires Kubernetes cluster + static IP + NVIDIA GPUs for the meaningful earning tier."
+templateRepo: null
+---
+
+## What is it
+
+Akash Network is a decentralized cloud-compute marketplace. Tenants post deployment requests (Docker containers + resource requirements); providers bid; the winning provider runs the workload and earns AKT (and increasingly USDC) per provisioned resource-hour. Anyone with appropriate hardware can register as a provider — there is no central approval. The agent-earning angle is operating a provider node; the protocol is permissionless on the provider side, but the operational requirements (Kubernetes, static IP, GPU hardware) make this a `hard` onboarding path.
+
+## Agent quickstart (official)
+
+No `/llms.txt` published. The canonical provider setup guide is at [akash.network/docs/providers](https://akash.network/docs/providers/setup-and-installation/). Three onboarding paths are supported:
+
+```bash
+# Path 1 — Provider Playbook (most common, full control)
+# Requires: K8s cluster, static IP, domain, ports 80/443/8443/8444/30000-32767 open
+# Step-by-step in https://akash.network/docs/providers/build-a-cloud-provider/
+
+# Path 2 — Kubespray
+# K8s cluster provisioning + Akash provider in one flow
+
+# Path 3 — Provider Console
+# Web-UI-managed K8s (still requires the cluster underneath)
+```
+
+All three paths terminate in an **on-chain provider registration transaction** broadcast via the Akash Cosmos SDK chain. The transaction binds a wallet address to the cluster, and from that point forward the provider daemon listens for tenant deployment requests on-chain.
+
+## How agents earn here
+
+A provider runs a Kubernetes cluster with the Akash provider daemon installed. When a tenant posts a deployment request (specifying CPU, memory, GPU, storage, network), the daemon evaluates the request against the provider's available resources and bids if it fits. The provider with the lowest accepted bid wins; the workload is then run as a Kubernetes Pod on that provider's cluster. AKT (or USDC) is escrowed by the tenant and streams to the provider per block over the lease term.
+
+## Realistic earning range
+
+Per Messari's Q3 2025 State of Akash report: ~$20/day baseline per NVIDIA GPU at ~74% utilization. CPU-only providers earn far less ($1–$3/day per CPU). Earnings scale with hardware quality (H100 > A100 > consumer GPUs) and your bid-pricing strategy. Empty/unutilized GPUs earn $0 — current supply often outpaces demand for many SKUs.
+
+## Action plan
+
+1. Acquire compatible hardware. NVIDIA GPUs are required for the meaningful earning tier; H100/A100/L40S are most demanded. Provider Console specs publicly.
+2. Provision a Kubernetes cluster (k3s for single-node, full K8s for multi-node). Open the required ports (80, 443, 8443, 8444, 30000–32767).
+3. Get a domain + static IP. Set up DNS A records.
+4. Follow the [Provider Playbook](https://akash.network/docs/providers/build-a-cloud-provider/akash-cli/) to install the Akash provider daemon and register on-chain.
+5. Fund the provider wallet with AKT for transaction fees.
+6. Monitor bid wins, lease earnings, and uptime. Tune bid prices iteratively.
+
+## Risks & gotchas
+
+- **High capex** — NVIDIA enterprise GPUs cost $5k–$30k each; full provider deployment runs $10k–$50k+ upfront.
+- AKT token volatility — earnings denominated in AKT (largely; USDC support is increasing) track the token price.
+- Supply > demand for many SKUs as of 2026 — idle GPUs earn nothing; bid-price competition is real.
+- Ops burden — running production K8s with provider-grade uptime is non-trivial; downtime affects future bid eligibility.
+- Tenant workloads are sandboxed Docker but security isolation depends on K8s configuration; check before running untrusted workloads.
+
+## Verified-working snapshot
+
+Verified against [Akash provider docs](https://akash.network/docs/providers/setup-and-installation/), [provider hardware requirements](https://akash.network/docs/providers/getting-started/hardware-requirements/), the [provider earnings calculator](https://akash.network/pricing/provider-calculator/), and [Messari: State of Akash Q3 2025](https://messari.io/report/state-of-akash-q3-2025) on 2026-05-18. `/llms.txt` and `/llms-full.txt` return 404 — no machine-readable agent index published. Earnings figures cited from Messari and the official calculator.

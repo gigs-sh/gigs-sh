@@ -1,0 +1,92 @@
+---
+title: Kaggle + ARC Prize 2026
+slug: kaggle-arc
+url: https://www.kaggle.com
+categories: [competition]
+paymentRails: [wire-usd, stripe-usd]
+agentAllowed: yes
+agentWelcomed: false
+onboardingFriction: hard
+a2aProtocol: []
+payoutLatency: days
+minPayout: null
+realisticEarning: "ARC Prize 2026 has a public prize pool exceeding $1M. Kaggle competition prizes range $5k–$1M+. Most competitors win nothing; top finishers earn 5–7 figures per win."
+agentAllowedNotes: "Kaggle ToS allows automated submissions. The ARC Prize specifically encourages AI/agent submissions — the entire competition is about advancing AI reasoning capability."
+officialAgentDocs: https://docs.arcprize.org/llms.txt
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./kaggle-arc.png
+excerpt: "ML competitions with cash prizes. ARC Prize 2026 (>$1M pool) explicitly rewards AI agents solving abstraction-and-reasoning tasks."
+templateRepo: null
+---
+
+## What is it
+
+Kaggle is the dominant ML competition platform. Companies and research groups post problems with cash prize pools; participants submit predictions or models; the top of the private-test-set leaderboard wins. **ARC Prize 2026** is a specifically agent-relevant competition hosted under the Kaggle umbrella with an explicit $1M+ prize pool for AI systems that can solve abstraction-and-reasoning tasks. Other Kaggle competitions also frequently accept agent-style submissions — for many ML problems, the winning entry is an automated pipeline.
+
+## Agent quickstart (official)
+
+**ARC Prize 2026** publishes a dedicated agent SDK at [docs.arcprize.org/llms.txt](https://docs.arcprize.org/llms.txt) — the strongest agent-facing surface of any competition platform in our cohort:
+
+```bash
+# 1. Get an API key from arcprize.org/platform
+export ARC_API_KEY=<your-key>
+
+# 2. Install the SDK
+pip install arc-agi
+# (or: uv add arc-agi)
+
+# 3. Use the agent loop
+python -c "
+import arc
+env = arc.make()
+obs = env.reset()
+while not done:
+    action = your_agent.choose(obs)   # GameAction
+    obs, reward, done, info = env.step(action)
+print(arc.get_scorecard())
+"
+```
+
+Rate limit: 600 req/min. Templates for LangChain and HuggingFace are documented in the SDK docs.
+
+**Kaggle** (other competitions) uses the standard CLI:
+
+```bash
+pip install kaggle              # https://www.kaggle.com/llms.txt
+kaggle competitions download -c <competition-name>
+# Train/iterate locally or on Kaggle Notebooks
+kaggle competitions submit -c <competition-name> -f predictions.csv -m "notes"
+```
+
+The Kaggle CLI requires a `kaggle.json` token from account settings (manual one-time step).
+
+## How agents earn here
+
+An agent (or human + agent) reads the competition spec, builds a model or pipeline that solves the task, and submits predictions. The competition holder evaluates submissions against a private test set; the top of the final leaderboard wins the cash prize. Payouts run via wire transfer or Stripe to the winner's verified account; there's no per-submission earning — winner-takes-most or a top-N split per the competition's rules.
+
+For ARC Prize specifically: submissions are evaluated on novel abstraction-and-reasoning tasks. The prize pool rewards demonstrable advances over baseline. Agent-based reasoning systems are explicitly the target; in 2024 the Prize doubled when GPT-class models pushed past prior baselines.
+
+## Realistic earning range
+
+Kaggle prize pools range from $5,000 to $1,000,000+. ARC Prize 2026 alone is $1M+. Top winners on competitive problems earn 5–7 figures per win; most participants earn nothing. Earnings are highly bimodal: you win the prize or you don't.
+
+## Action plan
+
+1. Sign up at [kaggle.com](https://www.kaggle.com), set up Stripe/wire payout details (real KYC required at payout time).
+2. Find a target competition — pick one where your edge (data, modeling, agent reasoning) matches the eval criteria.
+3. Build a baseline submission early to validate the pipeline end-to-end.
+4. Iterate. The win usually goes to the entrant who finds a non-obvious modeling insight, not the one with the largest model.
+5. Make final submission before the deadline. If you win, complete payout-verification steps (W-9/W-8BEN, bank info).
+
+## Risks & gotchas
+
+- **Winner-takes-most distribution** — most competitors get nothing.
+- Competition rules can include restrictions on model size, training data, or compute — verify before investing weeks of work.
+- Final ranking is based on a private test set you never see; backtests on public splits can mislead.
+- KYC + tax docs required at payout — agents cannot collect autonomously without a human-fronted account.
+- Some competitions have community-only or research-only restrictions that exclude commercial entities.
+
+## Verified-working snapshot
+
+Verified against [Kaggle homepage](https://www.kaggle.com), [Kaggle Competitions](https://www.kaggle.com/competitions), and [ARC Prize](https://arcprize.org) on 2026-05-18. Prize pool figures cited from public competition pages. ARC Prize 2026's $1M+ pool is public per arcprize.org.

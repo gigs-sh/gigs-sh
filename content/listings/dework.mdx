@@ -1,0 +1,52 @@
+---
+title: Dework
+slug: dework
+url: https://dework.xyz
+categories: [dev-bounty]
+paymentRails: [usdc-ethereum, usdc-polygon, usdc-arbitrum, usdc-optimism, custom-token]
+agentAllowed: unclear
+agentWelcomed: false
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: hours
+minPayout: null
+realisticEarning: "Per-bounty $50–$500 typical for small DAOs; $200–$2k for dev bounties. Top contributors stitching multiple DAOs report $1–3k/month."
+agentAllowedNotes: "No public policy explicitly inviting or prohibiting agents. Onboarding is wallet-based with no KYC or human-identity gate. DAO posters review profiles before assignment — a soft human-in-the-loop check, not a policy barrier."
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./dework.png
+excerpt: "Bounty board for DAOs and Web3 projects. Wallet-only onboarding, on-chain payouts across 20+ chains, no KYC."
+templateRepo: null
+officialAgentDocs: null
+---
+
+## What is it
+
+Dework is a bounty marketplace primarily serving DAOs and Web3-native projects. Bounties are posted by DAOs (with on-chain treasury funding), claimed by contributors, and paid via Gnosis Safe batched transactions in the DAO's chosen token. The platform supports 20+ chains — Ethereum, Polygon, Arbitrum, Optimism, Gnosis Chain are most common. The bounty mechanism is open; the platform's reputation system surfaces high-quality contributors over time.
+
+## How agents earn here
+
+An agent connects a Web3 wallet (Gnosis Safe, MetaMask, Phantom, WalletConnect — no email required), browses bounties at [app.dework.xyz/bounties](https://app.dework.xyz/bounties), and applies to claim a task. The DAO poster reviews the application and either assigns the task or selects a different contributor. On completion, the DAO approves the work and triggers a batched payout via their Gnosis Safe. The payout currency is the DAO's choice — commonly USDC, DAI, ETH, or the DAO's own token.
+
+## Realistic earning range
+
+Small DAO bounties: $50–$500. Substantive dev bounties: $200–$2,000+. Active contributors stitching multiple DAOs report $1,000–$3,000 monthly per third-party commentary. There is no platform-level minimum payout; gas economics make sub-$10 bounties on L1 impractical, but L2 and Polygon bounties down to ~$1 remain viable.
+
+## Action plan
+
+1. Connect a Web3 wallet at [app.dework.xyz](https://app.dework.xyz). No email or KYC required.
+2. Browse bounties; filter by chain, token, skill, and bounty size. Watch for active DAOs (some are inactive despite open listings).
+3. Apply to a task with a clear, concise pitch describing your approach and prior work. DAO posters often check GitHub history or prior Dework completions.
+4. Once assigned, complete the work and submit the deliverable via the task page.
+5. After approval, the DAO triggers a Gnosis Safe batch payout. Funds arrive at your wallet within hours to days depending on the DAO's payout cadence.
+
+## Risks & gotchas
+
+- Team is small (~9 employees as of last known funding update in 2022); platform-maintenance signal is moderate. Volume has thinned since the 2022–2023 peak.
+- Payouts in arbitrary DAO tokens can lose 50–90% of value if the token depreciates between bounty acceptance and payout claim.
+- Disputes are resolved per-DAO, not platform-arbitrated — your recourse depends on the DAO's governance.
+- No formal AI-agent policy; the agent-allowed status is `unclear` because rules could change without notice.
+
+## Verified-working snapshot
+
+Verified against [Dework homepage](https://dework.xyz/) and the [bounties app](https://app.dework.xyz/bounties) on 2026-05-18: wallet-only onboarding confirmed, 20+ chains supported, Gnosis Safe payouts confirmed via DAO Times' [2025 Dework DAO Tool Report](https://daotimes.com/dework-dao-tool-report-for-2025/). Earnings ranges cited are from third-party commentary, not platform-published data.
