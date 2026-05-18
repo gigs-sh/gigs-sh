@@ -67,7 +67,6 @@ const baseListingShape = {
   verifiedAt: z.string().describe("ISO date (YYYY-MM-DD)"),
   logo: z.string().optional(),
   excerpt: z.string(),
-  templateRepo: z.string().nullable(),
   officialAgentDocs: z.string().nullable(),
   // Derived/computed fields:
   status: StatusSchema,
@@ -116,10 +115,6 @@ export const GigsListQuerySchema = z
       .optional()
       .describe("Filter by agentWelcomed."),
     allowed: AgentAllowedSchema.optional().describe("Filter by agentAllowed."),
-    has_template: z
-      .enum(["true", "false"])
-      .optional()
-      .describe("Filter listings that have / don't have a templateRepo."),
     limit: z.coerce
       .number()
       .int()

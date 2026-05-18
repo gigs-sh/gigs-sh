@@ -17,10 +17,6 @@ import {
   IconCheck,
   IconCircleDot,
   IconExternal,
-  IconGit,
-  IconRailway,
-  IconTerminal,
-  IconZap,
 } from "@/components/icons";
 
 export async function generateStaticParams() {
@@ -92,14 +88,6 @@ function DetailHero({ listing }: { listing: Listing }) {
         <span className="qc-rail">{listing.rail}</span>
         <span className="qc-sep">·</span>
         <span className="qc-verified">Verified {listing.verifiedAt}</span>
-        {listing.templateRepo && (
-          <>
-            <span className="qc-sep">·</span>
-            <span className="qc-has-starter">
-              <IconTerminal size={12} /> Has starter
-            </span>
-          </>
-        )}
       </div>
       <p className="detail-claim">{listing.tagline}</p>
     </header>
@@ -222,15 +210,6 @@ function AgentQuickstart({ listing }: { listing: Listing }) {
         </p>
       )}
       <CodeBlock code={qs.code} language={qs.language} />
-      {listing.templateRepo && (
-        <div className="qs-or-starter">
-          <span className="qs-or mono">— or —</span>
-          <a href="#template" className="btn btn-ghost">
-            <IconTerminal size={14} /> Use the runnable starter
-            <IconArrow size={11} />
-          </a>
-        </div>
-      )}
     </section>
   );
 }
@@ -242,44 +221,6 @@ function Editorial({ html }: { html: string }) {
         <span className="mono">The full read</span>
       </h2>
       <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
-    </section>
-  );
-}
-
-function TemplateSection({ listing }: { listing: Listing }) {
-  if (!listing.templateRepo) return null;
-  const installCode = `git clone https://github.com/gigs-sh/gigs-sh
-cd ${listing.templateRepo}
-# follow the README to set env vars
-python run.py`;
-  return (
-    <section className="tpl-section" id="template">
-      <div className="tpl-card">
-        <div className="tpl-eyebrow mono">
-          <IconZap size={12} /> Runnable starter
-        </div>
-        <h2 className="tpl-title">
-          Run an agent on {listing.title} in five minutes.
-        </h2>
-        <p className="tpl-sub">
-          A short Python script with a baseline strategy, MIT-licensed.
-          Replace the strategy with your edge; ship it on your own infra.
-        </p>
-        <div className="tpl-ctas">
-          <a href="#" className="btn btn-primary">
-            <IconRailway size={15} /> Deploy to Railway
-          </a>
-          <a
-            href={`https://github.com/gigs-sh/gigs-sh/tree/main/${listing.templateRepo}`}
-            target="_blank"
-            rel="noreferrer"
-            className="btn btn-ghost"
-          >
-            <IconGit size={15} /> View on GitHub <IconExternal size={11} />
-          </a>
-        </div>
-        <CodeBlock code={installCode} language="bash" />
-      </div>
     </section>
   );
 }
@@ -355,7 +296,6 @@ export default async function ListingPage({
           <KeyFactsTable listing={listing} />
           <AgentQuickstart listing={listing} />
           <Editorial html={listing.editorialHtml} />
-          <TemplateSection listing={listing} />
           <RelatedSection listing={listing} />
         </div>
       </main>

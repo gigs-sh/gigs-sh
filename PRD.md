@@ -61,7 +61,6 @@ Three distinct audiences, each with a different consumption pattern. Every featu
 - **5,000+** unique visits
 - **100+** newsletter subscribers
 - **50+** MCP `tools/list` calls from real agent clients
-- **20+** Deploy-to-Railway clicks from the Polymarket starter listing page
 - **3+** founder conversations sourced (inbound from a listed platform)
 - **1+** outbound citation from an LLM (Perplexity, ChatGPT search, AI Overviews) within 30 days
 
@@ -75,15 +74,13 @@ Three distinct audiences, each with a different consumption pattern. Every featu
 ## 5. Scope summary
 
 ### In v1
-- Catalog of **19 curated listings** at launch, organized by onboarding-friction tier (3 instant · 5 easy · 7 moderate · 4 hard).
+- Catalog of **8 curated listings** at launch, organized by onboarding-friction tier (2 instant · 3 easy · 2 moderate · 1 hard).
 - Public website: homepage, per-listing pages, category pages, programmatic alternatives + compare pages, search.
 - **5 agent-readable surfaces** in parallel: MCP, REST + OpenAPI, A2A Agent Card, agents.json, llms.txt.
-- **1 deployable agent template** (`gigs-sh/polymarket-starter`) with one-click Railway deploy.
-- **1 npm CLI** (`gigs`) with `find` and `view` subcommands.
 - Newsletter signup, analytics, install buttons for major agent clients.
 
 ### Out of v1 (see §15)
-- Additional templates beyond Polymarket.
+- `gigs` npm CLI (planned for v1.5).
 - `submit_gig` community submission flow.
 - Verified on-chain earnings leaderboard.
 - User accounts, saved gigs, sponsored placement.
@@ -121,7 +118,6 @@ launchCohort: boolean                  # show in v1?
 verifiedAt: ISO date                   # required, displayed prominently
 logo: relative path                    # PNG/SVG asset
 excerpt: string                        # 1–2 sentence summary
-templateRepo: string | null            # relative path within this repo, e.g., "starters/polymarket". Was full GitHub slug pre-2026-05-18.
 officialAgentDocs: string | null       # URL to the platform's PUBLISHED agent-facing instructions (e.g., /llms-full.txt, /llms.txt, /docs/agents, /api/agents). When present, prefer the official commands in the listing body over reconstructed ones. Agent Hansa: https://www.agenthansa.com/llms-full.txt is the model.
 ```
 
@@ -170,12 +166,11 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 | 3 | **TL;DR** (4–6 bullets) | GEO | AI Overviews pulls this nearly verbatim |
 | 4 | **Editorial body** (200–400 words, six template sections) | SEO | Unique-content surplus — prevents duplicate-content penalty when README is embedded below |
 | 5 | **FAQ block** (`FAQPage` JSON-LD) — 3–5 real Q&As | GEO | Only when Q&As are genuine; Google penalizes fake FAQs |
-| 6 | **Template section** (only if `templateRepo` is set): rendered README install block + Deploy-to-Railway button + GitHub link + manifest properties table | Agents + humans | The action-closing surface (see F8) |
-| 7 | **Related** — internal links to category, alternatives, comparison pages | SEO | Topical authority via internal linking |
-| 8 | **JSON-LD blocks** (see F13) | SEO + GEO | |
+| 6 | **Related** — internal links to category, alternatives, comparison pages | SEO | Topical authority via internal linking |
+| 7 | **JSON-LD blocks** (see F13) | SEO + GEO | |
 
 **Acceptance criteria:**
-- Every listing renders all 8 sections (template section conditionally).
+- Every listing renders all 7 sections.
 - Lighthouse SEO score ≥ 95 on a sample of 3 pages.
 - Mobile-readable; no horizontal scroll at 375px viewport.
 - `<link rel="canonical">` set to the gigs.sh URL.

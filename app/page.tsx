@@ -8,7 +8,7 @@ import {
 } from "@/lib/listings";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { IconArrow, IconTerminal } from "@/components/icons";
+import { IconArrow } from "@/components/icons";
 
 const TIERS: Tier[] = ["instant", "easy", "moderate", "hard"];
 
@@ -44,11 +44,6 @@ function Card({ listing }: { listing: Listing }) {
       <p className="card-excerpt">{listing.excerpt}</p>
       <div className="card-foot mono">
         <span className="cat-tag">#{listing.categories[0]}</span>
-        {listing.templateRepo && (
-          <span className="starter-flag">
-            <IconTerminal size={10} /> has starter
-          </span>
-        )}
         <span className="verified">verified {listing.verifiedAt}</span>
       </div>
     </Link>

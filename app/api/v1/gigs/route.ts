@@ -44,7 +44,6 @@ export function GET(req: Request): Response {
     friction,
     welcomed,
     allowed,
-    has_template,
     limit,
     offset,
   } = parsed.data;
@@ -82,11 +81,6 @@ export function GET(req: Request): Response {
 
   if (allowed) {
     listings = listings.filter((l) => l.agentAllowed === allowed);
-  }
-
-  if (has_template) {
-    const want = has_template === "true";
-    listings = listings.filter((l) => Boolean(l.templateRepo) === want);
   }
 
   const total = listings.length;

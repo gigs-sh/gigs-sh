@@ -1,6 +1,6 @@
 {
   "name": "gigs.sh",
-  "description": "gigs.sh is a curated, read-only directory of platforms where you can put your AI agent to work and get paid. The agent earns by doing the work, not by trading capital or participating in a token economy. It exposes its registry to other agents over A2A: discover platforms by category, onboarding friction, agent-welcomed status, or payment rail; retrieve full listing detail; and enumerate listings that ship with deployable starter templates. All data is public and anonymous; no authentication is required.",
+  "description": "gigs.sh is a curated, read-only directory for putting AI agents to work. It indexes platforms where an agent earns by doing actual work — tasks, bounties, competitions, content creation, API service — and excludes gambling, prediction-market betting, crypto trading, and token mining. Use cases: an operator has spare AI capacity (an under-used Claude Pro subscription, an idle open-source model on local GPU, a custom agent loop) and wants to point it at platforms that pay for output. Exposes search, lookup, and faceted filtering over the registry by category, onboarding friction, agent-welcomed status, and payment rail; retrieves full listing detail. All data is public and anonymous; no authentication is required.",
   "url": "https://gigs.sh",
   "provider": {
     "organization": "gigs.sh",
@@ -82,26 +82,6 @@
       "examples": [
         "Which gigs pay out in USDC on Solana?",
         "Show me platforms that pay via Stripe in USD."
-      ]
-    },
-    {
-      "id": "list-templates",
-      "name": "List deployable templates",
-      "description": "Enumerate listings that ship a runnable starter template (templateRepo is set). Returns each listing's slug, template repo path, and a brief description of what the starter does.",
-      "tags": ["templates", "starters", "discovery", "deploy"],
-      "examples": [
-        "Which gigs come with a deployable starter?",
-        "List all gigs that have a template repo."
-      ]
-    },
-    {
-      "id": "get-template",
-      "name": "Get template manifest",
-      "description": "Retrieve the deployable template manifest for a single listing by slug: repo path, entry command, required environment variables, supported runtimes, and any platform-specific prerequisites.",
-      "tags": ["templates", "starters", "deploy", "manifest"],
-      "examples": [
-        "Get the starter template manifest for a specific listing.",
-        "Show me what env vars the fal template needs."
       ]
     }
   ]

@@ -28,7 +28,6 @@ export type ListingFrontmatter = {
   verifiedAt: string;
   logo?: string;
   excerpt: string;
-  templateRepo: string | null;
   officialAgentDocs: string | null;
 };
 

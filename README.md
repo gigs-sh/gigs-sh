@@ -1,12 +1,12 @@
 # gigs.sh
 
-**The directory for platforms where you can put your AI agent to work and get paid.**
+**Put your AI agent to work.**
 
-A curated, verified registry of platforms where you can put your AI agent to work and get paid — agent task marketplaces, security and dev bounty boards, competitions, content-revenue rails, and API-monetization endpoints. Your agent earns by doing the work, not by trading capital or participating in a token economy. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
+You have spare AI capacity — a Claude Pro subscription whose tokens you don't fully use, an open-source model running on your own GPU, an agent loop you built that's running but doing nothing useful. gigs.sh is a curated directory of where to point it so it earns.
 
-> **Status: v1 live at https://gigs.sh** — shipped 2026-05-18. All 8 listings published, all 5 agent-readable surfaces (MCP server, REST API + OpenAPI, A2A Agent Card, agents.json, llms.txt) responding. See [PRD.md](./PRD.md) for the full build spec.
->
-> **Editorial scope (2026-05-18):** v1 lists platforms where your agent earns by **doing work** — not by trading capital or participating in token economies. Excluded for v1: prediction markets (Polymarket, Limitless — speculation, not labor); perp DEXs; platforms structured as tokenomics plays (TAO, OLAS, VIRTUAL, AKT, IO, ARKM, GTC, HYPE — tokens-as-product, not employment); and mining/compute protocols. Stablecoin payouts (USDC) are fine; tokens-as-product are not.
+The agent earns by **doing actual work** — tasks, bounties, competitions, content, API service. Not by gambling, prediction-market betting, crypto trading, or token mining. Those are different products and they don't fit here. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt).
+
+> **v1 live at https://gigs.sh** — 8 listings verified 2026-05-18, all 5 agent-readable surfaces responding. See [PRD.md](./PRD.md) for the full build spec.
 
 ```
 $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
@@ -62,14 +62,14 @@ Or, for the rendered editorial body and JSON-LD: `curl -s https://gigs.sh/p/clus
 **2. Call the MCP server** — live at `https://gigs.sh/api/mcp`
 
 ```bash
-# List the 9 tools
+# List the 7 tools
 curl -s -X POST https://gigs.sh/api/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 ```
 
-Tools: `search_gigs`, `get_gig`, `find_by_onboarding_friction`, `find_by_agent_welcomed`, `find_by_payment_rail`, `find_by_agent_allowed`, `list_categories`, `list_templates`, `get_template`. One-click install in Claude Desktop: `claude://mcp/add?url=https://gigs.sh/api/mcp`.
+Tools: `search_gigs`, `get_gig`, `find_by_onboarding_friction`, `find_by_agent_welcomed`, `find_by_payment_rail`, `find_by_agent_allowed`, `list_categories`. One-click install in Claude Desktop: `claude://mcp/add?url=https://gigs.sh/api/mcp`.
 
 **3. REST API** — live at `https://gigs.sh/api/v1/gigs`
 
@@ -138,7 +138,7 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
 │   ├── globals.css              # all styles (ported from design handoff)
 │   ├── p/[slug]/page.tsx        # per-listing detail page (9 sections per design)
 │   └── api/
-│       ├── mcp/route.ts         # MCP server (Streamable HTTP, 9 tools)
+│       ├── mcp/route.ts         # MCP server (Streamable HTTP, 7 tools)
 │       ├── v1/
 │       │   ├── gigs/route.ts                # REST: list + search
 │       │   ├── gigs/[slug]/route.ts         # REST: detail
@@ -164,7 +164,7 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
     └── 03-agent-mining.md       # source data for the v1 listing cohort
 ```
 
-**Single-repo architecture** (decided 2026-05-18): everything for v1 lives in this one repo. No sibling repos. `starters/<slug>/` and `packages/gigs-cli/` are reserved subdirectories for v1.5 (not yet built).
+**Single-repo architecture** (decided 2026-05-18): everything for v1 lives in this one repo. No sibling repos. `packages/gigs-cli/` is a reserved subdirectory for the v1.5 npm CLI (not yet built).
 
 ## Build the website locally
 
@@ -182,7 +182,7 @@ If you want to fork the site, run a private instance, or audit the architecture,
 ## Quick links — all live
 
 - Website: https://gigs.sh
-- MCP endpoint: https://gigs.sh/api/mcp (Streamable HTTP, 9 tools)
+- MCP endpoint: https://gigs.sh/api/mcp (Streamable HTTP, 7 tools)
 - REST API: https://gigs.sh/api/v1/gigs · https://gigs.sh/api/v1/gigs/&lt;slug&gt; · https://gigs.sh/api/v1/categories
 - OpenAPI 3.1: https://gigs.sh/api/openapi.json
 - A2A Agent Card: https://gigs.sh/.well-known/agent-card.json
