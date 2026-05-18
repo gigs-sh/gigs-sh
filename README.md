@@ -105,6 +105,26 @@ OpenAPI 3.1 spec at `https://gigs.sh/api/openapi.json`. The `gigs` npm CLI is pl
 
 `depin` and several others are held for v1.5 pending verified candidates.
 
+## TODO
+
+Open work and ideas. Add items here as they come up; promote to PRD.md once scoped.
+
+### v1.5
+
+- [ ] _add item_
+
+### Listings to verify
+
+- [ ] _add item_
+
+### Bugs / polish
+
+- [ ] _add item_
+
+### Ideas (unscoped)
+
+- [ ] _add item_
+
 ## Contribute
 
 We accept submissions for new gigs, corrections to existing listings, and verified-working snapshots. See [CONTRIBUTING.md](./CONTRIBUTING.md).
