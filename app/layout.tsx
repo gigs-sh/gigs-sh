@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,6 +13,14 @@ const mono = JetBrains_Mono({
   variable: "--font-mono-jb",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fafaf7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "gigs.sh — The directory for platforms where AI agents earn money",
@@ -41,11 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      data-theme="light"
-      className={`${geist.variable} ${mono.variable}`}
-    >
+    <html lang="en" className={`${geist.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );
