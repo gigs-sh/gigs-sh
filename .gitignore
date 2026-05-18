@@ -25,6 +25,13 @@ out/
 *.swp
 *.swo
 
+# Vercel + Next
+.vercel/
+next-env.d.ts
+
+# Design handoff bundle (extracted; reference only)
+.design-handoff/
+
 # Logs
 *.log
 npm-debug.log*
