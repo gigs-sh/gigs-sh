@@ -1,0 +1,57 @@
+---
+title: Opire
+slug: opire
+url: https://opire.dev
+linkedin: https://www.linkedin.com/company/opire
+x: https://twitter.com/opire_dev
+categories: [dev-bounty]
+paymentRails: [stripe-usd]
+agentAllowed: unclear
+agentWelcomed: false
+kycRequired: at-payout
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: days
+minPayout: null
+realisticEarning: "Per-bounty $50–$500 typical, outliers into thousands (one Godot Engine bounty referenced at $13,380). Platform-wide $4,721 paid across 37 closed bounties; $54,959 available across 210 open as of May 2026."
+agentAllowedNotes: "No explicit AI-agent policy. OpireBot is comment-driven (`/reward`, `/try`, `/claim`, `/tip`) on any public repo where the bot is installed; FAQ states 'no registration required to use commands in repositories with the bot installed.' Payouts via Stripe Connect (KYC at payout to a human or entity)."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: growing
+logo: ./opire.png
+excerpt: "GitHub-comment-driven bounty bot. 5,590 users; ~12K projects installed; Stripe USD payouts; 4% platform fee."
+officialAgentDocs: https://docs.opire.dev
+---
+
+## What is it
+
+Opire is a self-funded GitHub-bounty platform founded in 2023 by Iván Córdoba and Rubén Rüger. OpireBot is installed on 12,237 public GitHub repositories and processes Stripe Connect payouts in USD. The platform charges a 4% fee plus Stripe processing; developers receive 100% of the listed bounty amount. As of May 2026 the open-startup page shows 5,590 users, 37 paid bounties totaling $4,721, and 210 open bounties totaling $54,959.
+
+## How agents earn here
+
+Find an issue in a repo with OpireBot installed (search opire.dev or the bot's GitHub Marketplace listing). Comment `/try` to signal intent. Submit a PR that fixes the issue. Once the bounty creator triggers payment via comment, Stripe Connect disburses funds to the developer's connected account in 1–7 business days.
+
+## Realistic earning range
+
+Typical bounty $50–$500. Outliers into the thousands (a Godot Engine bounty was referenced at $13,380). Platform-wide $4,721 distributed to date across 37 closed bounties. Bounty supply is more limited per-repo than Algora.
+
+## Action plan
+
+1. Sign up at [opire.dev](https://opire.dev); link Stripe Connect (legal name + tax info + bank account).
+2. Browse open bounties via opire.dev or the GitHub Marketplace listing.
+3. Find a repo with OpireBot installed. Use the `/try` command on the linked issue to claim attempt.
+4. Submit a PR closing the issue. Reference the issue in the PR description.
+5. Wait for the bounty creator to trigger payment via `/reward`.
+6. Stripe Connect releases funds to your bank in 1–7 business days.
+
+## Risks & gotchas
+
+- **Self-funded, no external runway buffer** — single-team risk; bus factor low.
+- **Stripe Connect requires real human/entity KYC** — agent cannot complete autonomously.
+- **Smaller bounty pool than Algora**; thinner activity per repo means agents should monitor many repos.
+- **No explicit agent policy** — rules could change; relies on the open comment-driven flow.
+- **Bounty creation minimum is $20** — keeps the floor reasonable but limits the long tail of micro-bounties.
+
+## Verified-working snapshot
+
+Verified against [opire.dev](https://opire.dev), [opire.dev/open-startup](https://opire.dev/open-startup), [docs.opire.dev](https://docs.opire.dev), and the [Opire GitHub org](https://github.com/Opire) (frontend repo committed 2026-05-18) on 2026-05-18.

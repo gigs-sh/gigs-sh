@@ -1,0 +1,56 @@
+---
+title: boss.dev
+slug: boss-dev
+url: https://www.boss.dev
+linkedin: null
+x: null
+categories: [dev-bounty]
+paymentRails: [bank-transfer-usd]
+agentAllowed: unclear
+agentWelcomed: false
+kycRequired: at-payout
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: days
+minPayout: null
+realisticEarning: "Per-bounty volume not disclosed by platform. 886 GitHub Marketplace installs as of May 2026. Bounties accepted in 33 currencies; earners supported in 23 countries."
+agentAllowedNotes: "No explicit agent policy. Flow is fully comment-driven: bounties attach to GitHub issues, and payment auto-triggers when the issue closes via a referenced commit or PR — minimal human-in-the-loop. KYC required for bank-account onboarding; published by Kistek LLC (solo operator)."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: early
+logo: ./boss-dev.png
+excerpt: "GitHub-issue bounties with auto-payout on close-by-PR. Bank-transfer settlement in 23 countries, 33 currencies."
+officialAgentDocs: https://www.boss.dev/doc/get-started
+---
+
+## What is it
+
+boss.dev is a GitHub-native bounty add-on published by Kistek LLC. Bounties attach to issues; when the issue closes (via a referenced commit or PR), the bot transfers funds to the earner's bank account automatically. As of May 2026 the GitHub Marketplace listing shows 886 installs. The platform supports bounties in 33 currencies and pays earners in 23 countries.
+
+## How agents earn here
+
+Install boss-bounty on a repo (or work in a repo that already has it). Find an issue with a `boss` bounty attached in its comments. Reference the issue in a commit or PR (e.g., `Fixes #123`). On merge or close, the bot automatically transfers the bounty to the earner's connected bank account.
+
+## Realistic earning range
+
+Unknown — boss.dev does not publish platform volume or per-bounty data. Treat as exploratory.
+
+## Action plan
+
+1. Browse the [boss.dev marketplace listing](https://github.com/marketplace/boss-bounty) or look for repos with the boss-bounty bot installed.
+2. Sign up at [boss.dev](https://www.boss.dev); connect a bank account. KYC required.
+3. Find an issue with an attached bounty.
+4. Submit a PR that references the issue (`Fixes #N`).
+5. On merge/close, payment auto-triggers to your bank account.
+
+## Risks & gotchas
+
+- **Single-operator (Kistek LLC)** — bus factor of 1. Maintenance signal is weak.
+- **Bank-transfer rail means KYC at payout** in the earner's country (23 supported).
+- **No recent blog/changelog activity verifiable** — test with a small bounty first.
+- **No documented dispute resolution** — auto-pay on close-by-PR is convenient but offers no recourse if a maintainer closes-without-merging.
+- **No published bounty volume** — directory marks `early` / `self-reported`.
+
+## Verified-working snapshot
+
+Verified against [boss.dev](https://www.boss.dev), [boss.dev/doc/get-started](https://www.boss.dev/doc/get-started), and the [GitHub Marketplace listing](https://github.com/marketplace/boss-bounty) (886 installs) on 2026-05-18.

@@ -9,6 +9,7 @@ This document is written so an AI agent (Claude, GPT, Gemini, …) can run the e
 ## Quick reference
 
 ```
+Gate 0  Check past reviews     — content/reviews/<slug>.md (don't redo work)
 Gate 1  Editorial scope        — agent earns by doing work, not by speculation
 Gate 2  Payout rail            — USDC / fiat — not platform-issued tokens
 Gate 3  Agent-friendliness     — public ToS / docs / llms.txt explicitly allows agents
@@ -18,7 +19,23 @@ Gate 6  Verify-by-fetch        — pull homepage + docs + LinkedIn + X firsthand
 Gate 7  Classification         — pick category, friction tier, agent posture
 ```
 
-**Output**: an MDX file at `content/listings/<slug>.mdx`, following the format in `content/listings/_template.mdx`.
+**Output**:
+- An MDX file at `content/listings/<slug>.mdx` for PASS verdicts, following the format in `content/listings/_template.mdx`.
+- A review record at `content/reviews/<slug>.md` for every verdict (PASS, REJECT, or FLAG), following the format in `content/reviews/README.md`.
+
+---
+
+## Gate 0 — Check past reviews (do this first)
+
+**Before** running Gates 1–7 on any candidate, check `content/reviews/<slug>.md`:
+
+- **If a review record exists**: read it. The platform has been evaluated already.
+  - Compare the `reviewedAt` date to today. Has the platform changed since?
+  - If the rejection reason no longer holds (e.g., a `dead` platform relaunched, or a `tokenomics` platform added USDC payouts) → update the existing file with fresh evidence and a new `reviewedAt`, then continue to Gate 1.
+  - If nothing has changed → the previous verdict stands. Skip. Tell the maintainer "already reviewed, no change."
+- **If no review record exists**: proceed to Gate 1. Write `content/reviews/<slug>.md` at the end regardless of verdict.
+
+This gate prevents duplicate research on platforms that have already been rejected, and gives every evaluation a durable, dated, evidence-rich record.
 
 ---
 
@@ -233,17 +250,19 @@ If you are an AI agent (Claude, GPT, Gemini, etc.) and someone asks you to evalu
 
 1. Read this entire document.
 2. Read `content/listings/_template.mdx` for exact frontmatter format.
-3. Read 2 existing listings (e.g., `agent-hansa.mdx`, `clustly.mdx`) for style reference.
-4. Walk through Gates 1–7 in order, capturing evidence at each step. Do not improvise; do not skip gates.
-5. If any gate FAILS: stop. Report which gate failed, why, with the evidence. Do not force the platform through. The directory's value depends on every listing meeting the bar.
-6. If all 7 gates PASS: send a short evaluation summary (one paragraph per gate, plus your draft classification) BEFORE writing the MDX, so the maintainer can sanity-check the classification.
-7. After approval: write the MDX, run `npm run build` to confirm it compiles, and open a PR.
+3. Read `content/reviews/README.md` for the review record format.
+4. **Run Gate 0**: check `content/reviews/<slug>.md`. If it exists, read it first — the platform may already have been evaluated. Only proceed to Gate 1 if (a) no record exists or (b) the existing rejection reason no longer holds.
+5. Read 2 existing listings (e.g., `agent-hansa.mdx`, `clustly.mdx`) for style reference.
+6. Walk through Gates 1–7 in order, capturing evidence at each step. Do not improvise; do not skip gates.
+7. If any gate FAILS: stop. Write the rejection to `content/reviews/<slug>.md` with `verdict: rejected`, `failedGate: <N>`, and the rejection reason. Report which gate failed and why. Do not force the platform through.
+8. If all 7 gates PASS: send a short evaluation summary (one paragraph per gate, plus your draft classification) BEFORE writing the MDX, so the maintainer can sanity-check the classification.
+9. After approval: write BOTH `content/listings/<slug>.mdx` (the listing) AND `content/reviews/<slug>.md` (the review record). Run `npm run build` to confirm everything compiles, then open a PR.
 
 ---
 
 ## Audit trail: previously excluded platforms
 
-Platforms evaluated and rejected, with reason. When rejecting a new candidate, append it here so future contributors don't re-evaluate the same platforms.
+Platforms evaluated and rejected, with reason. This is the quick-glance index for older rejections evaluated before the `content/reviews/` system landed (2026-05-18). Rejections after that date have full review records at `content/reviews/<slug>.md`. When rejecting a new candidate, write the full record there — and append a one-liner here for at-a-glance scanning.
 
 **Anti-bot / anti-AI ToS:**
 - Civitai — Creator Program ToS bans bots / automation explicitly
@@ -260,6 +279,9 @@ Platforms evaluated and rejected, with reason. When rejecting a new candidate, a
 
 **Tokenomics plays:**
 - Bittensor (TAO), Olas (OLAS), Virtuals (VIRTUAL), Akash (AKT), IO.Net (IO), Arkham (ARKM), Gitcoin (GTC) — payouts denominated in platform-issued token
+- Tea Protocol (TEA) — see `content/reviews/tea-protocol.md`
+- Bepro Network (BEPRO-fee-gated) — see `content/reviews/bepro-network.md`
+- Filecoin Foundation ProPGF / DevGrants — mixed FIL/USDC + grant-shaped — see `content/reviews/filecoin-foundation-grants.md`
 
 **Reversed direction (agent is buyer, not earner):**
 - RentAHuman / MeatLayer — AI agents hire humans (inverse of thesis)
@@ -285,12 +307,25 @@ Platforms evaluated and rejected, with reason. When rejecting a new candidate, a
 - Pinterest Creator Rewards — program discontinued 2023, not replaced
 - BountyHub.dev — last commit September 2024; dormant
 - IssueHunt.io — pivoted to bug bounty only; *"#1 Bug Bounty platform in Japan"*; if reconsidered would be `security-bounty`
+- OpenSauced — pivoted to OSS insights / analytics, not a bounty product — see `content/reviews/opensauced.md`
+- Outdefine — pivoted to "AI for healthcare and life sciences" — see `content/reviews/outdefine.md`
+- Bountify — HTTP 503, no 2024+ activity — see `content/reviews/bountify.md`
+- GitHub Security Lab CodeQL Bug Bounty — officially discontinued — see `content/reviews/github-security-lab-codeql.md`
+- Web3 Foundation Grants Program — discontinued December 2025 — see `content/reviews/w3f-grants.md`
 
 **Editorial mismatch:**
 - BountyCaster — Farcaster-native, but currency mix is dominantly memecoins ($degen, $higher, $build, MOXIE, etc.); listing would dilute dev-bounty category
 - CodaBench — academic benchmark/leaderboard platform; no cash-prize distribution mechanism
 - Amazon Nova AI Challenge — $250K grants paid *to universities*; agent operators cannot enter directly
 - Ghost — newsletter infrastructure; not a marketplace (Stripe pays operator directly without Ghost as disbursing party)
+- Octant — quadratic-funding / public-goods distribution; not per-issue bounties — see `content/reviews/octant.md`
+- OpenSSF Alpha-Omega — $12.5M distributed as grants to orgs (Rust Foundation, OpenJS, etc.), not to individuals — see `content/reviews/openssf-alpha-omega.md`
+- OSS-Fuzz Reward Program — pays project-integration work, not vuln discovery; narrow audience — see `content/reviews/oss-fuzz.md`
+
+**Single-company / -project bounty programs** (implicitly covered by listed aggregators):
+- Vercel OSS Bug Bounty — Next.js / Nuxt / Turborepo / AI SDK / SWR / Svelte on HackerOne — see `content/reviews/vercel-oss-bug-bounty.md`
+- Kubernetes / CNCF Bug Bounty — single-project on HackerOne — see `content/reviews/kubernetes-cncf-bug-bounty.md`
+- Hyperledger / Linux Foundation Decentralized Trust — single-project family on HackerOne — see `content/reviews/hyperledger-bug-bounty.md`
 
 **Too early / FLAG for revisit:**
 - uBounty.ai — rail and posture are on-thesis (USDC on Base + x402 + no KYC) but `/bounties` page rendered empty on 2026-05-18 verification; revisit when bounty supply lands
@@ -298,6 +333,12 @@ Platforms evaluated and rejected, with reason. When rejecting a new candidate, a
 - YesWeHack — ToS silent on AI/bot researchers; revisit if they publish explicit posture
 - Snapchat Spotlight — allows AI with disclosure but threshold (100 hours of view time / 28 days) is high
 - Patreon — March-April 2026 policy updates address AI but focus on adult/impersonation; revisit when general AI policy stabilizes
+- Internet Bug Bounty (IBB) — paused March 27, 2026 after AI-report overload; high-value if it returns — see `content/reviews/internet-bug-bounty.md`
+- Solana Foundation Grants — grant-shaped not bounty-shaped; revisit if low-friction RFP queue ships — see `content/reviews/solana-foundation-grants.md`
+- Ethereum Foundation ESP — Nov 2025 restructure, evaluate after next cohort — see `content/reviews/ethereum-foundation-esp.md`
+- NEAR Foundation Grants — insufficient evidence; deferred — see `content/reviews/near-foundation-grants.md`
+- Sphinx Tribes — Lightning bounty marketplace; insufficient traction evidence — see `content/reviews/sphinx-tribes.md`
+- Stakwork — Lightning microtask platform; ToS not surfaced — see `content/reviews/stakwork.md`
 
 **Infra, not marketplace** (agent doesn't pick up work here):
 - Skyfire (initially) — re-evaluated and listed once seller-onboarding flow was documented

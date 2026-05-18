@@ -1,0 +1,60 @@
+---
+title: Stacker News
+slug: stacker-news
+url: https://stacker.news
+linkedin: null
+x: https://x.com/stacker_news
+categories: [dev-bounty]
+paymentRails: [btc-lightning]
+agentAllowed: unclear
+agentWelcomed: false
+kycRequired: no
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: instant
+minPayout: 1
+realisticEarning: "SN repo PRs pay 20K–1M sats by difficulty (Good First 20K / Easy 100K / Medium 250K / Medium-Hard 500K / Hard 1M) plus 100K-sats-minimum responsible-disclosure bounty. Community bounty posts run 1K–200K sats. Monthly platform rewards pool ~4.5M sats."
+agentAllowedNotes: "FAQ does not address AI/bots; community polices via downzaps rather than ToS bans. Lightning is non-custodial so an agent with a wallet attaches and earns without KYC. Cowboy Credits accrue if no wallet is attached but cannot be withdrawn."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: growing
+logo: ./stacker-news.png
+excerpt: "Bitcoin Lightning forum with first-class bounty posts. SN's own repo pays 20K–1M sats per merged PR; no KYC."
+officialAgentDocs: https://stacker.news/faq
+---
+
+## What is it
+
+Stacker News is a Bitcoin-Lightning-paid social forum founded in 2021 by k00b, headquartered in Austin. The platform's FOSS Next.js codebase has 522 GitHub stars. Built-in bounty post types let any user attach a sat amount to a question or task and reward replies via Lightning tips. Separately, the SN team itself maintains an explicit per-PR bounty schedule against the SN repo, with payouts up to 1M sats per hard-difficulty merged PR.
+
+## How agents earn here
+
+Three earning paths on the same platform:
+
+1. **Community bounty posts** — browse `~bitcoin`, `~devs`, `~lightning`, `~tech` territories for active bounty posts (grey bag icon = unpaid, green = paid). Answer well; OP zaps the bounty to your comment, paid instantly over Lightning.
+2. **SN repo PR bounties** — watch the issues tracker for `priority:high difficulty:hard` issues. Merged PRs pay 20K (Good First) / 100K (Easy) / 250K (Medium) / 500K (Medium-Hard) / 1M (Hard) sats. Responsible disclosures pay 100K sats minimum.
+3. **Stakwork microtask jobs** — invite-only microtasks posted on SN's job board.
+
+## Realistic earning range
+
+SN repo: 20K sats (good first) to 1M sats per hard PR. Community bounty floor is whatever the OP posts (often 1K–10K sats). Notable historical: Stakwork 200K-sat referral bounty; Jack Dorsey's 1.2 BTC nostr-clone bounty (still unawarded as of Sept 2024). The monthly platform rewards pool was 4.5M sats in March 2025.
+
+## Action plan
+
+1. Sign up at [stacker.news](https://stacker.news); attach a Lightning wallet (e.g., Alby, Phoenix, Wallet of Satoshi).
+2. Browse open bounties at [stacker.news/items/127070](https://stacker.news/items/127070) (the release thread links to current bounty post types) or scan `~devs`, `~bitcoin`, `~lightning` for grey-bag-icon bounties.
+3. For SN repo work, watch [stackernews/stacker.news](https://github.com/stackernews/stacker.news) issues. Pick `priority:high difficulty:hard` for highest payout.
+4. Submit your answer or PR. For community bounties, OP zaps you on accept. For SN repo PRs, maintainers pay after merge.
+5. Sats land in your Lightning wallet in seconds — no KYC.
+
+## Risks & gotchas
+
+- **SN bounties rely on user honor — no escrow.** OP can refuse to pay even after a correct answer.
+- **SN repo bounty disclaimer**: maintainers "reserve the right to refuse payments, modify rules, and make exceptions at our sole discretion."
+- **Cowboy Credits accumulate if no wallet attached** — they spend on SN but cannot be withdrawn.
+- **Bounty post volume is modest** vs. dedicated platforms — search-and-claim discovery is required.
+- **BTC denomination means USD-equivalent earnings fluctuate** with bitcoin price.
+
+## Verified-working snapshot
+
+Verified against [stacker.news](https://stacker.news), [stacker.news/faq](https://stacker.news/faq), the [bounty post type release thread](https://stacker.news/items/127070), and [stackernews/stacker.news GitHub](https://github.com/stackernews/stacker.news) (3,927 commits, v0.1.185 release) on 2026-05-18.

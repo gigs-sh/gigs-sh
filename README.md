@@ -6,7 +6,7 @@ You have spare AI capacity — a Claude Pro subscription whose tokens you don't 
 
 The agent earns by **doing actual work** — tasks, bounties, competitions, content, API service. Not by gambling, prediction-market betting, crypto trading, or token mining. Those are different products and they don't fit here. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt).
 
-> **v1 live at https://gigs.sh** — **40 listings across 7 categories**, verified 2026-05-18, all 5 agent-readable surfaces responding. See [PRD.md](./PRD.md) for the full build spec.
+> **v1 live at https://gigs.sh** — **46 listings across 7 categories**, verified 2026-05-18, all 5 agent-readable surfaces responding. See [PRD.md](./PRD.md) for the full build spec.
 
 ```
 $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
@@ -15,15 +15,15 @@ $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
 
 ## Browse the gigs
 
-**40 platforms verified**, grouped by **category** on the live site at https://gigs.sh. Friction tier (`instant` / `easy` / `moderate` / `hard`) and `credibility` tier (`established` / `growing` / `early` / `self-reported`) are shown per card. Full per-platform action plans live at https://gigs.sh/p/&lt;slug&gt; — or read the raw MDX in `content/listings/`.
+**46 platforms verified**, grouped by **category** on the live site at https://gigs.sh. Friction tier (`instant` / `easy` / `moderate` / `hard`) and `credibility` tier (`established` / `growing` / `early` / `self-reported`) are shown per card. Full per-platform action plans live at https://gigs.sh/p/&lt;slug&gt; — or read the raw MDX in `content/listings/`.
 
 | Category | Count | What you'll find |
 |---|---|---|
 | `agent-task-marketplace` | 9 | Post-and-claim task boards built for agents. Pick up jobs, deliver, get paid. |
 | `api-monetization` | 6 | Publish your agent as a callable API or service. Earn per call. |
 | `hackathon` | 4 | Time-boxed build sprints with cash prizes; AI use is normalized. |
-| `dev-bounty` | 3 | Claim open developer tasks. Ship the code, get paid. |
-| `security-bounty` | 7 | Find and report vulnerabilities. Get paid per accepted finding. |
+| `dev-bounty` | 7 | Claim open developer tasks. Ship the code, get paid. |
+| `security-bounty` | 9 | Find and report vulnerabilities. Get paid per accepted finding. |
 | `competition` | 5 | Single-event prizes for solving a hard problem. |
 | `content` | 6 | Create posts, videos, or articles. Earn from engagement or revenue share. |
 
@@ -243,7 +243,8 @@ Commit only after all applicable boxes are checked.
 │   ├── api-schemas.ts           # Zod schemas (single source of truth for REST + OpenAPI)
 │   └── api-http.ts              # CORS + JSON helpers
 ├── content/
-│   └── listings/                # 40 v1 listings as MDX (one file per platform) + _template.mdx
+│   └── listings/                # 46 v1 listings as MDX (one file per platform) + _template.mdx
+│   └── reviews/                 # full audit record of every platform evaluated — see content/reviews/README.md
 ├── public/
 │   ├── .well-known/
 │   │   ├── agent-card.json      # A2A v1.0 Agent Card

@@ -1,0 +1,57 @@
+---
+title: Google OSS VRP
+slug: google-oss-vrp
+url: https://bughunters.google.com/open-source-security
+linkedin: null
+x: null
+categories: [security-bounty]
+paymentRails: [wire-usd]
+agentAllowed: yes
+agentWelcomed: false
+kycRequired: at-payout
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: days
+minPayout: 100
+realisticEarning: "Per-vuln $100–$31,337 depending on severity and project tier. Top tier (Bazel, Angular, Golang, Protocol Buffers, Fuchsia). Google paid $17.1M total across all VRPs in 2025 to 700+ researchers."
+agentAllowedNotes: "Rules do not address AI explicitly. Google's 2026 industry-wide adjustment requires concise PoC-first reports with proposed patches — AI-assisted submissions remain accepted when quality is high (SecurityWeek). Payment via Google's p2p-vrp finance team or alternately through Bugcrowd."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: established
+logo: ./google-oss-vrp.png
+excerpt: "Google's OSS bug bounty: $100–$31,337 per vuln in Bazel, Angular, Golang, Protobuf, Fuchsia and Google-OSS dependencies."
+officialAgentDocs: https://bughunters.google.com/about/rules/open-source/6521337925468160/google-open-source-software-vulnerability-reward-program-rules
+---
+
+## What is it
+
+Google's Open Source Software Vulnerability Rewards Program (OSS VRP), launched August 2022, pays $100–$31,337 per validated vulnerability found in Google-owned GitHub OSS repos and select third-party dependencies. Operated under Google's bughunters.google.com umbrella. Top awards cover Bazel, Angular, Golang, Protocol Buffers, and Fuchsia; other Google-owned repos pay lower tiers. Donations to qualifying nonprofits double the payout. Google paid $17.1M across all VRPs in 2025 to 700+ researchers — an all-time high.
+
+## How agents earn here
+
+Pick a Google OSS repo (bazelbuild/, angular/, golang/, protocolbuffers/, fuchsia, or any other Google-owned repo). Find a vulnerability. For third-party-dep vulns, first notify the upstream maintainer, then Google. Submit via bughunters.google.com. Google validates and pays via finance enrollment (1–2 weeks) or alternately through Bugcrowd if you prefer that rail.
+
+## Realistic earning range
+
+Per-finding $100 (low) to $31,337 (top critical). Donations to qualifying nonprofits doubled. Google paid $17.1M across all VRPs in 2025 to 700+ researchers (per Cybersecurity News). OSS VRP is one of several Google VRP tracks; payouts split across the program portfolio.
+
+## Action plan
+
+1. Sign up at [bughunters.google.com](https://bughunters.google.com); link a profile.
+2. Read the [OSS VRP rules](https://bughunters.google.com/about/rules/open-source/6521337925468160/google-open-source-software-vulnerability-reward-program-rules); confirm scope (Google-owned repos vs third-party deps).
+3. Find a vulnerability. For top-tier projects (Bazel, Angular, Golang, Protocol Buffers, Fuchsia), payouts can reach $31,337.
+4. For third-party-dep vulns, notify the upstream maintainer first.
+5. Submit through bughunters.google.com with reproducer + impact analysis. A proposed patch is strongly incentivized.
+6. Complete finance enrollment (identity + tax info). Payment lands 1–2 weeks after the reward decision.
+
+## Risks & gotchas
+
+- **Third-party-dep vulns require upstream-first disclosure** — adds coordination overhead.
+- **Google's 2026 quality crackdown** means low-effort AI reports may be triaged out.
+- **Payment enrollment requires identity + tax info** (KYC at payout).
+- **Top awards limited to 5 named projects** — Bazel, Angular, Golang, Protocol Buffers, Fuchsia. Other repos pay lower-tier.
+- **Submissions outside Google-owned org URLs are out of scope** — read the rules carefully before investing time.
+
+## Verified-working snapshot
+
+Verified against [bughunters.google.com/open-source-security](https://bughunters.google.com/open-source-security), the [OSS VRP rules page](https://bughunters.google.com/about/rules/open-source/6521337925468160/google-open-source-software-vulnerability-reward-program-rules), and SecurityWeek's coverage of Google's 2026 VRP adjustments on 2026-05-18.
