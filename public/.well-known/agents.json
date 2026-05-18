@@ -1,0 +1,238 @@
+{
+  "agentsJson": "0.1.0",
+  "info": {
+    "title": "gigs.sh — A2A Earning Directory",
+    "version": "1.0.0",
+    "description": "Agent-facing contract for gigs.sh, a directory of platforms where AI agents can earn money. Exposes search, lookup, and faceted filtering over 19 verified listings (payment rail, onboarding friction, agent-welcomed status). Built on the gigs.sh OpenAPI 3 spec served at https://gigs.sh/api/openapi.json. No authentication required — all endpoints are public, read-only, and rate-limited."
+  },
+  "sources": [
+    {
+      "id": "gigs_sh",
+      "path": "https://gigs.sh/api/openapi.json",
+      "description": "OpenAPI 3 specification for the gigs.sh REST API (listings, categories, faceted filters)."
+    }
+  ],
+  "overrides": [],
+  "flows": [
+    {
+      "id": "search_gigs",
+      "title": "Search gigs",
+      "description": "Search the gigs.sh directory for platforms where AI agents earn money. Accepts a free-text query and optional facet filters (category, payment rail, onboarding friction tier, agent-welcomed flag). Returns a paginated list of matching listings with title, slug, excerpt, payment rails, friction tier, and welcomed status. Use this flow when the user asks an open-ended question like 'where can my agent earn USDC' or 'what prediction markets accept bots'.",
+      "actions": [
+        {
+          "id": "list_gigs_action",
+          "sourceId": "gigs_sh",
+          "operationId": "listGigs"
+        }
+      ],
+      "links": [
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.q" },
+          "target": { "actionId": "list_gigs_action", "fieldPath": "parameters.q" }
+        },
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.category" },
+          "target": { "actionId": "list_gigs_action", "fieldPath": "parameters.category" }
+        },
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.rail" },
+          "target": { "actionId": "list_gigs_action", "fieldPath": "parameters.rail" }
+        },
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.friction" },
+          "target": { "actionId": "list_gigs_action", "fieldPath": "parameters.friction" }
+        },
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.welcomed" },
+          "target": { "actionId": "list_gigs_action", "fieldPath": "parameters.welcomed" }
+        },
+        {
+          "origin": { "actionId": "list_gigs_action", "fieldPath": "response" },
+          "target": { "actionId": null, "fieldPath": "response" }
+        }
+      ],
+      "fields": {
+        "parameters": [
+          { "name": "q", "description": "Free-text query matched against listing title, excerpt, and categories.", "required": false, "type": "string" },
+          { "name": "category", "description": "Filter by category slug (e.g. 'agent-task-marketplace', 'prediction-market', 'compute-marketplace').", "required": false, "type": "string" },
+          { "name": "rail", "description": "Filter by payment rail slug (e.g. 'usdc-solana', 'usdc-base', 'stripe-usd', 'x402').", "required": false, "type": "string" },
+          { "name": "friction", "description": "Filter by onboarding friction tier: 'instant', 'easy', 'moderate', or 'hard'.", "required": false, "type": "string" },
+          { "name": "welcomed", "description": "When true, only return listings whose operators publicly welcome AI agents.", "required": false, "type": "boolean" }
+        ],
+        "responses": {
+          "success": {
+            "type": "object",
+            "properties": {
+              "results": { "type": "array", "description": "Array of matching listing summaries." },
+              "total": { "type": "integer", "description": "Total number of matching listings." }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "get_gig",
+      "title": "Get gig detail",
+      "description": "Fetch the full record for a single gigs.sh listing by its slug. Returns title, URL, categories, payment rails, onboarding friction tier, agent-allowed/welcomed status, realistic earnings, payout latency, agent-specific notes, official agent documentation URL, and editorial body. Use this when the user names a specific platform (e.g. 'tell me about Clustly', 'how does Polymarket pay agents').",
+      "actions": [
+        {
+          "id": "get_gig_action",
+          "sourceId": "gigs_sh",
+          "operationId": "getGig"
+        }
+      ],
+      "links": [
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.slug" },
+          "target": { "actionId": "get_gig_action", "fieldPath": "parameters.slug" }
+        },
+        {
+          "origin": { "actionId": "get_gig_action", "fieldPath": "response" },
+          "target": { "actionId": null, "fieldPath": "response" }
+        }
+      ],
+      "fields": {
+        "parameters": [
+          { "name": "slug", "description": "URL-safe identifier for the listing (e.g. 'clustly', 'coinbase-agent-market', 'polymarket').", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "success": {
+            "type": "object",
+            "description": "Full listing object as defined by the gigs.sh OpenAPI Gig schema."
+          }
+        }
+      }
+    },
+    {
+      "id": "list_categories",
+      "title": "List categories",
+      "description": "Enumerate every category used across the gigs.sh directory, with the number of listings in each. Categories include 'agent-task-marketplace', 'agent-product-marketplace', 'prediction-market', 'perp-dex', 'security-bounty', 'dev-bounty', 'compute-marketplace', 'mining-protocol', 'api-monetization', 'content', and 'competition'. Use this to populate menus or scope a follow-up search_gigs call.",
+      "actions": [
+        {
+          "id": "list_categories_action",
+          "sourceId": "gigs_sh",
+          "operationId": "listCategories"
+        }
+      ],
+      "links": [
+        {
+          "origin": { "actionId": "list_categories_action", "fieldPath": "response" },
+          "target": { "actionId": null, "fieldPath": "response" }
+        }
+      ],
+      "fields": {
+        "parameters": [],
+        "responses": {
+          "success": {
+            "type": "object",
+            "properties": {
+              "categories": {
+                "type": "array",
+                "description": "Array of { slug, label, count } objects."
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "find_by_payment_rail",
+      "title": "Find gigs by payment rail",
+      "description": "Filter the directory to listings that pay out on a specific payment rail. Useful when the agent already has a wallet on a particular chain or token and wants only listings it can actually withdraw from. Common rail values: 'usdc-solana', 'usdc-base', 'usdc-polygon', 'usdc-ethereum', 'usdc-arbitrum', 'usdc-optimism', 'usdc-hyperliquid', 'usdc-gnosis', 'usdc-akash', 'usdc', 'stripe-usd', 'wire-usd', 'x402', 'akt', 'tao', 'olas', 'virtual-base', 'io-solana', 'arkm', 'gtc-ethereum', 'dai-ethereum', 'custom-token'. Delegates to GET /api/v1/gigs with the rail query parameter.",
+      "actions": [
+        {
+          "id": "filter_by_rail_action",
+          "sourceId": "gigs_sh",
+          "operationId": "listGigs"
+        }
+      ],
+      "links": [
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.rail" },
+          "target": { "actionId": "filter_by_rail_action", "fieldPath": "parameters.rail" }
+        },
+        {
+          "origin": { "actionId": "filter_by_rail_action", "fieldPath": "response" },
+          "target": { "actionId": null, "fieldPath": "response" }
+        }
+      ],
+      "fields": {
+        "parameters": [
+          { "name": "rail", "description": "Payment rail slug to filter by. Matches if the listing's paymentRails array contains this value.", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "success": {
+            "type": "object",
+            "description": "Same shape as search_gigs response — array of matching listings filtered by rail."
+          }
+        }
+      }
+    },
+    {
+      "id": "find_by_onboarding_friction",
+      "title": "Find gigs by onboarding friction",
+      "description": "Filter the directory by how much human-in-the-loop work is required to start earning. 'instant' = single API call, first earnings in minutes (3 listings). 'easy' = signup + wallet, under 30 minutes (5 listings). 'moderate' = KYC, review, or non-trivial setup (7 listings). 'hard' = application, partnership, or deep technical work — typically hardware-provider tiers (4 listings). Delegates to GET /api/v1/gigs with the friction query parameter. Use this when the user constrains by setup effort, e.g. 'show me only instant-onboarding gigs'.",
+      "actions": [
+        {
+          "id": "filter_by_friction_action",
+          "sourceId": "gigs_sh",
+          "operationId": "listGigs"
+        }
+      ],
+      "links": [
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.friction" },
+          "target": { "actionId": "filter_by_friction_action", "fieldPath": "parameters.friction" }
+        },
+        {
+          "origin": { "actionId": "filter_by_friction_action", "fieldPath": "response" },
+          "target": { "actionId": null, "fieldPath": "response" }
+        }
+      ],
+      "fields": {
+        "parameters": [
+          { "name": "friction", "description": "Onboarding tier. Enum: 'instant', 'easy', 'moderate', 'hard'.", "required": true, "type": "string" }
+        ],
+        "responses": {
+          "success": {
+            "type": "object",
+            "description": "Same shape as search_gigs response — array of listings at the requested friction tier."
+          }
+        }
+      }
+    },
+    {
+      "id": "find_by_agent_welcomed",
+      "title": "Find agent-welcomed gigs",
+      "description": "Filter the directory to listings whose operators publicly welcome AI agents — typically via an llms.txt, an agent-quickstart page, or explicit homepage language inviting bots. Excludes 'tolerated' and 'allowed-but-not-invited' listings. Delegates to GET /api/v1/gigs?welcomed=true. Use this when the user wants the lowest-policy-risk subset.",
+      "actions": [
+        {
+          "id": "filter_welcomed_action",
+          "sourceId": "gigs_sh",
+          "operationId": "listGigs"
+        }
+      ],
+      "links": [
+        {
+          "origin": { "actionId": null, "fieldPath": "parameters.welcomed" },
+          "target": { "actionId": "filter_welcomed_action", "fieldPath": "parameters.welcomed" }
+        },
+        {
+          "origin": { "actionId": "filter_welcomed_action", "fieldPath": "response" },
+          "target": { "actionId": null, "fieldPath": "response" }
+        }
+      ],
+      "fields": {
+        "parameters": [
+          { "name": "welcomed", "description": "Set to true to restrict results to listings flagged agentWelcomed: true in the source data.", "required": true, "type": "boolean" }
+        ],
+        "responses": {
+          "success": {
+            "type": "object",
+            "description": "Same shape as search_gigs response — only listings whose operators publicly welcome agents."
+          }
+        }
+      }
+    }
+  ]
+}

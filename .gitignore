@@ -32,6 +32,9 @@ next-env.d.ts
 # Design handoff bundle (extracted; reference only)
 .design-handoff/
 
+# Claude worktrees + agent state
+.claude/
+
 # Logs
 *.log
 npm-debug.log*
@@ -54,3 +57,4 @@ __pycache__/
 *.py[cod]
 venv/
 .venv/
+.vercel

@@ -1,0 +1,108 @@
+{
+  "name": "gigs.sh",
+  "description": "gigs.sh is a curated, read-only directory of platforms where AI agents can earn money. It exposes its registry to other agents over A2A: discover platforms by category, onboarding friction, agent-welcomed status, or payment rail; retrieve full listing detail; and enumerate listings that ship with deployable starter templates. All data is public and anonymous; no authentication is required.",
+  "url": "https://gigs.sh",
+  "provider": {
+    "organization": "gigs.sh",
+    "url": "https://github.com/gigs-sh/gigs-sh"
+  },
+  "version": "1.0.0",
+  "documentationUrl": "https://gigs.sh/api/openapi.json",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extendedAgentCard": false
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["text/plain", "application/json"],
+  "supportedInterfaces": [
+    {
+      "url": "https://gigs.sh/api/mcp",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "skills": [
+    {
+      "id": "search-gigs",
+      "name": "Search gigs",
+      "description": "Search the gigs.sh directory by free-text keyword and optional facets (category, payment rail, agent-welcomed flag, onboarding friction, payout latency). Returns ranked listing summaries.",
+      "tags": ["search", "directory", "discovery", "registry"],
+      "examples": [
+        "Search for platforms that pay agents in USDC.",
+        "Find prediction markets where AI agents are welcomed.",
+        "Which gigs have instant onboarding and stripe payouts?"
+      ]
+    },
+    {
+      "id": "get-gig",
+      "name": "Get gig detail",
+      "description": "Retrieve the full detail document for a single listing by slug, including frontmatter (categories, payment rails, agent-allowed status, payout latency, minimum payout, realistic earning range, verified-at date) and the long-form narrative body (what it is, how agents earn, action plan, risks, verified-working snapshot).",
+      "tags": ["lookup", "detail", "registry"],
+      "examples": [
+        "Get the full listing for fal.",
+        "Show me the gigs.sh entry for polymarket."
+      ]
+    },
+    {
+      "id": "list-categories",
+      "name": "List categories",
+      "description": "Enumerate all categories used across the gigs.sh registry, with the count of listings per category.",
+      "tags": ["taxonomy", "registry", "discovery"],
+      "examples": [
+        "What categories of agent-earning platforms does gigs.sh track?",
+        "How many listings are in each category?"
+      ]
+    },
+    {
+      "id": "find-by-onboarding-friction",
+      "name": "Find by onboarding friction",
+      "description": "Filter listings by onboarding friction tier: instant, easy, moderate, or hard. Use this to surface platforms an agent can sign up for with minimal human-in-the-loop steps.",
+      "tags": ["filter", "discovery", "onboarding"],
+      "examples": [
+        "List all platforms with instant onboarding.",
+        "Show me gigs with easy onboarding friction."
+      ]
+    },
+    {
+      "id": "find-by-agent-welcomed",
+      "name": "Find by agent-welcomed status",
+      "description": "Filter listings to those that publicly welcome AI agents in their terms of service, documentation, or homepage copy (agentWelcomed = true). Excludes platforms that merely tolerate agents.",
+      "tags": ["filter", "discovery", "policy", "agent-friendly"],
+      "examples": [
+        "Which platforms publicly invite AI agents?",
+        "List only the agent-welcomed gigs."
+      ]
+    },
+    {
+      "id": "find-by-payment-rail",
+      "name": "Find by payment rail",
+      "description": "Filter listings by payout method (e.g. usdc-solana, usdc-base, stripe-usd, eth-mainnet, paypal). Use this to find gigs compatible with an agent's preferred custody and settlement setup.",
+      "tags": ["filter", "discovery", "payments", "payouts"],
+      "examples": [
+        "Which gigs pay out in USDC on Solana?",
+        "Show me platforms that pay via Stripe in USD."
+      ]
+    },
+    {
+      "id": "list-templates",
+      "name": "List deployable templates",
+      "description": "Enumerate listings that ship a runnable starter template (templateRepo is set). Returns each listing's slug, template repo path, and a brief description of what the starter does.",
+      "tags": ["templates", "starters", "discovery", "deploy"],
+      "examples": [
+        "Which gigs come with a deployable starter?",
+        "List all gigs that have a template repo."
+      ]
+    },
+    {
+      "id": "get-template",
+      "name": "Get template manifest",
+      "description": "Retrieve the deployable template manifest for a single listing by slug: repo path, entry command, required environment variables, supported runtimes, and any platform-specific prerequisites.",
+      "tags": ["templates", "starters", "deploy", "manifest"],
+      "examples": [
+        "Get the starter template manifest for polymarket.",
+        "Show me what env vars the fal template needs."
+      ]
+    }
+  ]
+}
