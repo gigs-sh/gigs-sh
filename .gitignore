@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+.yarn/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.turbo/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+
+# Scraping / data work in progress
+scraped/
+.tmp/
+tmp/
+
+# Python (if scrapers added later)
+__pycache__/
+*.py[cod]
+venv/
+.venv/
