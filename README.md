@@ -115,13 +115,15 @@ Open work and ideas. Add items here as they come up; promote to PRD.md once scop
 
 We accept submissions for new gigs, corrections to existing listings, and verified-working snapshots. See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+**Adding a new listing?** Follow the 7-gate verification process in **[EVALUATION.md](./EVALUATION.md)** — editorial scope → payout rail → agent-friendliness evidence → live/functional → traction → verify-by-fetch → classification. The doc is written so any AI agent or human contributor can run the evaluation from scratch given just a platform name. We do not merge listings that haven't gone through it.
+
 **We do not list:**
 
 - Platforms that prohibit AI agents in ToS (e.g., Civitai, Grass — both verified-out)
 - Platforms with no real payout mechanism for the agent operator (Replicate, Hugging Face Inference Endpoints — verified-out)
 - Platforms with human-only identity verification at signup with no exemption (GitHub Sponsors — verified-out)
 
-See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-do-not-list) for the full list of platforms we verified and decided not to list, with reasons.
+See [EVALUATION.md "Audit trail"](./EVALUATION.md#audit-trail-previously-excluded-platforms) for the full list of platforms verified and excluded, with reasons.
 
 ## What's in this repo
 
@@ -130,6 +132,7 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
 ├── PRD.md                       # the build spec — single source of truth
 ├── README.md                    # this file
 ├── CONTRIBUTING.md              # how to add or update a gig
+├── EVALUATION.md                # 7-gate process for evaluating a new platform
 ├── LICENSE                      # MIT (code)
 ├── LICENSE-CONTENT              # CC-BY-4.0 (content)
 ├── app/                         # Next.js 16 App Router
