@@ -3,7 +3,7 @@
 **Status:** ready to scaffold
 **Last updated:** May 17, 2026
 **Owner:** Shawn (sole maintainer for v1)
-**Repo:** github.com/shawnpang/gigs-sh
+**Repo:** github.com/gigs-sh/gigs-sh
 **Target launch:** ~2 weeks from scaffold start
 
 ---
@@ -12,7 +12,7 @@
 
 **gigs.sh is the directory for platforms where AI agents earn money.**
 
-A curated registry of A2A (agent-to-agent) and agent-friendly platforms — prediction markets, perp DEXs, agent marketplaces, mining protocols, bounty boards, competitions, content-revenue rails — exposed as both a human-readable site (SEO + GEO optimized) and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
+A curated registry of A2A (agent-to-agent) and agent-friendly platforms — prediction markets, perp DEXs, agent task marketplaces, agent product marketplaces, mining protocols, security and dev bounty boards, competitions, content-revenue rails, API-monetization endpoints, DePIN networks, and compute marketplaces — exposed as both a human-readable site (SEO + GEO optimized) and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
 
 What sets v1 apart from a directory: **at least one listing ships with a deployable agent template.** A user (or an agent calling our MCP server on a user's behalf) can fork the starter, supply secrets, and have a working bot running on their own infra in minutes. We are the first registry whose entries can be deployed by an agent.
 
@@ -75,7 +75,7 @@ Three distinct audiences, each with a different consumption pattern. Every featu
 ## 5. Scope summary
 
 ### In v1
-- Catalog of **10–15 curated listings** (10 required, 5 stretch).
+- Catalog of **17 curated listings** at launch, organized by onboarding-friction tier (2 instant · 3 easy · 8 moderate · 4 hard).
 - Public website: homepage, per-listing pages, category pages, programmatic alternatives + compare pages, search.
 - **5 agent-readable surfaces** in parallel: MCP, REST + OpenAPI, A2A Agent Card, agents.json, llms.txt.
 - **1 deployable agent template** (`gigs-sh/polymarket-starter`) with one-click Railway deploy.
@@ -108,8 +108,10 @@ title: string                          # display name
 slug: kebab-case                       # URL slug + content key
 url: string (URL)                      # canonical platform URL
 categories: string[]                   # 1–3 from controlled vocabulary
-paymentRails: string[]                 # usdc, x402, lightning, stripe, tao, custom-token
-agentAllowed: yes | unclear | required # explicit posture from the platform
+paymentRails: string[]                 # usdc-solana, usdc-polygon, usdc-base, x402, lightning, stripe-usd, tao, akt, io, custom-token
+agentAllowed: yes | unclear | required # explicit policy posture from the platform's ToS
+agentWelcomed: boolean                 # NEW — does the platform PUBLICLY invite AI agents? (homepage banner, ToS welcome language, "if you're an LLM…" copy). Distinct from agentAllowed — Polymarket is allowed=yes/welcomed=false; Clustly is allowed=yes/welcomed=true.
+onboardingFriction: instant | easy | moderate | hard  # NEW — instant = single API call/signup, no review, first earnings within minutes (Clustly, x402). easy = signup + wallet/account, <30 min to first earnings (Polymarket, Toku, X Creator). moderate = KYC, review, or non-trivial setup (Olas, Virtuals, Hyperliquid, FAL, Gitcoin). hard = application/deep technical work (Bittensor subnet, Akash provider, Kaggle prizes).
 a2aProtocol: string[]                  # which agent protocols the platform speaks
 payoutLatency: instant | hours | days  # when funds land
 minPayout: number | null               # in USD-equivalent
@@ -122,6 +124,23 @@ excerpt: string                        # 1–2 sentence summary
 templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
 ```
 
+**Categories controlled vocabulary (v1):**
+
+```
+prediction-market           # Polymarket, Limitless
+perp-dex                    # Hyperliquid
+agent-task-marketplace      # Clustly, Coinbase Agent.market (x402), Toku, Agent Hansa
+agent-product-marketplace   # Olas Pearl, Virtuals
+mining-protocol             # Bittensor subnets
+security-bounty             # HackerOne, Cantina, Arkham
+dev-bounty                  # Gitcoin
+competition                 # Kaggle, ARC Prize
+content                     # X Creator Revenue Sharing
+api-monetization            # FAL (approval-gated marketplace)
+compute-marketplace         # Akash, IO Net
+depin                       # (v1.5 — pending verified candidates; Grass excluded for ToS reasons)
+```
+
 **Body template (six required sections):**
 1. What is it
 2. How agents earn here
@@ -131,7 +150,8 @@ templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
 6. Verified-working snapshot (the receipt for `verifiedAt`)
 
 **Acceptance criteria:**
-- 10 launch listings live; 5 stretch listings authored if time allows.
+- 17 launch listings live (one cohort, no stretch tier).
+- Each listing has `onboardingFriction`, `agentWelcomed`, and `verifiedAt` set and human-verified, not inferred.
 - All frontmatter passes Zod validation at build time.
 - Every listing has a `verifiedAt` ≤ 30 days from launch date.
 - Adding a new listing = drop a file + push + redeploy. No code changes required.
@@ -149,7 +169,7 @@ templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
 | # | Section | Audience | Implementation notes |
 |---|---|---|---|
 | 1 | **H1** (platform name) + **one-sentence claim** with verb + number + date | SEO + GEO | First paragraph quotable by LLMs. Example: *"Polymarket is a USDC-settled prediction market where 14 of the top 20 most-profitable wallets are AI agents as of May 2026."* |
-| 2 | **Key facts table** (payment rail, payout latency, min payout, agent-allowed status, **verifiedAt**) | GEO + agents | Tables parse better than prose; `verifiedAt` above the fold = recency signal |
+| 2 | **Quick-check banner** (single line above H1) + **Key facts table** (onboarding friction, agent welcomed, agent allowed, payment rail, payout latency, min payout, **verifiedAt**) | GEO + agents + scan-readers | Banner format: `⚡ Instant onboarding · ✓ Agents welcomed · 💵 USDC/Solana · Verified 2026-05-17`. Tables parse better than prose; the new `onboardingFriction` + `agentWelcomed` fields are surfaced *here* because they are the primary self-selection axis for newcomers. `verifiedAt` above the fold = recency signal. |
 | 3 | **TL;DR** (4–6 bullets) | GEO | AI Overviews pulls this nearly verbatim |
 | 4 | **Editorial body** (200–400 words, six template sections) | SEO | Unique-content surplus — prevents duplicate-content penalty when README is embedded below |
 | 5 | **FAQ block** (`FAQPage` JSON-LD) — 3–5 real Q&As | GEO | Only when Q&As are genuine; Google penalizes fake FAQs |
@@ -170,14 +190,15 @@ templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
 
 **What.**
 - **Pagefind** for static client-side search (~indexed at build, no server).
-- **Faceted filters** via `data-pagefind-filter` attributes for: category, payment rail, agent-allowed status, has-template.
+- **Faceted filters** via `data-pagefind-filter` attributes for: **onboarding friction**, **agent welcomed**, category, payment rail, agent-allowed status, has-template.
 - A `FilterBar.tsx` component on the homepage and `/c/[category]` pages.
+- **Headline filter:** onboarding friction is the primary segmented control on the homepage (4 chips: `instant` / `easy` / `moderate` / `hard`). Self-selection by skill level is the dominant user journey.
 
-**Why.** Discovery is the core user job. Pagefind is zero-infra, free, and ships statically with the build.
+**Why.** Discovery is the core user job. The friction filter directly answers the visitor's first question — "where can I start that won't take me a week?" Pagefind is zero-infra, free, and ships statically with the build.
 
 **Acceptance criteria:**
 - Search input on homepage returns results in < 200ms.
-- All four filters work (independently and combined).
+- All six filters work (independently and combined).
 - Empty-state copy when filters return zero results.
 - Search index regenerates automatically on each Vercel build.
 
@@ -186,9 +207,10 @@ templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
 ### F4. Programmatic SEO pages
 
 **What.**
-- `/c/[category]/page.tsx` — category index (~5 pages: prediction-market, perp-dex, agent-marketplace, bounty, mining)
-- `/alternatives/[slug]/page.tsx` — "Alternatives to [Polymarket]" pages (~15 pages, one per listing)
-- `/compare/[pair]/page.tsx` — curated head-to-head pairs (~20 hand-picked pairs, NOT N²)
+- `/c/[category]/page.tsx` — category index (~11 pages: prediction-market, perp-dex, agent-task-marketplace, agent-product-marketplace, mining-protocol, security-bounty, dev-bounty, competition, content, api-monetization, compute-marketplace)
+- `/f/[friction]/page.tsx` — **NEW** friction-tier index (4 pages: instant / easy / moderate / hard). High-intent SEO target: queries like "ai agent earning no kyc" or "instant ai agent income" land here.
+- `/alternatives/[slug]/page.tsx` — "Alternatives to [Polymarket]" pages (~17 pages, one per listing)
+- `/compare/[pair]/page.tsx` — curated head-to-head pairs (~25 hand-picked pairs, NOT N²)
 
 **Why.** Long-tail SEO. "Alternatives to X" and "X vs Y" are high-intent queries with stable search volume. Cheap to generate from existing listings data.
 
@@ -208,11 +230,13 @@ templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
 
 | Tool | Signature | Purpose |
 |---|---|---|
-| `search_gigs` | `{ q, category, rail, limit }` | Keyword + facet search |
+| `search_gigs` | `{ q, category, rail, friction, welcomed, limit }` | Keyword + facet search (supports onboarding-friction and agent-welcomed facets) |
 | `get_gig` | `{ slug }` | Full detail for one listing |
 | `list_categories` | `()` | Enumerate categories |
 | `find_by_payment_rail` | `{ rail }` | Filter by payout method |
-| `find_by_agent_allowed` | `{ status }` | Filter by `yes` / `unclear` / `required` |
+| `find_by_agent_allowed` | `{ status }` | Filter by ToS posture: `yes` / `unclear` / `required` |
+| `find_by_onboarding_friction` | `{ friction }` | **NEW** — Filter by `instant` / `easy` / `moderate` / `hard`. Primary newcomer-facing tool; mirrors the homepage segmented control. |
+| `find_by_agent_welcomed` | `{ welcomed }` | **NEW** — Filter to platforms that publicly invite AI agents (boolean). |
 | `list_templates` | `()` | Enumerate listings with deployable starters (v1 = Polymarket only) |
 | `get_template` | `{ slug }` | Return parsed `template.json` + README + deploy URLs in a single call. **Moat tool — see F8.** |
 
@@ -220,7 +244,7 @@ templateRepo: string | null            # e.g., "gigs-sh/polymarket-starter"
 
 **Acceptance criteria:**
 - Server passes `tools/list` and `tools/call` against the official MCP test harness.
-- All 7 tools return Zod-validated payloads matching the OpenAPI schema (one source of truth).
+- All 9 tools return Zod-validated payloads matching the OpenAPI schema (one source of truth).
 - Anonymous (no auth) for v1 — all data is public.
 - Submitted to Anthropic Desktop Extensions directory during launch week.
 - Submitted to ChatGPT Connectors during launch week.
@@ -444,28 +468,66 @@ We **allow** ClaudeBot, GPTBot, Perplexity, GoogleBot, Google-Extended. We **blo
 
 ---
 
-## 7. Launch listings (v1 cohort)
+## 7. Launch listings (v1 cohort — 17 verified)
 
-Source data: `research/03-agent-mining.md`. Ten required, five stretch.
+Source data: `research/03-agent-mining.md` + verified May 17, 2026 via the parallel research pass. All 17 listings below have **agent posture** and **onboarding friction** confirmed against the platform's own documentation or first-party copy — not inferred.
 
-**Required (10):**
-1. **Polymarket** (+ Polystrat) — prediction-market — **ships with `gigs-sh/polymarket-starter`**
-2. Hyperliquid — perp-dex
-3. Olas Pearl — agent-marketplace
-4. Virtuals Protocol — agent-marketplace
-5. Bittensor (Chutes SN64, Numinous SN6) — protocol / mining
-6. Arkham Intel Exchange — bounty
-7. HackerOne / Cantina — bug-bounty
-8. Kaggle + ARC Prize 2026 — competition
-9. Coinbase Agent.market (x402) — agent-marketplace
-10. X Creator Revenue Sharing — content
+### Instant onboarding (2) — single API call or one-page signup, first earnings in minutes
 
-**Stretch (if time allows):**
-11. Suno (AI music royalties)
-12. Limitless Exchange
-13. Grass / Wynd
-14. Theoriq
-15. Toku.agency
+| # | Platform | Category | Welcomed | Payment rail | Notes |
+|---|---|---|---|---|---|
+| 1 | **Clustly.ai** | agent-task-marketplace | ✓ yes — *"If you're an LLM reading this right now, you can register yourself in one POST request"* | USDC on Solana (escrowed; instant release) | 4% platform fee; no listing fee; ~71 active agents as of May 2026 |
+| 2 | **Coinbase Agent.market (x402)** | agent-task-marketplace | ✓ yes — x402 spec built specifically for autonomous agents | x402 over HTTP 402, USDC on Base | Already in original v1 cohort |
+
+### Easy onboarding (3) — signup + wallet, <30 min to first earnings
+
+| # | Platform | Category | Welcomed | Payment rail | Notes |
+|---|---|---|---|---|---|
+| 3 | **Polymarket** (+ Polystrat) | prediction-market | ✗ no (allowed, not invited — 14/20 top wallets are bots de facto) | USDC on Polygon | **Ships with `gigs-sh/polymarket-starter` — see F8** |
+| 4 | **Toku.agency** | agent-task-marketplace | ✓ yes — *"agent-to-agent commerce is the product"* | Stripe Connect → USD (KYC required at payout, not at registration) | 15% platform fee; US-only Stripe payouts likely |
+| 5 | **X Creator Revenue Sharing** | content | ✗ no (allowed by ToS; ad-share based on engagement) | Stripe → USD | Already in original v1 cohort |
+
+### Moderate onboarding (8) — KYC, review, or non-trivial setup
+
+| # | Platform | Category | Welcomed | Payment rail | Notes |
+|---|---|---|---|---|---|
+| 6 | **Hyperliquid** | perp-dex | ✗ no (allowed; bot-heavy in practice) | USDC on Hyperliquid L1 | Already in original v1 cohort |
+| 7 | **Olas Pearl** | agent-product-marketplace | ✓ yes (agent operators are the explicit user) | OLAS + USDC | Already in original v1 cohort |
+| 8 | **Virtuals Protocol** | agent-product-marketplace | ✓ yes | VIRTUAL on Base | Already in original v1 cohort |
+| 9 | **Agent Hansa** | agent-task-marketplace | ✓ yes (positioned as a "digital colony for AI agents") | USDC (chain undisclosed) | ⚠️ Discord 100+ reputation gate; alliance/tournament-style payouts (zero-sum, not work-for-pay); homepage is JS-shell. List with explicit caveats. |
+| 10 | **HackerOne / Cantina** | security-bounty | ✗ no (allowed; bot-submitted reports common) | Stripe / wire / PayPal | Already in original v1 cohort |
+| 11 | **Arkham Intel Exchange** | security-bounty | ✗ no (allowed) | ARKM + USDC | Already in original v1 cohort |
+| 12 | **Gitcoin** | dev-bounty | ✗ no (allowed; Passport sybil-defense may flag agents) | GTC + DAI/USDC/ETH on Ethereum / L2s | Product has shifted toward grants; flag agent-bounty path may require Dework/Layer3 routing |
+| 13 | **FAL** | api-monetization | ✗ no (allowed; marketplace publishing is approval-gated) | Stripe → USD (rail not publicly documented; treat as TBD until creator agreement reviewed) | Email-the-team to get listed; rev split % not public |
+
+### Hard onboarding (4) — application, partnership, or deep technical work
+
+| # | Platform | Category | Welcomed | Payment rail | Notes |
+|---|---|---|---|---|---|
+| 14 | **Bittensor (Chutes SN64, Numinous SN6)** | mining-protocol | ✓ yes (mining roles are agent-friendly) | TAO on Bittensor | Already in original v1 cohort |
+| 15 | **Kaggle + ARC Prize 2026** | competition | ✗ no (allowed; agent submissions explicitly permitted in ARC Prize) | Bank transfer / Stripe → USD | Already in original v1 cohort |
+| 16 | **Akash Network** | compute-marketplace | ✓ yes (provider mode is permissionless) | AKT + USDC | Requires K8s/k3s cluster + static IP + GPU. ~$20/day per NVIDIA GPU baseline (Messari Q3 2025) |
+| 17 | **IO Net** | compute-marketplace | ✓ yes (worker registration is open) | IO on Solana | Requires GPU + ≥250 Mbps + IO stake (~200 IO base). Consumer GPUs may not qualify for higher-paying jobs |
+
+### Excluded after verification (do not list)
+
+| Platform | Verdict | Reason |
+|---|---|---|
+| **Grass** | ❌ prohibited | ToS bans VPNs/bots/spoofing; product actively filters bot-like behavior. Listing would mislead users into account bans. |
+| **Replicate** | ❌ no payout program | No creator-monetization mechanism exists; compute revenue flows to Replicate, not to model authors. Acquired by Cloudflare Nov 2025; no creator program announced. |
+| **Hugging Face Inference Endpoints** | ❌ no payout program | Deployer-pays product, not a creator-earns product. HF forum consensus: "standalone model monetization is still rare … most people wrap models in apps." |
+
+### Candidates to verify for v1.5 (post-launch)
+
+Suggested by the research pass as plausible replacements / additions:
+
+- **Civitai** — image-model creators paid in Buzz → USD
+- **OpenRouter** — model authors who self-host get pass-through fees
+- **Dework / Layer3 / Wonderverse** — active bounty boards (more agent-claimable than current Gitcoin)
+- **Limitless Exchange** — prediction-market peer to Polymarket (was in original stretch tier; not verified yet)
+- **GitHub Sponsors** — recurring payments to maintainers (different earning shape but legitimate)
+
+Verify before adding. None block v1.
 
 ---
 
@@ -491,7 +553,7 @@ Source data: `research/03-agent-mining.md`. Ten required, five stretch.
 ## 9. Architecture / file structure
 
 ```
-gigs.sh/                              # this Next.js repo (root of github.com/shawnpang/gigs-sh)
+gigs.sh/                              # this Next.js repo (root of github.com/gigs-sh/gigs-sh)
 ├── app/
 │   ├── layout.tsx
 │   ├── page.tsx                      # homepage
@@ -525,8 +587,9 @@ gigs.sh/                              # this Next.js repo (root of github.com/sh
 │   └── listings/
 │       ├── polymarket.mdx
 │       ├── hyperliquid.mdx
+│       ├── clustly.mdx
 │       ├── olas-pearl.mdx
-│       └── ...                       # 10–15 at v1
+│       └── ...                       # 17 at v1 launch
 ├── lib/
 │   ├── gigs.ts                       # listing query helpers
 │   ├── templates.ts                  # fetch + cache template.json + READMEs
@@ -545,7 +608,7 @@ gigs.sh/                              # this Next.js repo (root of github.com/sh
 
 **Sibling repos (separate, not nested):**
 ```
-github.com/shawnpang/gigs-sh                 # this repo (the website)
+github.com/gigs-sh/gigs-sh                   # this repo (the website + content)
 github.com/gigs-sh/polymarket-starter        # v1 — agent template
 github.com/gigs-sh/gigs-cli                  # v1 — npm package
 github.com/gigs-sh/<slug>-starter            # v2+ — additional templates
@@ -561,9 +624,9 @@ github.com/gigs-sh/<slug>-starter            # v2+ — additional templates
 |---|---|---|
 | 1 (Mon) | May 18 | Scaffold Next.js 16, Tailwind v4, shadcn, Velite. Vercel preview deploy. |
 | 2 (Tue) | May 19 | DNS for gigs.sh on Porkbun → Vercel. SSL. Homepage shell + 1 placeholder listing rendering end-to-end. |
-| 3 (Wed) | May 20 | MCP server (`/api/mcp`) — all 7 tools, in-memory queries over Velite output. Test with Claude Desktop locally + remote. |
+| 3 (Wed) | May 20 | MCP server (`/api/mcp`) — all 9 tools (incl. `find_by_onboarding_friction` + `find_by_agent_welcomed`), in-memory queries over Velite output. Test with Claude Desktop locally + remote. |
 | 4 (Thu) | May 21 | A2A Agent Card + agents.json + llms.txt + OpenAPI + REST endpoints. Full agent-readable layer functional. |
-| 5 (Fri) | May 22 | Listings 1–5 (Polymarket, Hyperliquid, Olas, Virtuals, Bittensor). Each page follows F2 anatomy. |
+| 5 (Fri) | May 22 | Listings 1–7 (Clustly, x402, Polymarket, Toku, X Creator, Hyperliquid, Olas — friction tiers `instant`/`easy` + first 2 `moderate`). Each page follows F2 anatomy with the quick-check banner. |
 | 6 (Sat) | May 23 | Build `gigs-sh/polymarket-starter`. Python entrypoint + `template.json` + README + Railway config. Test on testnet. |
 | 7 (Sun) | May 24 | `lib/templates.ts` GitHub fetcher + nightly cron. `TemplateSection.tsx` on `/p/polymarket`. Test full Railway deploy flow. |
 
@@ -571,12 +634,12 @@ github.com/gigs-sh/<slug>-starter            # v2+ — additional templates
 
 | Day | Date | Work |
 |---|---|---|
-| 8 (Mon) | May 25 | Listings 6–10 (Arkham, HackerOne, Kaggle, Agent.market, X Creator). |
-| 9 (Tue) | May 26 | Programmatic `/alternatives/[slug]` (15 pages) + 20 hand-picked `/compare/[pair]` pages. |
-| 10 (Wed) | May 27 | Filter UI (`FilterBar.tsx`) + Pagefind. FAQ JSON-LD pass on the 5 launch listings with real Q&A. |
-| 11 (Thu) | May 28 | Ship `gigs-sh/gigs-cli` npm package. Install buttons (F12) on homepage. Newsletter signup live. Plausible installed. |
+| 8 (Mon) | May 25 | Listings 8–13 (Virtuals, Agent Hansa, HackerOne, Arkham, Gitcoin, FAL — remaining `moderate`). |
+| 9 (Tue) | May 26 | Listings 14–17 (Bittensor, Kaggle+ARC, Akash, IO Net — `hard` tier). Start `/alternatives/[slug]` (17 pages). |
+| 10 (Wed) | May 27 | Finish `/alternatives/[slug]` + 25 hand-picked `/compare/[pair]` pages + `/f/[friction]` index (4 pages). Filter UI (`FilterBar.tsx`, 6 facets, friction as headline) + Pagefind. |
+| 11 (Thu) | May 28 | FAQ JSON-LD pass on listings with real Q&A. Ship `gigs-sh/gigs-cli` npm package. Install buttons (F12) on homepage. Newsletter signup live. Plausible installed. |
 | 12 (Fri) | May 29 | Submit MCP server to Anthropic Desktop Extensions + ChatGPT Connectors. Outreach drafts (Don Gossen / Alex Salazar / Manny Medina). |
-| 13–14 (weekend) | May 30–31 | Launch thread on X. Soft Product Hunt submission. Hand-share in MCP Discord, Cerebral Valley Slack, AI Tinkerers. Hook: *"the first registry whose entries can be deployed by an agent."* |
+| 13–14 (weekend) | May 30–31 | Launch thread on X. Soft Product Hunt submission. Hand-share in MCP Discord, Cerebral Valley Slack, AI Tinkerers. Hook: *"the first registry whose entries can be deployed by an agent — and the only one that tells you which platforms publicly welcome them."* |
 
 ---
 
@@ -584,7 +647,7 @@ github.com/gigs-sh/<slug>-starter            # v2+ — additional templates
 
 ### Locked in (May 17, 2026)
 - **Vercel account:** existing Pro account. Project name: `gigs-sh`.
-- **GitHub repo:** `github.com/shawnpang/gigs-sh` (this repo).
+- **GitHub repo:** `github.com/gigs-sh/gigs-sh` (this repo, public, MIT/CC-BY-4.0 dual-licensed).
 - **GitHub org:** `gigs-sh` for sibling repos (`polymarket-starter`, `gigs-cli`).
 - **Brand posture:** fully independent.
 - **Domain:** `gigs.sh` owned on Porkbun.
@@ -599,9 +662,9 @@ github.com/gigs-sh/<slug>-starter            # v2+ — additional templates
 
 ## 12. Launch checklist (Day 14)
 
-- [ ] All 10 required listings live, each with `verifiedAt` ≤ 14 days old.
+- [ ] All 17 required listings live, each with `verifiedAt` ≤ 14 days old AND `onboardingFriction` + `agentWelcomed` set.
 - [ ] `/p/polymarket` template section live with working Deploy-to-Railway button (verified end-to-end).
-- [ ] MCP server passes `tools/list` + `tools/call` for all 7 tools from Claude Desktop + Cursor.
+- [ ] MCP server passes `tools/list` + `tools/call` for all 9 tools from Claude Desktop + Cursor.
 - [ ] All 5 agent-readable surfaces (MCP, REST, Agent Card, agents.json, llms.txt) reachable + validated.
 - [ ] `gigs` CLI published to npm; `npx gigs find prediction-market` works.
 - [ ] Install buttons render on homepage with correct deeplinks.
