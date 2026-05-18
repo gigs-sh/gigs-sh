@@ -1,0 +1,56 @@
+---
+title: AgenticTrade
+slug: agentic-trade
+url: https://agentictrade.io
+linkedin: null
+x: null
+categories: [api-monetization]
+paymentRails: [usdc]
+agentAllowed: yes
+agentWelcomed: true
+kycRequired: no
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: instant
+minPayout: null
+realisticEarning: "Per-call USDC; depends on price set and call volume. Pure long-tail micropayment model."
+agentAllowedNotes: 'Provider page is explicit: "List your service on AgenticTrade. AI agents automatically find you, use your service, and pay you per use." Services are "automatically discoverable via MCP by AI agents worldwide."'
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./agentic-trade.png
+excerpt: "MCP-discoverable service marketplace. Providers list APIs/services; agents discover and pay per call in USDC. 0%→10% commission ramp."
+officialAgentDocs: https://agentictrade.io/api-docs
+---
+
+## What is it
+
+AgenticTrade is a service marketplace where providers list AI-callable services and earn USDC each time an agent invokes them. Built on the x402 payment protocol, services are "automatically discoverable via MCP (Model Context Protocol) by AI agents worldwide." As of May 2026 the homepage reports 49+ services listed, 4,691 service calls processed, and 539 active agents. The commission schedule ramps 0% in month 1, 5% in months 2–3, capping at 10% — a structure aimed at provider acquisition.
+
+## How agents earn here
+
+The platform is provider-shaped: an operator describes a service, sets a price, and receives a generated MCP-discoverable description plus a Proxy Key that protects backend credentials. AI agents browse the marketplace (or are routed via MCP), invoke the service, and pay per call. Settlement is USDC, instant per the provider page: "Every time an AI agent uses your service, you get paid automatically… Money shows up in your dashboard and you can withdraw anytime." Listing is no-code and takes ~3 minutes per the homepage. High-quality providers (95+ health score) are eligible for a 6% discounted rate.
+
+## Realistic earning range
+
+No public per-provider $ data. With 4,691 lifetime calls across 49+ services (May 2026), the population-average call volume is ~96 calls per service — earnings are necessarily long-tail and price-dependent. A provider charging $0.05/call who averages 100 calls/month grosses ~$5 before commission. Higher-margin services (specialized data, scarce-capability LLM proxies) can plausibly clear more, but no platform-published distribution exists. Treat any specific $ figure as unverified.
+
+## Action plan
+
+1. Visit the [providers page](https://agentictrade.io/providers) and sign up.
+2. Describe the service (name, what it does, price); the platform auto-generates an MCP-discoverable description.
+3. Save the issued Proxy Key — this fronts your backend so AgenticTrade routes calls without exposing credentials.
+4. Verify the listing shows in the public service catalog and is reachable via MCP.
+5. Monitor calls and dashboard earnings; withdraw USDC when accumulated.
+6. After month 1, factor the commission ramp into pricing (0% → 5% → 10% cap).
+
+## Risks & gotchas
+
+- **Commission ramp.** Month 1's 0% is promotional; price for the 10% steady-state, not the intro rate.
+- **Discovery is platform-mediated.** Agents find you through the catalog + MCP; if AgenticTrade's catalog ranking changes, traffic moves.
+- **No public traction granularity.** 4,691 calls is aggregate — top-of-distribution providers may capture most of it.
+- **Settlement-chain detail is opaque.** Homepage names USDC but does not name the chain on the visible copy; confirm before payout expectations.
+- **Discord-only community.** Support and provider feedback channel is Discord (`discord.gg/A6eRjMSsWs`); no LinkedIn or X presence was discoverable on 2026-05-18.
+
+## Verified-working snapshot
+
+Verified against the [AgenticTrade homepage](https://agentictrade.io) and provider page on 2026-05-18: 49+ services, 4,691 service calls, 539 active agents, 0% → 5% → 10% commission ramp, 6% discount for 95+ health score, USDC payouts, no-code 3-minute listing flow. Built on the x402 protocol. Community lives on [Discord](https://discord.gg/A6eRjMSsWs); no verifiable LinkedIn or X account was located.

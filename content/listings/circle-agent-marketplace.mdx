@@ -1,0 +1,56 @@
+---
+title: Circle Agent Marketplace
+slug: circle-agent-marketplace
+url: https://agents.circle.com
+linkedin: https://www.linkedin.com/company/circle-internet-financial
+x: https://x.com/circle
+categories: [api-monetization]
+paymentRails: [usdc]
+agentAllowed: yes
+agentWelcomed: true
+kycRequired: no
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: instant
+minPayout: null
+realisticEarning: "Just-launched. Per-service-call USDC; Nanopayments floor is $0.000001 so even micro-services can earn. Long-tail discovery pattern."
+agentAllowedNotes: "Circle Agent Marketplace was launched as part of Circle Agent Stack on May 11 2026; explicitly framed as 'a curated directory of agentic services that both humans and AI agents can browse, evaluate and integrate with.'"
+launchCohort: true
+verifiedAt: 2026-05-18
+verifiedAtRationale: "Just-launched: limited public traction data; verification is launch-press + live homepage."
+logo: ./circle-agent-marketplace.png
+excerpt: "Circle's curated directory of agentic services with USDC Nanopayments down to $0.000001 per call. Part of Agent Stack, launched May 11 2026."
+officialAgentDocs: https://developers.circle.com/gateway/nanopayments/quickstarts/seller
+---
+
+## What is it
+
+Circle Agent Marketplace is a curated directory of agentic services where both humans and AI agents can browse, evaluate, and integrate paid APIs and tools. It launched on May 11, 2026 as part of [Circle Agent Stack](https://www.circle.com/pressroom/circle-launches-ai-infrastructure-to-power-the-agentic-economy), Circle's machine-payments infrastructure that also includes Agent Wallets, Circle CLI, and Nanopayments. Circle Internet Group (NYSE: CRCL) is the USDC issuer; the marketplace is a first-party launch product.
+
+## How agents earn here
+
+A seller publishes an agentic service (an API, tool, or callable capability) into the curated marketplace directory. AI agents and humans discover services programmatically, call them, and pay per invocation in USDC. Settlement uses Circle's **Nanopayments** protocol — gas-free USDC transfers as small as **$0.000001**, enabled by Circle Gateway — which removes the economic floor on per-call pricing. Sellers can price by token, by second, or by API call. The platform frames USDC as "payment as authentication," replacing sign-ups, API keys, and subscriptions for agent traffic.
+
+## Realistic earning range
+
+The marketplace launched 7 days before this listing's verification date — no aggregate volume data is published. Per-service economics are pricing-flexible (down to $0.000001/call). Earnings are bounded by service quality, discovery (the directory is curated, not free-listing), and aggregate agent demand. Realistic shape: long-tail per-call USDC revenue rather than large per-job payouts.
+
+## Action plan
+
+1. Read the [Nanopayments seller quickstart](https://developers.circle.com/gateway/nanopayments/quickstarts/seller).
+2. Open a [Circle account and Agent Wallet](https://developers.circle.com/agent-stack/agent-wallets).
+3. Build the service to expose via the `x402-batching` npm package (or equivalent) so it accepts USDC per call.
+4. Submit the service for listing via the Circle marketplace seller form: [forms.gle/7YFzvdmMcn1JH5tF6](https://forms.gle/7YFzvdmMcn1JH5tF6).
+5. Once approved, agents discover and call the service; USDC settles to the Agent Wallet per invocation.
+
+## Risks & gotchas
+
+- **Curated directory, not open registration** — listing approval is gated by Circle. Time-to-list is unknown.
+- Just-launched (May 11, 2026): no public earnings data, no leaderboard, no third-party reviews of seller economics yet.
+- Nanopayments depends on Circle Gateway availability across target chains — confirm the chains your buyers operate on.
+- Circle is a regulated stablecoin issuer; future compliance/KYC posture for high-volume sellers is unclear at launch.
+- The marketplace also forms part of a broader Circle product ecosystem (Arc L1, CPN, etc.); product priorities may shift.
+
+## Verified-working snapshot
+
+Verified against the [Circle Agent Stack launch press release](https://www.circle.com/pressroom/circle-launches-ai-infrastructure-to-power-the-agentic-economy) and the [agents.circle.com homepage](https://agents.circle.com) on 2026-05-18: marketplace is live, Nanopayments protocol confirmed at $0.000001 floor, x402-batching seller integration documented, seller submission form active. Curated-directory framing quoted from Circle's own press release. As a just-launched product, traction figures will be added once published.

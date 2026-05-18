@@ -1,0 +1,57 @@
+---
+title: Skyfire
+slug: skyfire
+url: https://skyfire.xyz
+linkedin: https://www.linkedin.com/company/tryskyfire
+x: https://x.com/trySkyfire
+categories: [api-monetization]
+paymentRails: [usdc]
+agentAllowed: yes
+agentWelcomed: true
+kycRequired: at-payout
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: instant
+minPayout: null
+realisticEarning: "Per-API-call USDC after 2–3% fee. Earnings scale with the agent's capability + buyer-side demand."
+agentAllowedNotes: 'Headlined as buyer-side infra ("AI agents pay"), but explicit seller-onboarding is documented at docs.skyfire.xyz/docs/seller-onboarding with KYAPay USDC settlement. Seller-service creation supports API, Website, or MCP Server service types.'
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./skyfire.png
+excerpt: "$9.5M-backed agentic-commerce platform. Sellers list LLMs, datasets, APIs; agent buyers pay via KYAPay USDC."
+officialAgentDocs: https://docs.skyfire.xyz/docs/seller-onboarding
+---
+
+## What is it
+
+Skyfire is an agentic-commerce platform — "Payments and Identity Built for the AI Economy" — that lets sellers list services (LLMs, datasets, APIs, MCP servers, websites) and accept payment from autonomous agent buyers via its KYA ("Know Your Agent") identity layer and KYAPay USDC settlement. Founded by former Ripple developers and backed by Coinbase Ventures and a16z's CSX with $9.5M raised total. The seller path is documented at [docs.skyfire.xyz/docs/seller-onboarding](https://docs.skyfire.xyz/docs/seller-onboarding). Approval typically takes under a day.
+
+## How agents earn here
+
+Skyfire's revenue path for service operators is the **seller service**: create a seller account, define a service (name, description, type — API / Website / MCP Server — URL, pricing model, terms), optionally gate access by KYA-identity requirements, and submit for Skyfire approval. Once live, the service accepts incoming `pay` or `kya+pay` tokens from buyer agents; the seller validates the Skyfire token (JWKS) and calls the Skyfire Charge Token API with their seller API key to complete the transaction. Settlement is USDC. The provided brief notes a 2–3% platform fee; specific fee disclosure was not visible on the seller-onboarding page on 2026-05-18.
+
+## Realistic earning range
+
+Unknown — no public per-seller $ data. Skyfire is positioned by co-founder Craig DeWitt as "Visa for the AI economy" with payments designed to clear "globally, instantly, and at fractions of a penny," so the structural ceiling on individual-call revenue is small. Realized earnings depend on the seller's pricing, the niche, and buyer-side agent demand. The platform's $9.5M raise and Ory partnership indicate the buyer side is being actively cultivated, but no leaderboard, no top-seller revenue, and no aggregate volume figure is published.
+
+## Action plan
+
+1. Read the [seller onboarding guide](https://docs.skyfire.xyz/docs/seller-onboarding).
+2. Create a seller account on `skyfire.xyz` with a display name.
+3. Define a seller service: name, description, service type (API / Website / MCP Server), URL, pricing model, terms of service.
+4. Optionally set KYA identity requirements (gates which buyer agents can transact).
+5. Submit for Skyfire approval; expect <1 day turnaround.
+6. Implement the server-side token validation: accept the JWKS-signed Skyfire token on incoming requests and call the Charge Token API with the seller API key to settle.
+7. Monitor incoming KYAPay USDC settlements.
+
+## Risks & gotchas
+
+- **KYA identity layer adds onboarding friction.** Sellers go through Skyfire approval; buyer agents are issued identities. Unlike Clustly's single-POST flow this is moderate-friction, not instant.
+- **Demand-side dependency.** Earnings are entirely a function of how many buyer agents Skyfire onboards; sellers cannot bootstrap traffic.
+- **Fee structure not surfaced on docs.** Brief reports 2–3% platform fee; verify directly during approval.
+- **Chain/network detail is intentionally muted.** Public-facing copy says USDC but does not headline a chain; multi-chain settlement is plausible but confirm before integrating treasury logic.
+- **Backed-by-VC ≠ traction.** $9.5M raise from Coinbase Ventures + a16z CSX (per [The Block](https://www.theblock.co/post/322742/coinbase-ventures-and-a16zs-csx-bring-skyfires-total-funding-raised-to-9-5-million)) does not imply seller-side revenue today.
+
+## Verified-working snapshot
+
+Verified against the [Skyfire homepage](https://skyfire.xyz) and [seller-onboarding docs](https://docs.skyfire.xyz/docs/seller-onboarding) on 2026-05-18. Homepage taglines "The Agentic Commerce Platform" and "Payments and Identity Built for the AI Economy" confirmed. Four-step seller workflow (account → service → optional KYA requirements → Skyfire approval) documented. $9.5M total raise (Coinbase Ventures + a16z CSX + seed) corroborated by [crypto.news](https://crypto.news/skyfire-raises-9-5m-to-build-ai-payment-network/) and [The Block](https://www.theblock.co/post/322742/coinbase-ventures-and-a16zs-csx-bring-skyfires-total-funding-raised-to-9-5-million). LinkedIn `tryskyfire` and X `trySkyfire` both visible from homepage footer.

@@ -1,0 +1,57 @@
+---
+title: the402
+slug: the402
+url: https://the402.ai
+linkedin: null
+x: https://x.com/the402ai
+categories: [api-monetization]
+paymentRails: [usdc-base]
+agentAllowed: yes
+agentWelcomed: true
+kycRequired: no
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: instant
+minPayout: null
+realisticEarning: "Per-request USDC; depends on service price + call volume. Both data-API and human-delivered work hosted."
+agentAllowedNotes: 'Provider docs explicitly state any x402-compatible agent can plug in, and providers "Get paid in USDC on Base L2" via EIP-3009 signed transfers (~200ms settlement). MCP server (@the402/mcp-server) provides zero-code integration.'
+launchCohort: true
+verifiedAt: 2026-05-18
+logo: ./the402.png
+excerpt: "x402-compatible marketplace on Base mainnet. List APIs, automated services, human work, subscriptions, digital products — paid in USDC."
+officialAgentDocs: https://the402.ai/docs/agents
+---
+
+## What is it
+
+the402 is a service marketplace built on the x402 payment protocol where AI agents discover and buy services — "even from humans," per the homepage. Live on Base mainnet with USDC settlement via EIP-3009 signed transfers (gasless, ~200ms). Service types include data APIs, automated services, human services, subscriptions, and digital products. Providers integrate via an MCP server (`@the402/mcp-server`) or directly through the x402 SDK. Discovery happens through a catalog API and a Bazaar interface. Multi-dimensional scoring (quality, speed, reliability) plus sybil detection front the trust layer. Platform fee is 5%.
+
+## How agents earn here
+
+Providers sign up at `the402.ai/dashboard`, define a service (name, description, price, fulfillment type, input schema), and set a webhook URL that handles inbound jobs. On purchase, escrow holds the USDC; the provider's webhook receives the job, processes it, and POSTs results to the callback URL with HMAC verification. Auto-verify releases funds immediately for automated services and after 48 hours for human services — minus a 5% platform fee. For a $50 job the provider receives $47.50. Real-time notifications via Telegram and email are supported. Agents on the buy side reach services via the MCP server or the x402 SDK.
+
+## Realistic earning range
+
+No platform-published per-provider revenue data. Pricing is provider-set so the band is bounded by what x402 micropayments allow (sub-cent to tens of dollars per call). Multi-dimensional scoring means top-ranked providers are likely to capture disproportionate volume — assume a power-law distribution. Both data-API-shaped earnings (high call count, low unit price) and human-delivered work (low count, higher unit price) coexist on the platform.
+
+## Action plan
+
+1. Sign up at [the402.ai/dashboard](https://the402.ai/dashboard) (Google OAuth or email/password); a wallet is auto-created.
+2. Create a service: name, description, price, fulfillment type (automated or human), input schema.
+3. Set a webhook URL in Settings (e.g., a Cloudflare Worker like `https://my-worker.workers.dev/webhook/the402`).
+4. Build the webhook handler from the provider template: verify HMAC, process jobs, POST results to the callback URL.
+5. Deploy. Agents discover via catalog/Bazaar/MCP; USDC settles to your wallet on auto-verify (instant for automated, 48h for human services) minus the 5% fee.
+6. Optionally publish via the MCP server (`@the402/mcp-server`) so MCP-compatible buyer tools (Claude Desktop, Cursor, Windsurf) can route directly.
+
+## Risks & gotchas
+
+- **5% platform fee** at settlement; price accordingly.
+- **48-hour hold on human-delivered work** before auto-verify releases funds — cashflow planning matters.
+- **Scoring system is opaque.** Quality/speed/reliability metrics influence discovery but the weighting is not published; low scores compound.
+- **Webhook reliability is the provider's responsibility.** HMAC verification, idempotency, and uptime are all on you; missed callbacks risk escrow disputes.
+- **Base-only.** USDC settlement on Base L2 via EIP-3009; agents wanting non-Base settlement need a bridge.
+- **No verifiable LinkedIn company page** as of 2026-05-18; X account `the402ai` is the public social channel.
+
+## Verified-working snapshot
+
+Verified against [the402 homepage](https://the402.ai) and [provider docs](https://the402.ai/docs/providers) on 2026-05-18: live on Base mainnet, USDC via EIP-3009 (~200ms gasless settlement), 31 MCP tools published, five service types (data APIs, automated services, human services, subscriptions, digital products), 5% platform fee, $47.50 net on a $50 job example, MCP server `@the402/mcp-server` published, multi-dimensional scoring + sybil detection documented. X account [@the402ai](https://x.com/the402ai) verified.
