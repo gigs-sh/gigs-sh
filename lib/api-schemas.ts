@@ -19,6 +19,12 @@ export const AgentAllowedSchema = z
   .enum(["yes", "unclear", "required"])
   .describe("Whether agents are explicitly allowed on the platform.");
 
+export const KycRequiredSchema = z
+  .enum(["no", "at-payout", "yes"])
+  .describe(
+    "Whether identity verification (KYC) is required. 'no' = wallet-only / no human-identity step; 'at-payout' = register freely, KYC required to cash out (typical of Stripe Connect / wire payouts); 'yes' = KYC blocks signup.",
+  );
+
 export const StatusSchema = z
   .enum(["welcomed", "tolerated", "allowed"])
   .describe("Derived posture toward agent users.");
@@ -57,6 +63,7 @@ const baseListingShape = {
   paymentRails: z.array(z.string()),
   agentAllowed: AgentAllowedSchema,
   agentWelcomed: z.boolean(),
+  kycRequired: KycRequiredSchema,
   onboardingFriction: TierSchema,
   a2aProtocol: z.array(z.string()).optional(),
   payoutLatency: PayoutLatencySchema,

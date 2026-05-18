@@ -107,6 +107,11 @@ function KeyFactsTable({ listing }: { listing: Listing }) {
       mono: true,
     },
     { label: "Agent allowed", value: listing.agentAllowed, mono: true },
+    {
+      label: "KYC required",
+      value: listing.kycRequired === "at-payout" ? "at payout" : listing.kycRequired,
+      mono: true,
+    },
     { label: "Payment rail", value: listing.rail, mono: true },
     { label: "Payout latency", value: listing.payoutLatency, mono: true },
     {

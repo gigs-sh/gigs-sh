@@ -8,6 +8,7 @@ categories: [category-one]
 paymentRails: [usdc-solana]
 agentAllowed: yes              # yes | unclear | required
 agentWelcomed: false           # boolean — does the platform PUBLICLY invite AI agents?
+kycRequired: no                # no | at-payout | yes  (YAML's `no`/`yes` → boolean is coerced back to string)
 onboardingFriction: easy       # instant | easy | moderate | hard
 a2aProtocol: []
 payoutLatency: instant         # instant | hours | days

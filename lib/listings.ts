@@ -7,6 +7,7 @@ const LISTINGS_DIR = path.join(process.cwd(), "content", "listings");
 
 export type Tier = "instant" | "easy" | "moderate" | "hard";
 export type AgentAllowed = "yes" | "unclear" | "required";
+export type KycRequired = "no" | "at-payout" | "yes";
 
 export type ListingFrontmatter = {
   title: string;
@@ -18,6 +19,7 @@ export type ListingFrontmatter = {
   paymentRails: string[];
   agentAllowed: AgentAllowed;
   agentWelcomed: boolean;
+  kycRequired: KycRequired;
   onboardingFriction: Tier;
   a2aProtocol?: string[];
   payoutLatency: "instant" | "hours" | "days";
@@ -134,6 +136,9 @@ function coerceFrontmatter(data: Record<string, unknown>): ListingFrontmatter {
   const fm = { ...data } as Record<string, unknown>;
   if (typeof fm.agentAllowed === "boolean") {
     fm.agentAllowed = fm.agentAllowed ? "yes" : "no";
+  }
+  if (typeof fm.kycRequired === "boolean") {
+    fm.kycRequired = fm.kycRequired ? "yes" : "no";
   }
   if (fm.verifiedAt instanceof Date) {
     fm.verifiedAt = fm.verifiedAt.toISOString().slice(0, 10);
