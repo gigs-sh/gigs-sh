@@ -6,14 +6,13 @@
 
 ## 1. The product (read this first)
 
-**gigs.sh is the directory for platforms where AI agents earn money.** A curated, verified registry of 19 platforms — prediction markets (Polymarket, Limitless), agent task marketplaces (Clustly, Coinbase Agent.market), perp DEXs (Hyperliquid), mining protocols (Bittensor), bounty boards (HackerOne, Dework, Gitcoin), competitions (Kaggle), and compute marketplaces (Akash, IO Net).
+**gigs.sh is the directory for putting AI agents to work.** A curated, verified registry of 8 platforms where an agent earns by doing actual work — agent task marketplaces (Clustly, Agent Hansa, Toku), bounty boards (HackerOne, Dework), competitions (Kaggle + ARC Prize), content rev share (X Creator), and API monetization (FAL). Excludes gambling, prediction-market betting, crypto trading, and token mining.
 
 What makes this directory different:
 
 1. **Verified.** Every listing has its agent-policy posture and onboarding friction confirmed against first-party documentation, not inferred.
 2. **Friction-tiered.** Listings are organized by how long it takes to start earning — `instant` (single API call), `easy` (<30 min), `moderate` (KYC/review), `hard` (deep technical setup). This is the **primary self-selection axis for visitors**.
-3. **Agent-readable.** The site is also an MCP server, a REST API, an A2A Agent Card, and an npm CLI. A coding agent can call it as a tool, not just a human can browse it.
-4. **One listing ships with a runnable starter.** Polymarket has a `gigs-sh/polymarket-starter` repo + Deploy-to-Railway button — the action loop closes on a user-owned surface.
+3. **Agent-readable.** The site is also an MCP server, a REST API, and an A2A Agent Card. A coding agent can call it as a tool, not just a human can browse it.
 
 ## 2. Visual reference
 
@@ -31,7 +30,6 @@ Diverge in these specific ways:
 - **Friction tiers, not popularity.** skills.sh sorts by install count; we sort by onboarding-friction tier. We don't have install volume at launch and won't fake it.
 - **Cards grouped by tier, not a flat table.** 8 listings is too few for a leaderboard and the tiered grouping IS our editorial signal.
 - **Verified-At date prominently per listing.** skills.sh doesn't show recency; we do because verification is our credibility play.
-- **A "Featured Starter" callout** between the cohort browser and the category index. Spotlights the Polymarket starter as the canonical action loop.
 
 ## 3. Audiences (page must serve all three)
 
@@ -84,9 +82,9 @@ Implement these 10 sections, in this order, top to bottom.
 ### Section 3 — Quick-start command
 
 - Full-width code block, monospace, dark background (works in both light and dark modes).
-- Content: `$ npx gigs find "prediction-market"`
+- Content: `$ npx gigs find "agent-task-marketplace"`
 - A "Copy" button (top-right inside the block) that copies the command.
-- Below the block, two faded alt examples in smaller text: `$ npx gigs view polymarket` and `$ npx gigs categories`.
+- Below the block, two faded alt examples in smaller text: `$ npx gigs view clustly` and `$ npx gigs categories`.
 - This is the install moment. Visual weight should be high — it's the second-most prominent element on the page after the hero wordmark.
 
 ### Section 4 — Install in your agent
@@ -103,8 +101,8 @@ Implement these 10 sections, in this order, top to bottom.
 
 The dominant section. High info density. Must work at 320px width.
 
-- **Search input** spanning full width, placeholder: *"Search 19 platforms by name, category, or payment rail…"*
-- **Friction-tier segmented control** immediately below the search — 4 chips: `Instant (2)` · `Easy (5)` · `Moderate (8)` · `Hard (4)`. Clicking a chip filters the cohort. Default state: all four selected (show everything).
+- **Search input** spanning full width, placeholder: *"Search 8 platforms by name, category, or payment rail…"*
+- **Friction-tier segmented control** immediately below the search — 4 chips: `Instant (2)` · `Easy (3)` · `Moderate (2)` · `Hard (1)`. Clicking a chip filters the cohort. Default state: all four selected (show everything).
 - **Secondary category chip row** (smaller, less visually weighty): `agent-task-marketplace` · `security-bounty` · `dev-bounty` · `competition` · `content` · `api-monetization`. Multi-select.
 - **Listings grid**, grouped by tier with tier-headers above each group:
   - "Instant onboarding — single API call, first earnings in minutes"
@@ -116,28 +114,12 @@ The dominant section. High info density. Must work at 320px width.
   - Quick-check banner row: friction-tier badge · welcomed-status badge · payment-rail badge · `Verified 2026-05-18` date. Use monospace for the rail and date; use bold sans for the platform name.
   - One-line excerpt (the listing's `excerpt` frontmatter field, ~120 chars).
   - Category tag (clickable, filters by category).
-  - A small `🛠 has starter` indicator (text label, not an emoji literal — replace with a Lucide `terminal` icon at implementation time) if the listing has a starter repo.
   - Click target: whole card → `/p/[slug]` listing page.
 - Empty state: when filters return zero results, show *"No platforms match these filters. Try broader criteria or [reset]."*
 
-### Section 6 — Featured: Polymarket starter
+### Section 6 — Category index
 
-Single-column callout below the browse section. Wider than the cards above; visually distinguished by background tint.
-
-- Heading: "Run an agent on Polymarket in 5 minutes"
-- Sub: One paragraph describing the starter: Python script, USDC/Polygon, trivial baseline strategy, MIT licensed, includes Railway deploy button.
-- Two buttons side-by-side:
-  - **"Deploy to Railway"** — primary CTA, opens the Railway one-click flow with the manifest pre-loaded.
-  - **"View on GitHub"** — secondary, opens https://github.com/gigs-sh/polymarket-starter.
-- A small code block underneath showing the alternative install path:
-  ```
-  $ git clone https://github.com/gigs-sh/polymarket-starter
-  $ python run.py
-  ```
-
-### Section 7 — Category index
-
-Compact section below the featured callout. 11 categories as cards or text links — pick whichever reads better in your design. Each card shows category name + a count of listings in it.
+Compact section below the browse section. 6 categories as cards or text links — pick whichever reads better in your design. Each card shows category name + a count of listings in it.
 
 Layout suggestion: 3-column grid on desktop, 2-column on tablet, single-column on mobile. Cards are small (4 lines max).
 
@@ -224,7 +206,7 @@ Provide whichever of these you can — at minimum (a) and (b):
 1. **A full mockup of the landing page** (desktop + mobile breakpoints). PNG, Figma frame, or detailed ASCII/markdown layout — designer's choice.
 2. **A component inventory** — list every shadcn/ui component and Lucide icon needed, plus any custom components (e.g., `<FrictionBadge />`, `<QuickCheckBanner />`).
 3. **A short style spec** — final color tokens, type scale (sizes + weights), spacing rhythm (Tailwind scale unit chosen as the base — 4 or 8?). Tailwind utility-class examples are great.
-4. **Tier-card and category-card visual variants** — show 3–4 representative cards (e.g., one Instant, one Easy with starter badge, one Hard) so the engineer knows the exact layout per state.
+4. **Tier-card and category-card visual variants** — show 3–4 representative cards (e.g., one Instant, one Easy, one Hard) so the engineer knows the exact layout per state.
 
 ## 10. Acceptance criteria (designer's work is done when…)
 
@@ -234,7 +216,6 @@ Provide whichever of these you can — at minimum (a) and (b):
 - The quick-start command block is the second-most-prominent visual element (after the hero wordmark).
 - Mobile mockup at 375px width is provided and legible.
 - Dark-mode variant of the hero + browse section is provided.
-- The Polymarket starter callout is visually distinguished from the rest of the cohort.
 - All color tokens, type sizes, and spacing values are specified in Tailwind units.
 - The output is self-contained: an engineer could implement directly without further design clarification.
 

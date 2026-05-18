@@ -10,11 +10,11 @@
 
 ## 1. Overview
 
-**gigs.sh is the directory for platforms where AI agents earn money.**
+**gigs.sh is the directory for putting AI agents to work.**
 
-A curated registry of A2A (agent-to-agent) and agent-friendly platforms — prediction markets, perp DEXs, agent task marketplaces, agent product marketplaces, mining protocols, security and dev bounty boards, competitions, content-revenue rails, API-monetization endpoints, DePIN networks, and compute marketplaces — exposed as both a human-readable site (SEO + GEO optimized) and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
+A curated registry of agent-friendly platforms where the agent earns by doing actual work — agent task marketplaces, security and dev bounty boards, competitions, content-revenue rails, and API-monetization endpoints — exposed as both a human-readable site (SEO + GEO optimized) and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt).
 
-What sets v1 apart from a directory: **at least one listing ships with a deployable agent template.** A user (or an agent calling our MCP server on a user's behalf) can fork the starter, supply secrets, and have a working bot running on their own infra in minutes. We are the first registry whose entries can be deployed by an agent.
+v1 deliberately excludes platforms where the earning model is gambling, prediction-market speculation, crypto trading, or token mining. Stablecoin payouts (USDC) are in scope; tokens-as-product are not.
 
 ---
 
@@ -37,15 +37,15 @@ Three distinct audiences, each with a different consumption pattern. Every featu
 
 | User | How they arrive | What they want | Surface |
 |---|---|---|---|
-| **Human builder** (founder, dev, agent operator) | Google, X, Product Hunt, MCP Discord, AI Tinkerers | "What platforms can my agent earn on? Which is highest ROI? How do I start?" | Website (homepage, listings, comparisons, FAQs) + GitHub starter |
+| **Human builder** (founder, dev, agent operator) | Google, X, Product Hunt, MCP Discord, AI Tinkerers | "What platforms can my agent earn on? Which is highest ROI? How do I start?" | Website (homepage, listings, comparisons, FAQs) |
 | **LLM** (ChatGPT, Perplexity, AI Overviews, Gemini, Claude) | Web crawl + retrieval | Quotable atomic facts to cite when a user asks "where can AI agents make money" | llms.txt + page-level JSON-LD + GEO-optimized listing pages |
-| **Agent** (Claude Code, Cursor, custom MCP clients) | MCP server, REST API, A2A discovery | Programmatic access to the catalog; one-call template manifests; deploy flows | MCP server (`/api/mcp`) + REST + Agent Card + agents.json + npm CLI |
+| **Agent** (Claude Code, Cursor, custom MCP clients) | MCP server, REST API, A2A discovery | Programmatic access to the catalog; per-listing agent quickstart code | MCP server (`/api/mcp`) + REST + Agent Card + agents.json |
 
 **Primary jobs-to-be-done:**
 
 1. *Discover* — find platforms relevant to a category (agent-task-marketplace, bounty, content) or payment rail (USDC, Stripe).
 2. *Evaluate* — understand realistic earning range, agent-allowed status, risks, last-verified date.
-3. *Act* — fork a working starter and deploy on user-owned infra (v1 = Polymarket only).
+3. *Act* — follow the per-listing agent quickstart (the platform's own published commands when available) and run the agent on user-owned infra.
 4. *Subscribe* — opt into ongoing intelligence on new platforms (newsletter).
 
 ---
@@ -569,11 +569,9 @@ gigs.sh/                              # this Next.js repo (root of github.com/gi
 │   ├── .well-known/
 │   │   ├── agent-card.json           # A2A Agent Card v1.0
 │   │   └── agents.json               # Wildcard agents.json
-│   ├── schemas/
-│   │   └── template-v1.json          # JSON Schema for template manifests
 │   └── llms.txt
 ├── content/
-│   └── listings/                     # 11 v1 listings as MDX
+│   └── listings/                     # 8 v1 listings as MDX
 │       ├── _template.mdx             # contributor template (skipped at build)
 │       ├── clustly.mdx
 │       ├── agent-hansa.mdx
@@ -667,12 +665,9 @@ Reasoning:
 
 | Risk | Mitigation |
 |---|---|
-| **Polymarket starter legal exposure** (publishing code that places real-money trades) | Bare-bones starter + visible disclaimer + MIT license + no return claims. Counsel review pre-launch. |
-| **Duplicate-content penalty** from embedding GitHub README on listing page | 70/30 editorial-to-rendered ratio + `rel=canonical` to gigs.sh + only embed install section, not full README. |
 | **MCP tool spam** by bot clients hitting `tools/list` repeatedly | Vercel edge rate limit (120 req/min/IP) + log volume monitoring. |
 | **Stale `verifiedAt`** on listings drifting beyond 60 days post-launch | Manual review pass at day 30. v2 introduces automated platform health checks. |
 | **No early adoption** — site launches and nothing happens | Founder outreach + MCP Discord hand-share + Product Hunt + launch thread on X. Plan B: paid distribution via X ads scoped to AI/agent-dev keywords (~$200 test budget). |
-| **Railway template button breaks** (Railway API changes) | Render fallback in README; Vercel cron health-check pings the Railway deploy URL nightly. |
 
 ---
 
@@ -693,9 +688,8 @@ Reasoning:
 
 Tracked as follow-up work; none blocks v1.
 
-- **Additional agent templates** beyond Polymarket: Hyperliquid bot, Bittensor miner, Olas agent config, X-Creator content bot, etc.
 - **`submit_gig` MCP tool** with GitHub OAuth → PR-to-content-repo. **Target: ~30 days post-launch** (need ≥5 inbound submissions per slot before opening the gate).
-- **Verified on-chain earnings leaderboard.** The real moat play. Defer until ≥3 templates exist and wallet-level signal is meaningful.
+- **Verified on-chain earnings leaderboard.** Defer until wallet-level signal is meaningful.
 - **Auto-discovery cron** sweeping `.well-known/` on seed domains for new candidate listings.
 - **Yield Estimator** — input compute budget → expected $/mo per platform.
 - **Weekly "Agent Mining Report"** newsletter format.
@@ -703,7 +697,6 @@ Tracked as follow-up work; none blocks v1.
 - **User accounts** / saved gigs / personalized recommendations.
 - **Paid features:** sponsored placement, premium intelligence, API key tier.
 - **Agent-side authentication** for paid MCP tier (e.g., on-demand verification calls).
-- **`gigs install <slug>` CLI subcommand** that wraps the Railway deploy flow.
 
 ---
 
@@ -713,10 +706,7 @@ Tracked as follow-up work; none blocks v1.
 |---|---|---|
 | Newsletter provider — Loops vs. Resend Audiences vs. Beehiiv? | Shawn | Week 2 |
 | X/Twitter handle for the brand | Shawn | Pre-launch |
-| Exact wording of Polymarket starter legal disclaimer | Shawn (+ counsel) | Pre-launch |
 | Logo design: wordmark only at v1? | Shawn | Pre-launch |
-| Should `gigs.sh/p/[slug]/template` be a separate route or just an anchor on `/p/[slug]`? | Shawn + Claude | Day 7 (when building TemplateSection) |
-| Public `template-v1.json` JSON Schema published to `/schemas/`? | Shawn | Day 7 |
 
 ---
 

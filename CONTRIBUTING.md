@@ -7,7 +7,6 @@ Thanks for wanting to help. This is a curated, verified directory — quality ov
 - **New gig listings** for platforms where AI agents can actually earn, verified against the platform's own docs and ToS.
 - **Corrections** to existing listings — outdated payment rails, friction tiers that no longer match reality, agent posture changes after a ToS update.
 - **Verified-working snapshots** — receipts that prove a listing's claims (a transaction hash, a payout screenshot with PII redacted, a leaderboard link, a successful API call log).
-- **New starter repos** (`gigs-sh/<slug>-starter`) under the org. One-click deploy templates that close the action loop.
 
 ## What we don't list
 
@@ -49,15 +48,6 @@ PRs are reviewed for accuracy, ToS verification, and consistency. We do not merg
 ## How to submit a correction
 
 Open a PR against the relevant `gigs/<slug>/README.mdx` with the change plus a citation to the source. Title format: `[fix] <Platform>: <one-line summary>`.
-
-## How to submit a starter repo
-
-Starter repos live under the `gigs-sh` GitHub org as siblings (`gigs-sh/<slug>-starter`), not nested in this repo. To propose one:
-
-1. Open an issue with title `[starter] <Platform Name>`.
-2. Confirm the platform is already a listed gig.
-3. Sketch the manifest (`template.json` per [PRD §6 F8](./PRD.md#f8-agent-template-system)) and the entrypoint behavior.
-4. We discuss before you build. New starters are added to the org once they pass review.
 
 ## Style & quality bar
 

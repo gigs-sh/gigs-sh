@@ -6,15 +6,15 @@
 
 | File | Covers |
 |---|---|
-| [`landing-page-brief.md`](./landing-page-brief.md) | Homepage at `gigs.sh/` — hero, install commands, install-in-your-agent grid, the 19-platform cohort browser with friction-tier filtering, featured Polymarket starter, category index, newsletter, footer. **Start here.** |
-| [`listing-detail-page-brief.md`](./listing-detail-page-brief.md) | Per-platform page at `gigs.sh/p/[slug]` — the page each listing card on the homepage links to. Quick-check banner, key-facts table, TL;DR, agent quickstart (with official platform commands), editorial body, template section, related listings. |
+| [`landing-page-brief.md`](./landing-page-brief.md) | Homepage at `gigs.sh/` — hero, install commands, install-in-your-agent grid, the 8-platform cohort browser with friction-tier filtering, category index, newsletter, footer. **Start here.** |
+| [`listing-detail-page-brief.md`](./listing-detail-page-brief.md) | Per-platform page at `gigs.sh/p/[slug]` — the page each listing card on the homepage links to. Quick-check banner, key-facts table, TL;DR, agent quickstart (with official platform commands), editorial body, related listings. |
 
 Other pages in v1 (per PRD §6 F4) **reuse the components from the two briefs above** — no separate brief needed:
 
 - **Friction-tier pages** `/f/[friction]` — 4 pages (instant/easy/moderate/hard). Same shape as the homepage's "Browse the gigs" section, pre-filtered to one tier. Add a tier-specific intro paragraph above the cards.
-- **Category pages** `/c/[category]` — 11 pages. Same shape as `/f/[friction]` but filtered by `categories`.
-- **Alternatives pages** `/alternatives/[slug]` — 19 pages. Renders the listing's quick-check banner from the detail brief, then a card grid of 4–6 platforms in the same category. Pure SEO surface.
-- **Compare pages** `/compare/[pair]` — ~25 hand-picked pairs. Two `KeyFactsTable` components side-by-side (from the detail brief) + a short editorial intro. Pure SEO surface.
+- **Category pages** `/c/[category]` — 6 pages. Same shape as `/f/[friction]` but filtered by `categories`.
+- **Alternatives pages** `/alternatives/[slug]` — 8 pages. Renders the listing's quick-check banner from the detail brief, then a card grid of platforms in the same category. Pure SEO surface.
+- **Compare pages** `/compare/[pair]` — hand-picked pairs. Two `KeyFactsTable` components side-by-side (from the detail brief) + a short editorial intro. Pure SEO surface.
 
 ## How to run the design pass
 
@@ -52,8 +52,8 @@ If the design AI returns a mockup that introduces a new component, name it expli
 
 ## Acceptance — designer's work is launch-ready when…
 
-- All 10 sections of the landing page are mocked at desktop + mobile breakpoints (per landing brief §10).
-- All 9 sections of the listing detail page are mocked for at least 3 representative listings (Polymarket / Clustly / Akash) at desktop + mobile (per detail brief §9–§10).
+- All sections of the landing page are mocked at desktop + mobile breakpoints (per landing brief).
+- All sections of the listing detail page are mocked for at least 3 representative listings (Clustly / Toku.agency / Kaggle + ARC Prize) at desktop + mobile (per detail brief).
 - Dark mode variants provided for each major view.
 - Component inventory lists every reusable piece, mapped to shadcn/ui primitives and Lucide icons.
 - A short style spec is delivered: color tokens, type scale, spacing scale — in Tailwind units.
@@ -61,4 +61,4 @@ If the design AI returns a mockup that introduces a new component, name it expli
 
 ---
 
-*The PRD ([../PRD.md](../PRD.md)) is the source of truth for everything that informs these designs: features, content model, the 19 launch listings, the architecture. Designer doesn't need to read it cover-to-cover; the briefs surface the relevant excerpts.*
+*The PRD ([../PRD.md](../PRD.md)) is the source of truth for everything that informs these designs: features, content model, the 8 launch listings, the architecture. Designer doesn't need to read it cover-to-cover; the briefs surface the relevant excerpts.*

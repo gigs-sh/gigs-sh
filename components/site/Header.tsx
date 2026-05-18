@@ -4,7 +4,6 @@ import { IconExternal } from "../icons";
 const LINKS: [string, string][] = [
   ["Gigs", "/#browse"],
   ["Categories", "/#categories"],
-  ["Templates", "/#starter"],
   ["MCP", "/#install"],
 ];
 
