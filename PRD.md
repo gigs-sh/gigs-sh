@@ -182,7 +182,7 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 
 **What.**
 - **Pagefind** for static client-side search (~indexed at build, no server).
-- **Faceted filters** via `data-pagefind-filter` attributes for: **onboarding friction**, **agent welcomed**, category, payment rail, agent-allowed status, has-template.
+- **Faceted filters** via `data-pagefind-filter` attributes for: **onboarding friction**, **agent welcomed**, category, payment rail, agent-allowed status.
 - A `FilterBar.tsx` component on the homepage and `/c/[category]` pages.
 - **Headline filter:** onboarding friction is the primary segmented control on the homepage (4 chips: `instant` / `easy` / `moderate` / `hard`). Self-selection by skill level is the dominant user journey.
 
@@ -190,7 +190,7 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 
 **Acceptance criteria:**
 - Search input on homepage returns results in < 200ms.
-- All six filters work (independently and combined).
+- All five filters work (independently and combined).
 - Empty-state copy when filters return zero results.
 - Search index regenerates automatically on each Vercel build.
 
@@ -229,14 +229,12 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 | `find_by_agent_allowed` | `{ status }` | Filter by ToS posture: `yes` / `unclear` / `required` |
 | `find_by_onboarding_friction` | `{ friction }` | **NEW** — Filter by `instant` / `easy` / `moderate` / `hard`. Primary newcomer-facing tool; mirrors the homepage segmented control. |
 | `find_by_agent_welcomed` | `{ welcomed }` | **NEW** — Filter to platforms that publicly invite AI agents (boolean). |
-| `list_templates` | `()` | Enumerate listings with deployable starters (v1 = Polymarket only) |
-| `get_template` | `{ slug }` | Return parsed `template.json` + README + deploy URLs in a single call. **Moat tool — see F8.** |
 
 **Why.** Agents are first-class users. MCP is the dominant agent-interop protocol in 2026.
 
 **Acceptance criteria:**
 - Server passes `tools/list` and `tools/call` against the official MCP test harness.
-- All 9 tools return Zod-validated payloads matching the OpenAPI schema (one source of truth).
+- All 7 tools return Zod-validated payloads matching the OpenAPI schema (one source of truth).
 - Anonymous (no auth) for v1 — all data is public.
 - Submitted to Anthropic Desktop Extensions directory during launch week.
 - Submitted to ChatGPT Connectors during launch week.
@@ -279,61 +277,6 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 
 ---
 
-### F8. Agent template system
-
-**What.** A machine-readable convention for "this listing ships with a deployable agent starter."
-
-**Three artifacts make up the system:**
-
-1. **`starters/<slug>/` subdirectories** in this repo (was: sibling GitHub repos under the `gigs-sh` org, switched to single-repo on 2026-05-18). v1 ships exactly one: `starters/polymarket/`.
-
-2. **`template.json` manifest** at the root of each starter subdirectory. Machine-readable contract:
-```json
-{
-  "$schema": "https://gigs.sh/schemas/template-v1.json",
-  "name": "polymarket-starter",
-  "platform": "polymarket",
-  "language": "python",
-  "version": "1.0.0",
-  "envVars": [
-    { "name": "WALLET_PRIVATE_KEY", "required": true, "secret": true,
-      "description": "Polygon wallet private key — bot trades from this address." },
-    { "name": "POLYMARKET_API_KEY", "required": false, "secret": true }
-  ],
-  "entrypoint": "python run.py",
-  "deploy": {
-    "railway": "https://railway.app/new/template/<id>",
-    "render": "https://render.com/deploy?repo=https://github.com/gigs-sh/gigs-sh&rootDirectory=starters/polymarket"
-  },
-  "earningRail": "usdc",
-  "estimatedMonthlyEarning": "$10-$10000",
-  "disclaimer": "Educational. No warranty. May lose funds.",
-  "verifiedAt": "2026-05-18"
-}
-```
-
-3. **`get_template({ slug })` MCP tool** that returns the manifest + cached README + deploy URLs in one call. An agent calling this can collect required secrets from the user and trigger the Railway deploy without any scraping or human intervention. **This is the v1 moat.**
-
-**The Polymarket starter specifically (`starters/polymarket/`):**
-- Python 3.11+ script
-- Connects to Polymarket's public REST API
-- Trivial baseline strategy (fetches open markets, applies a simple heuristic, places a small USDC bet, exits)
-- Not optimized for profit — optimized for "it runs end-to-end"
-- Uses the dual-license of the parent repo (MIT for code) + visible disclaimer ("educational, may lose funds")
-- `requirements.txt` + `run.py` + `README.md` + `template.json` + `railway.json`
-- Banner at top of subdirectory README: pointer to `gigs.sh/p/polymarket` for full guide
-
-**Why.** Without an action surface, every listing page is a goodbye page (the Crunchbase failure mode). With even one starter, gigs.sh becomes a registry, not a directory.
-
-**Acceptance criteria:**
-- `starters/polymarket/` exists in this repo, MIT-licensed (parent repo LICENSE).
-- `cd starters/polymarket && python run.py` runs end-to-end on a fresh clone after setting two env vars.
-- The Deploy-to-Railway button works end-to-end with `rootDirectory=starters/polymarket` (verified with a throwaway Railway account).
-- `get_template({slug: "polymarket"})` returns the manifest + README in <500ms.
-- The Polymarket listing page (`/p/polymarket`) renders the Template section per F2 step 6.
-
----
-
 ### F9. `gigs` npm CLI
 
 **What.** A standalone npm package (`gigs-sh/gigs-cli` repo, published as `gigs` on npm). Wraps the REST API.
@@ -373,7 +316,7 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 
 **What.**
 - **Vercel Analytics** — pageviews, web vitals (free tier).
-- **Plausible** — outbound click tracking per listing CTA, per Deploy-to-Railway button, per MCP install button ($9/mo).
+- **Plausible** — outbound click tracking per listing CTA and per MCP install button ($9/mo).
 
 **Why.** We need to measure the conversion event that defines us as a registry (outbound clicks + Railway deploys) — not just pageviews. Vercel Analytics doesn't track outbound clicks well; Plausible does.
 
@@ -417,7 +360,7 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 
 | Page type | Schema |
 |---|---|
-| Listing page | `SoftwareApplication` + `WebPage` + `BreadcrumbList` (+ `FAQPage` if real Q&A) (+ `SoftwareSourceCode` if `templateRepo` set) |
+| Listing page | `SoftwareApplication` + `WebPage` + `BreadcrumbList` (+ `FAQPage` if real Q&A) |
 | Category page | `CollectionPage` + `ItemList` |
 | Homepage | `WebSite` + `Organization` |
 | Alternatives / compare pages | `CollectionPage` |
@@ -433,7 +376,7 @@ Removed in the 2026-05-18 scope cuts (see §7): `perp-dex`, `agent-product-marke
 **Canonical / duplicate-content strategy:**
 - `<link rel="canonical">` to the gigs.sh URL on every listing page
 - README embedded only as install/quick-start section, not whole file
-- ~70% editorial / ~30% rendered README on listing pages with `templateRepo`
+- Editorial body is the primary content on listing pages.
 - Banner on GitHub README linking back to gigs.sh
 
 **robots.txt policy (`app/robots.ts`):**
@@ -474,7 +417,6 @@ We **allow** ClaudeBot, GPTBot, Perplexity, GoogleBot, Google-Extended. We **blo
 | 3 | Quick-start command | Conversion moment | `$ npx gigs find "prediction-market"` in a code block with copy button; alt example below: `$ npx gigs view polymarket`. This is the install moment — must be visually dominant. |
 | 4 | Install in your agent | Lower friction for the agent audience | 4-6 client buttons (Claude Desktop, Cursor, ChatGPT, custom MCP via copy-URL); each is a one-click deeplink that registers the gigs.sh MCP endpoint with that client |
 | 5 | Browse the gigs | Discovery surface (the meat) | Search input + **friction-tier segmented control** (Instant / Easy / Moderate / Hard) as the primary filter chip row + secondary category chip row + tier-grouped cards rendering the 8 listings |
-| 6 | Featured: Polymarket starter | Showcase the action loop | Single highlighted card with "Deploy to Railway" button + link to `gigs-sh/polymarket-starter` repo. Sets visitor expectation that templated starters are the differentiator. |
 | 7 | Category index | Topical entry for SEO and discovery | 11 categories as compact cards, each linking to `/c/[category]` |
 | 8 | Trust strip | Editorial credibility | "19 platforms verified · last updated [date] · MIT/CC-BY · No sponsored placement" |
 | 9 | Newsletter signup | Owned-channel capture | Single email field, Loops-backed |
@@ -593,8 +535,6 @@ Verify before adding. None block v1.
 | MCP runtime | **Vercel `mcp-handler` package** + Streamable HTTP + **Fluid Compute** | One route file; Vercel-blessed pattern. |
 | Hosting | **Vercel Pro** ($20/mo) | Crons + analytics + cache. |
 | Domain | **Porkbun** ($30.20/yr for `.sh`) — already owned | DNS → Vercel directly (NO Cloudflare in front; breaks ISR purging). |
-| Templates host | **Subdirectories in this repo** (`starters/<slug>/`) | Single source of truth; one CI/CD pipeline; simpler maintenance. No sibling repos. |
-| Deploy target (user) | **Railway** (one-click template button) | Best secret-input UX for long-running processes. |
 | CLI distribution | **npm** (`gigs` package) | Zero-install via `npx`. |
 
 ---
@@ -635,32 +575,21 @@ gigs.sh/                              # this Next.js repo (root of github.com/gi
 ├── content/
 │   └── listings/                     # 11 v1 listings as MDX
 │       ├── _template.mdx             # contributor template (skipped at build)
-│       ├── polymarket.mdx
 │       ├── clustly.mdx
-│       ├── coinbase-agent-market.mdx
-│       └── ...                       # 11 at v1 launch
-├── starters/                         # agent template repos (was sibling repos — now subdirs)
-│   └── polymarket/                   # v1 — Python entrypoint + template.json + Railway config
-│       ├── run.py
-│       ├── requirements.txt
-│       ├── template.json
-│       ├── railway.json
-│       ├── LICENSE
-│       └── README.md
-├── packages/                         # internal packages (was sibling repos)
-│   └── gigs-cli/                     # v1 — npm package source (published as `gigs`)
+│       ├── agent-hansa.mdx
+│       └── ...                       # 8 at v1 launch
+├── packages/                         # internal packages (planned for v1.5)
+│   └── gigs-cli/                     # v1.5 — npm package source (published as `gigs`)
 │       ├── src/
 │       ├── package.json
 │       └── README.md
 ├── lib/
 │   ├── gigs.ts                       # listing query helpers
-│   ├── templates.ts                  # read template.json + README from starters/<slug>/
 │   └── schema.ts                     # JSON-LD generators + Zod schemas
 ├── components/
 │   ├── ListingCard.tsx
 │   ├── FilterBar.tsx
 │   ├── InstallButtons.tsx            # F12
-│   ├── TemplateSection.tsx           # F2 step 6
 │   └── ui/                           # shadcn primitives
 ├── velite.config.ts
 ├── next.config.ts                    # cacheComponents: true, reactCompiler: true
@@ -668,39 +597,38 @@ gigs.sh/                              # this Next.js repo (root of github.com/gi
 └── README.md
 ```
 
-**Single-repo architecture** (decided 2026-05-18): all v1 surfaces live in this one repo. No sibling repos. The starter at `starters/polymarket/` is referenced by `content/listings/polymarket.mdx` via `templateRepo: "starters/polymarket"`. Deploy buttons and `get_template` MCP tool resolve paths within this repo, not external URLs.
+**Single-repo architecture** (decided 2026-05-18): all v1 surfaces live in this one repo. No sibling repos.
 
 Reasoning:
 - One source of truth, one CI/CD, one license, one issue tracker.
 - No cross-repo coordination for releases.
-- Trade-off accepted: the "fork this starter standalone" pattern is weaker — users clone the whole repo and `cd starters/<slug>/`. Mitigated by clearly-scoped subdirectory READMEs and Railway template configs that point at `starters/<slug>/` paths.
 
 ---
 
 ## 10. Build plan (2-week sprint)
 
-### Week 1: skeleton + agent-readable layer + first 5 listings + Polymarket starter
+### Week 1: skeleton + agent-readable layer + first 5 listings
 
 | Day | Date | Work |
 |---|---|---|
 | 1 (Mon) | May 18 | Scaffold Next.js 16, Tailwind v4, shadcn, Velite. Vercel preview deploy. |
 | 2 (Tue) | May 19 | DNS for gigs.sh on Porkbun → Vercel. SSL. Homepage shell + 1 placeholder listing rendering end-to-end. |
-| 3 (Wed) | May 20 | MCP server (`/api/mcp`) — all 9 tools (incl. `find_by_onboarding_friction` + `find_by_agent_welcomed`), in-memory queries over Velite output. Test with Claude Desktop locally + remote. |
+| 3 (Wed) | May 20 | MCP server (`/api/mcp`) — all 7 tools (incl. `find_by_onboarding_friction` + `find_by_agent_welcomed`), in-memory queries over Velite output. Test with Claude Desktop locally + remote. |
 | 4 (Thu) | May 21 | A2A Agent Card + agents.json + llms.txt + OpenAPI + REST endpoints. Full agent-readable layer functional. |
-| 5 (Fri) | May 22 | Listings 1–7 (Clustly, x402, Polymarket, Limitless, Toku, Dework, X Creator — full `instant`/`easy` tier). Each page follows F2 anatomy with the quick-check banner. |
-| 6 (Sat) | May 23 | Build `gigs-sh/polymarket-starter`. Python entrypoint + `template.json` + README + Railway config. Test on testnet. |
-| 7 (Sun) | May 24 | `lib/templates.ts` GitHub fetcher + nightly cron. `TemplateSection.tsx` on `/p/polymarket`. Test full Railway deploy flow. |
+| 5 (Fri) | May 22 | Listings 1–5 (full `instant`/`easy` tier: Clustly, Agent Hansa, Toku, Dework, X Creator). Each page follows F2 anatomy with the quick-check banner. |
+| 6 (Sat) | May 23 | Listings 6–8 (`moderate` + `hard` tier: HackerOne, FAL, Kaggle + ARC). |
+| 7 (Sun) | May 24 | Polish detail pages. Test full agent-readable layer end-to-end. |
 
-### Week 2: complete content + programmatic SEO + CLI + launch prep
+### Week 2: programmatic SEO + launch prep
 
 | Day | Date | Work |
 |---|---|---|
-| 8 (Mon) | May 25 | Listings 8–15 (full `moderate` tier: Hyperliquid, Olas, Virtuals, Agent Hansa, HackerOne, Arkham, Gitcoin, FAL). |
-| 9 (Tue) | May 26 | Listings 16–19 (Bittensor, Kaggle+ARC, Akash, IO Net — `hard` tier). Start `/alternatives/[slug]` (19 pages). |
-| 10 (Wed) | May 27 | Finish `/alternatives/[slug]` + 25 hand-picked `/compare/[pair]` pages (incl. Polymarket-vs-Limitless, Gitcoin-vs-Dework) + `/f/[friction]` index (4 pages). Filter UI (`FilterBar.tsx`, 6 facets, friction as headline) + Pagefind. |
-| 11 (Thu) | May 28 | FAQ JSON-LD pass on listings with real Q&A. Ship `gigs-sh/gigs-cli` npm package. Install buttons (F12) on homepage. Newsletter signup live. Plausible installed. |
-| 12 (Fri) | May 29 | Submit MCP server to Anthropic Desktop Extensions + ChatGPT Connectors. Outreach drafts (Don Gossen / Alex Salazar / Manny Medina). |
-| 13–14 (weekend) | May 30–31 | Launch thread on X. Soft Product Hunt submission. Hand-share in MCP Discord, Cerebral Valley Slack, AI Tinkerers. Hook: *"the first registry whose entries can be deployed by an agent — and the only one that tells you which platforms publicly welcome them."* |
+| 8 (Mon) | May 25 | Start `/alternatives/[slug]` (~8 pages). |
+| 9 (Tue) | May 26 | Finish `/alternatives/[slug]` + hand-picked `/compare/[pair]` pages + `/f/[friction]` index (4 pages). |
+| 10 (Wed) | May 27 | Filter UI (`FilterBar.tsx`, 5 facets, friction as headline) + Pagefind. |
+| 11 (Thu) | May 28 | FAQ JSON-LD pass on listings with real Q&A. Install buttons (F12) on homepage. Newsletter signup live. Plausible installed. |
+| 12 (Fri) | May 29 | Submit MCP server to Anthropic Desktop Extensions + ChatGPT Connectors. Outreach drafts. |
+| 13–14 (weekend) | May 30–31 | Launch thread on X. Soft Product Hunt submission. Hand-share in MCP Discord, Cerebral Valley Slack, AI Tinkerers. Hook: *"the registry that tells you which platforms publicly welcome AI agents — and where the agent earns by doing actual work."* |
 
 ---
 
@@ -709,7 +637,7 @@ Reasoning:
 ### Locked in (May 17, 2026)
 - **Vercel account:** existing Pro account. Project name: `gigs-sh`.
 - **GitHub repo:** `github.com/gigs-sh/gigs-sh` (this repo, public, MIT/CC-BY-4.0 dual-licensed).
-- **GitHub org:** `gigs-sh` for sibling repos (`polymarket-starter`, `gigs-cli`).
+- **GitHub org:** `gigs-sh` (currently hosts only this repo; future `gigs-cli` will live as `packages/gigs-cli/` subdirectory).
 - **Brand posture:** fully independent.
 - **Domain:** `gigs.sh` owned on Porkbun.
 
@@ -717,20 +645,17 @@ Reasoning:
 - **Newsletter provider:** default Loops free tier; alternative is Resend Audiences or Beehiiv.
 - **X / Twitter handle:** reserve `@gigs_sh` or `@gigsdotsh` before launch.
 - **Logo / favicon:** plain wordmark works for v1; iterate post-launch.
-- **Legal disclaimer language** for the Polymarket starter README (default boilerplate is OK; consider counsel review pre-launch).
 
 ---
 
 ## 12. Launch checklist (Day 14)
 
-- [ ] All 19 required listings live, each with `verifiedAt` ≤ 14 days old AND `onboardingFriction` + `agentWelcomed` set.
-- [ ] `/p/polymarket` template section live with working Deploy-to-Railway button (verified end-to-end).
-- [ ] MCP server passes `tools/list` + `tools/call` for all 9 tools from Claude Desktop + Cursor.
+- [ ] All 8 required listings live, each with `verifiedAt` ≤ 14 days old AND `onboardingFriction` + `agentWelcomed` set.
+- [ ] MCP server passes `tools/list` + `tools/call` for all 7 tools from Claude Desktop + Cursor.
 - [ ] All 5 agent-readable surfaces (MCP, REST, Agent Card, agents.json, llms.txt) reachable + validated.
-- [ ] `gigs` CLI published to npm; `npx gigs find prediction-market` works.
 - [ ] Install buttons render on homepage with correct deeplinks.
 - [ ] Newsletter signup live; first broadcast template drafted.
-- [ ] Plausible installed; all 6 tracked events firing.
+- [ ] Plausible installed; tracked events firing.
 - [ ] Anthropic Desktop Extensions submission filed.
 - [ ] ChatGPT Connectors submission filed.
 - [ ] Launch thread drafted; Product Hunt submission queued.
