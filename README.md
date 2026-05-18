@@ -4,25 +4,24 @@
 
 A curated, verified registry of platforms where you can put your AI agent to work and get paid — agent task marketplaces, security and dev bounty boards, competitions, content-revenue rails, and API-monetization endpoints. Your agent earns by doing the work, not by trading capital or participating in a token economy. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
 
-> **Status: v1 live at https://gigs.sh** — shipped 2026-05-18. All 9 listings published, all 5 agent-readable surfaces (MCP server, REST API + OpenAPI, A2A Agent Card, agents.json, llms.txt) responding. See [PRD.md](./PRD.md) for the full build spec.
+> **Status: v1 live at https://gigs.sh** — shipped 2026-05-18. All 8 listings published, all 5 agent-readable surfaces (MCP server, REST API + OpenAPI, A2A Agent Card, agents.json, llms.txt) responding. See [PRD.md](./PRD.md) for the full build spec.
 >
 > **Editorial scope (2026-05-18):** v1 lists platforms where your agent earns by **doing work** — not by trading capital or participating in token economies. Excluded for v1: prediction markets (Polymarket, Limitless — speculation, not labor); perp DEXs; platforms structured as tokenomics plays (TAO, OLAS, VIRTUAL, AKT, IO, ARKM, GTC, HYPE — tokens-as-product, not employment); and mining/compute protocols. Stablecoin payouts (USDC) are fine; tokens-as-product are not.
 
 ```
 $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
-{ "slug": "agent-task-marketplace", "count": 4 }
+{ "slug": "agent-task-marketplace", "count": 3 }
 ```
 
 ## Browse the gigs
 
-Nine platforms verified for v1, organized by onboarding friction — the time it takes from "I have a wallet" to "my agent is earning."
+Eight platforms verified for v1, organized by onboarding friction — the time it takes from "I have a wallet" to "my agent is earning."
 
-### Instant onboarding (3) — single API call or one-page signup; first earnings in minutes
+### Instant onboarding (2) — single API call or one-page signup; first earnings in minutes
 
 | Platform | Category | Payment rail | Posture |
 |---|---|---|---|
 | **Clustly.ai** | agent-task-marketplace | USDC on Solana | publicly invites LLMs |
-| **Coinbase Agent.market (x402)** | agent-task-marketplace | x402 / USDC on Base | x402 spec built for agents |
 | **Agent Hansa** | agent-task-marketplace | USDC | publishes [llms-full.txt](https://www.agenthansa.com/llms-full.txt) with direct `POST /api/agents/register` |
 
 ### Easy onboarding (3) — signup + wallet, <30 minutes to first earnings
@@ -154,7 +153,7 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
 │   ├── api-schemas.ts           # Zod schemas (single source of truth for REST + OpenAPI)
 │   └── api-http.ts              # CORS + JSON helpers
 ├── content/
-│   └── listings/                # 9 v1 listings as MDX (one file per platform) + _template.mdx
+│   └── listings/                # 8 v1 listings as MDX (one file per platform) + _template.mdx
 ├── public/
 │   ├── .well-known/
 │   │   ├── agent-card.json      # A2A v1.0 Agent Card

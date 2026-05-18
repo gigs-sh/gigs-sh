@@ -9,7 +9,6 @@ const COLS: Array<{
   {
     h: "By category",
     items: [
-      "prediction-market",
       "agent-task-marketplace",
       "security-bounty",
       "dev-bounty",

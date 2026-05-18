@@ -29,7 +29,7 @@ Model the design on **[skills.sh](https://www.skills.sh/)**. Study that landing 
 Diverge in these specific ways:
 
 - **Friction tiers, not popularity.** skills.sh sorts by install count; we sort by onboarding-friction tier. We don't have install volume at launch and won't fake it.
-- **Cards grouped by tier, not a flat table.** 11 listings is too few for a leaderboard and the tiered grouping IS our editorial signal.
+- **Cards grouped by tier, not a flat table.** 8 listings is too few for a leaderboard and the tiered grouping IS our editorial signal.
 - **Verified-At date prominently per listing.** skills.sh doesn't show recency; we do because verification is our credibility play.
 - **A "Featured Starter" callout** between the cohort browser and the category index. Spotlights the Polymarket starter as the canonical action loop.
 
@@ -43,18 +43,15 @@ Diverge in these specific ways:
 
 The page must NOT feel like it was designed only for one of these — every section needs to land for all three.
 
-## 4. The 11 launch listings (designer reference)
+## 4. The 8 launch listings (designer reference)
 
 These need to fit comfortably in the browse section. Treat each as a card with: platform name (link), category tag, payment-rail badge, agent-welcomed badge (`welcomed` / `allowed` / `tolerated`), verifiedAt date.
 
-### Instant (3)
+### Instant (2)
 - **Clustly.ai** — agent-task-marketplace — USDC/Solana — welcomed
-- **Coinbase Agent.market (x402)** — agent-task-marketplace — x402/USDC-Base — welcomed
 - **Agent Hansa** — agent-task-marketplace — USDC — welcomed
 
-### Easy (5)
-- **Polymarket** — prediction-market — USDC/Polygon — allowed — *has starter template*
-- **Limitless Exchange** — prediction-market — USDC/Base — welcomed
+### Easy (3)
 - **Toku.agency** — agent-task-marketplace — Stripe/USD — welcomed
 - **Dework** — dev-bounty — USDC/multi-chain — tolerated
 - **X Creator Revenue Sharing** — content — Stripe/USD — allowed
@@ -108,7 +105,7 @@ The dominant section. High info density. Must work at 320px width.
 
 - **Search input** spanning full width, placeholder: *"Search 19 platforms by name, category, or payment rail…"*
 - **Friction-tier segmented control** immediately below the search — 4 chips: `Instant (2)` · `Easy (5)` · `Moderate (8)` · `Hard (4)`. Clicking a chip filters the cohort. Default state: all four selected (show everything).
-- **Secondary category chip row** (smaller, less visually weighty): `prediction-market` · `agent-task-marketplace` · `security-bounty` · `dev-bounty` · `competition` · `content` · `api-monetization`. Multi-select.
+- **Secondary category chip row** (smaller, less visually weighty): `agent-task-marketplace` · `security-bounty` · `dev-bounty` · `competition` · `content` · `api-monetization`. Multi-select.
 - **Listings grid**, grouped by tier with tier-headers above each group:
   - "Instant onboarding — single API call, first earnings in minutes"
   - "Easy onboarding — signup + wallet, <30 min to first earnings"
@@ -216,7 +213,7 @@ Bottom row: `gigs.sh · 2026 · MIT/CC-BY-4.0 · No sponsored placement · Open-
 - **Framework:** Next.js 16 App Router, SSG via `generateStaticParams`.
 - **UI primitives:** shadcn/ui components (Button, Input, Card, Badge, Tabs for the segmented control, Tooltip for hover details).
 - **Icons:** Lucide React (the shadcn default). Use `Terminal`, `Zap`, `Check`, `AlertTriangle`, `ArrowUpRight` etc. — never raw emoji.
-- **Content source:** the 11 listings come from `content/listings/*.mdx` via Velite. The homepage reads the index at build time, no runtime fetches.
+- **Content source:** the 8 listings come from `content/listings/*.mdx` via Velite. The homepage reads the index at build time, no runtime fetches.
 - **Search:** Pagefind indexes the build output. The search input on the homepage uses Pagefind's client-side API.
 - **Friction-tier filter state:** URL-encoded query param (`?friction=instant,easy`) so links are shareable and SSR-renderable.
 
