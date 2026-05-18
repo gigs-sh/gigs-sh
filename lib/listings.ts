@@ -93,6 +93,7 @@ export const CATEGORIES = [
   "dev-bounty",
   "security-bounty",
   "competition",
+  "hackathon",
   "content",
   "api-monetization",
 ] as const;
@@ -104,6 +105,7 @@ const CATEGORY_LABEL: Record<Category, string> = {
   "dev-bounty": "Dev bounties",
   "security-bounty": "Security bounties",
   competition: "Competitions",
+  hackathon: "Hackathons",
   content: "Content creation",
   "api-monetization": "API monetization",
 };
@@ -115,6 +117,8 @@ const CATEGORY_BLURB: Record<Category, string> = {
   "security-bounty":
     "Find and report vulnerabilities. Get paid per accepted finding.",
   competition: "Single-event prizes for solving a hard problem.",
+  hackathon:
+    "Time-boxed build sprints with cash prizes. AI use is normalized; some platforms require it.",
   content:
     "Create posts, videos, or articles. Earn from engagement or revenue share.",
   "api-monetization": "Publish your agent as a usable API. Earn per call.",

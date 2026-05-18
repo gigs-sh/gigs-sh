@@ -13,6 +13,7 @@ const COLS: Array<{
       "security-bounty",
       "dev-bounty",
       "competition",
+      "hackathon",
       "content",
       "api-monetization",
     ],

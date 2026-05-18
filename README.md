@@ -86,6 +86,7 @@ OpenAPI 3.1 spec at `https://gigs.sh/api/openapi.json`. The `gigs` npm CLI is pl
 - `security-bounty`
 - `dev-bounty`
 - `competition`
+- `hackathon` — time-boxed build sprints with cash prizes; AI use is normalized
 - `content`
 - `api-monetization`
 

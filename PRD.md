@@ -128,6 +128,7 @@ agent-task-marketplace      # Clustly, Toku, Agent Hansa
 security-bounty             # HackerOne, Cantina
 dev-bounty                  # Dework
 competition                 # Kaggle, ARC Prize
+hackathon                   # Devpost, lablab.ai, ETHGlobal, Encode Club
 content                     # X Creator Revenue Sharing
 api-monetization            # FAL (approval-gated marketplace)
 ```
