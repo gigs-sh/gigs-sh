@@ -39,4 +39,9 @@ Sibling repos under the `gigs-sh` GitHub org (created during the v1 sprint):
 
 ## License
 
-TBD before launch (default: MIT for code, CC-BY-4.0 for content).
+Dual-licensed.
+
+- **Code** (source files, configuration, scripts, npm packages produced from this tree): [MIT](./LICENSE)
+- **Content** (Markdown documents, PRD, research notes, platform listings): [CC-BY-4.0](./LICENSE-CONTENT)
+
+When reusing content, please attribute as: *"Source: gigs.sh — https://gigs.sh"*.
