@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
+  categoryLabel,
+  frictionGuidance,
   getAllListings,
+  getFrictionStats,
   tierBlurb,
   tierLabel,
   type Tier,
@@ -13,15 +16,6 @@ import { ListingCard } from "@/components/listing/ListingCard";
 
 const SITE = "https://gigs.sh";
 const TIERS: Tier[] = ["instant", "easy", "moderate", "hard"];
-
-const TIER_INTRO: Record<Tier, string> = {
-  instant:
-    "Single API call or one-page signup; first earnings in minutes. The lowest friction lane on gigs.sh — best fit for an agent operator with zero patience for KYC or human-in-the-loop review.",
-  easy: "Signup plus wallet or account, under 30 minutes to first earnings. Some require a Stripe Connect or wallet setup at the start, but no review, no waiting, no approval gate.",
-  moderate:
-    "KYC, review, or non-trivial setup required to start earning. The platform may welcome agents, but you can't skip the human-fronted steps — usually identity verification, tax forms, or platform onboarding review.",
-  hard: "Application, partnership, or deep technical work needed to begin. Hardware, capital, or domain expertise gates the entry. Highest upside for those who clear the bar.",
-};
 
 export function generateStaticParams() {
   return TIERS.map((friction) => ({ friction }));
@@ -43,8 +37,14 @@ export function generateMetadata({
     const label = tierLabel(tier);
     return {
       title: `${label} onboarding gigs (${count}) — gigs.sh`,
-      description: `${count} verified platforms with ${tier} onboarding friction. ${tierBlurb(tier)}. AI-agent earning, organized by setup effort.`,
+      description: `${count} platforms with ${tier} onboarding friction where AI agents earn. ${tierBlurb(tier)}.`,
       alternates: { canonical: `${SITE}/f/${tier}` },
+      openGraph: {
+        title: `${label} onboarding gigs — gigs.sh`,
+        description: `${count} verified platforms — ${tierBlurb(tier)}.`,
+        url: `${SITE}/f/${tier}`,
+        type: "website",
+      },
     };
   });
 }
@@ -60,6 +60,11 @@ export default async function FrictionPage({
 
   const all = getAllListings();
   const listings = all.filter((l) => l.onboardingFriction === tier);
+  const stats = getFrictionStats(tier);
+  const guidance = frictionGuidance(tier);
+  const topCategories = Object.entries(stats.categoryMix)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 5);
 
   const otherTiers = TIERS.filter((t) => t !== tier);
   const url = `${SITE}/f/${tier}`;
@@ -128,11 +133,53 @@ export default async function FrictionPage({
               {listings.length} verified platform
               {listings.length === 1 ? "" : "s"} — {tierBlurb(tier)}.
             </p>
-            <p className="index-intro">{TIER_INTRO[tier]}</p>
+            <p className="index-intro">{guidance}</p>
           </header>
+
+          {listings.length > 0 && (
+            <section className="cat-stats mono">
+              <dl className="stat-grid">
+                <div>
+                  <dt>verified</dt>
+                  <dd>{stats.count}</dd>
+                </div>
+                <div>
+                  <dt>welcomed</dt>
+                  <dd>
+                    {stats.welcomedCount}
+                    <span className="stat-of">/{stats.count}</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>top rail</dt>
+                  <dd>
+                    {stats.topRail}
+                    <span className="stat-of">
+                      ×{stats.topRailCount}
+                    </span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>established</dt>
+                  <dd>{stats.credibilityMix.established}</dd>
+                </div>
+              </dl>
+              <p className="cat-friction-mix">
+                Category mix:{" "}
+                {topCategories.map(([c, n]) => (
+                  <span key={c} className="frictiontag">
+                    {categoryLabel(c).toLowerCase()} {n}
+                  </span>
+                ))}
+              </p>
+            </section>
+          )}
 
           {listings.length > 0 ? (
             <section className="index-grid">
+              <h2 className="section-h">
+                <span className="mono">All {stats.count} platforms</span>
+              </h2>
               <div className="card-grid">
                 {listings.map((l) => (
                   <ListingCard key={l.slug} listing={l} />

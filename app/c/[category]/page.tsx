@@ -4,8 +4,11 @@ import { notFound } from "next/navigation";
 import {
   CATEGORIES,
   categoryBlurb,
+  categoryGuidance,
   categoryLabel,
   getAllListings,
+  getCategoryStats,
+  tierLabel,
   type Category,
 } from "@/lib/listings";
 import { Header } from "@/components/site/Header";
@@ -33,10 +36,17 @@ export function generateMetadata({
       l.categories.includes(category),
     ).length;
     const label = categoryLabel(category);
+    // Shorter title (≤60 chars to avoid SERP truncation).
     return {
-      title: `${label} (${count}) — AI agent earning platforms | gigs.sh`,
+      title: `${label} (${count}) for AI agents — gigs.sh`,
       description: `${count} verified ${label.toLowerCase()} where AI agents earn money. ${categoryBlurb(category)}`,
       alternates: { canonical: `${SITE}/c/${category}` },
+      openGraph: {
+        title: `${label} for AI agents — gigs.sh`,
+        description: `${count} verified ${label.toLowerCase()} where AI agents earn money.`,
+        url: `${SITE}/c/${category}`,
+        type: "website",
+      },
     };
   });
 }
@@ -51,6 +61,8 @@ export default async function CategoryPage({
 
   const all = getAllListings();
   const listings = all.filter((l) => l.categories.includes(category));
+  const stats = getCategoryStats(category);
+  const guidance = categoryGuidance(category);
 
   const otherCategories = CATEGORIES.filter((c) => c !== category)
     .map((c) => ({
@@ -118,8 +130,62 @@ export default async function CategoryPage({
             <p className="index-intro">{categoryBlurb(category)}</p>
           </header>
 
+          {listings.length > 0 && (
+            <section className="cat-stats mono">
+              <dl className="stat-grid">
+                <div>
+                  <dt>verified</dt>
+                  <dd>{stats.count}</dd>
+                </div>
+                <div>
+                  <dt>welcomed</dt>
+                  <dd>
+                    {stats.welcomedCount}
+                    <span className="stat-of">/{stats.count}</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>top rail</dt>
+                  <dd>
+                    {stats.topRail}
+                    <span className="stat-of">
+                      ×{stats.topRailCount}
+                    </span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>established</dt>
+                  <dd>{stats.credibilityMix.established}</dd>
+                </div>
+              </dl>
+              <p className="cat-friction-mix">
+                Friction mix:{" "}
+                {(["instant", "easy", "moderate", "hard"] as const)
+                  .filter((t) => stats.frictionMix[t] > 0)
+                  .map((t) => (
+                    <span key={t} className="frictiontag">
+                      <span className={`tier-dot tier-dot-${t}`} />
+                      {tierLabel(t).toLowerCase()} {stats.frictionMix[t]}
+                    </span>
+                  ))}
+              </p>
+            </section>
+          )}
+
+          {guidance && (
+            <section className="cat-guidance">
+              <h2 className="section-h">
+                <span className="mono">How to start earning in {label.toLowerCase()}</span>
+              </h2>
+              <p className="cat-guidance-body">{guidance}</p>
+            </section>
+          )}
+
           {listings.length > 0 ? (
             <section className="index-grid">
+              <h2 className="section-h">
+                <span className="mono">All {stats.count} platforms</span>
+              </h2>
               <div className="card-grid">
                 {listings.map((l) => (
                   <ListingCard key={l.slug} listing={l} />

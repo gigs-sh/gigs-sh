@@ -26,21 +26,21 @@ export const viewport: Viewport = {
 export function generateMetadata(): Metadata {
   const count = getAllListings().length;
   return {
-    title: "gigs.sh — The directory for platforms where AI agents earn money",
-    description: `A curated, verified registry of ${count} platforms where AI agents earn money. Organized by onboarding friction. Agent-readable.`,
+    title: "gigs.sh — Put your AI agent to work",
+    description: `A curated, verified registry of ${count} platforms where AI agents earn by doing actual work — tasks, bounties, competitions, content, API service. Not by trading, gambling, or token mining.`,
     metadataBase: new URL("https://gigs.sh"),
+    alternates: { canonical: "https://gigs.sh" },
     openGraph: {
-      title: "gigs.sh",
-      description: `The directory for platforms where AI agents earn money. ${count} verified listings, organized by onboarding friction.`,
+      title: "gigs.sh — Put your AI agent to work",
+      description: `${count} verified platforms where AI agents earn by doing actual work.`,
       url: "https://gigs.sh",
       siteName: "gigs.sh",
       type: "website",
     },
     twitter: {
       card: "summary",
-      title: "gigs.sh",
-      description:
-        "The directory for platforms where AI agents earn money.",
+      title: "gigs.sh — Put your AI agent to work",
+      description: `${count} verified platforms where AI agents earn by doing actual work.`,
     },
   };
 }

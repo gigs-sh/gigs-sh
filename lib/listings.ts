@@ -132,6 +132,160 @@ export function categoryBlurb(category: string) {
   return CATEGORY_BLURB[category as Category] ?? "";
 }
 
+// Per-category editorial guidance — unique content per page, kills the
+// "thin content" risk (programmatic-seo skill, Common Mistakes #1).
+const CATEGORY_GUIDANCE: Record<Category, string> = {
+  "agent-task-marketplace":
+    "Pick a platform whose ToS explicitly invites agents (`welcomed`) and start at the lowest friction tier. The agent's loop is: poll the platform's API for open tasks, claim ones it can do, deliver, receive USDC on accept. Agent Hansa and Clustly are the simplest entry points; Daydreams TaskMarket and AgentPact are good if you want on-chain reputation accrual.",
+  "api-monetization":
+    "Publish your agent's most reliable capability — research, scraping, summarization, generation, search — as a callable API. Other agents discover and pay per request. Earnings scale with reliability and call volume, not with hustle. FAL (image/audio models) and Skyfire (general LLM and data APIs) are the established options; Circle Agent Marketplace is the institutional newcomer.",
+  "dev-bounty":
+    "Code work posted by maintainers, DAOs, and open-source projects, paid in stablecoin on completion. Acceptance friction is lower than security bounties but typical payouts are smaller — volume matters. Dework is the v1 entry; the dev tracks inside hackathon platforms (ETHGlobal, Encode Club) often have larger pools.",
+  "security-bounty":
+    "The agent reads code or runs against live targets, finds bugs, writes structured reports, gets paid per accepted finding. Highest per-finding payouts in the directory, but acceptance gates are strict — bot-submitted reports still need to be reproducible and high-quality. HackerOne / Cantina is the v1 entry.",
+  competition:
+    "Single-event prizes for solving a hard problem — model architecture, capability benchmark, real-world task. High variance: most submissions earn nothing, but the ceiling is large. Kaggle + ARC Prize 2026 is the v1 entry, with $5M+ in tier-1 prizes. Best fit for operators who can iterate quickly during the event window.",
+  content:
+    "The agent creates posts, articles, videos, or other engagement-driving content; the platform pays a revenue share based on views or impressions. Earnings scale with consistency and reach. X Creator Revenue Sharing is the v1 entry — the agent operates under a verified human account.",
+  hackathon:
+    "Time-boxed build sprints (24h to 2 weeks) with cash prize pools. Agents accelerate research, scaffolding, and debugging; humans typically still pitch and present. Strongest fit for operators with a deep technical bench plus the ability to compress a deliverable into a polished demo. Devpost is the volume play; ETHGlobal and Encode Club are crypto-native with the cleanest payout rails.",
+};
+
+export function categoryGuidance(category: string): string {
+  return CATEGORY_GUIDANCE[category as Category] ?? "";
+}
+
+const FRICTION_GUIDANCE: Record<Tier, string> = {
+  instant:
+    "Single API call or CLI command starts earning — no signup form, no human review. The operator can be earning within 60 seconds of getting an API key. The tradeoff: small per-task payouts and lots of competing agents on the same surface. Best fit for an operator who already has a polished agent and wants to stress-test it against a live revenue stream.",
+  easy:
+    "Signup plus wallet (or Stripe Connect) gets the agent earning in under 30 minutes. No KYC, no human review, but some configuration up front. The sweet spot for most operators — friction is bounded but the platform is invested enough that quality matters and earnings can be meaningful.",
+  moderate:
+    "KYC, tax forms, or platform onboarding review required before payouts unlock. Setup time runs from a day to a week. The platforms tend to be larger and more established — payouts are real and reliable once you clear the gate.",
+  hard:
+    "Application process, partnership pitch, deep technical work (custom integrations, hardware, capital), or domain expertise gates the entry. Days to months to start earning. Highest ceiling and lowest competition — but you need a serious agent and a serious operator to clear the bar.",
+};
+
+export function frictionGuidance(tier: Tier): string {
+  return FRICTION_GUIDANCE[tier];
+}
+
+// Aggregate stats per category — used by /c/[category] for unique
+// per-page content (rail distribution, friction mix, etc.).
+export type CategoryStats = {
+  count: number;
+  welcomedCount: number;
+  topRail: string;
+  topRailCount: number;
+  frictionMix: Record<Tier, number>;
+  credibilityMix: Record<Credibility, number>;
+  topListings: Listing[];
+};
+
+const credOrder: Record<Credibility, number> = {
+  established: 0,
+  growing: 1,
+  early: 2,
+  "self-reported": 3,
+};
+
+export function getCategoryStats(category: string): CategoryStats {
+  const all = getAllListings();
+  const cat = all.filter((l) => l.categories.includes(category));
+
+  const railTally = new Map<string, number>();
+  for (const l of cat) {
+    for (const r of l.paymentRails) {
+      railTally.set(r, (railTally.get(r) ?? 0) + 1);
+    }
+  }
+  const sortedRails = [...railTally.entries()].sort((a, b) => b[1] - a[1]);
+  const topRail = sortedRails[0] ? prettyRail([sortedRails[0][0]]) : "—";
+  const topRailCount = sortedRails[0]?.[1] ?? 0;
+
+  const frictionMix: Record<Tier, number> = {
+    instant: 0,
+    easy: 0,
+    moderate: 0,
+    hard: 0,
+  };
+  for (const l of cat) frictionMix[l.onboardingFriction]++;
+
+  const credibilityMix: Record<Credibility, number> = {
+    established: 0,
+    growing: 0,
+    early: 0,
+    "self-reported": 0,
+  };
+  for (const l of cat) credibilityMix[l.credibility]++;
+
+  const topListings = [...cat]
+    .sort((a, b) => {
+      const d = credOrder[a.credibility] - credOrder[b.credibility];
+      if (d !== 0) return d;
+      return a.title.localeCompare(b.title);
+    })
+    .slice(0, 3);
+
+  return {
+    count: cat.length,
+    welcomedCount: cat.filter((l) => l.agentWelcomed).length,
+    topRail,
+    topRailCount,
+    frictionMix,
+    credibilityMix,
+    topListings,
+  };
+}
+
+export type FrictionStats = {
+  count: number;
+  welcomedCount: number;
+  topRail: string;
+  topRailCount: number;
+  categoryMix: Record<string, number>;
+  credibilityMix: Record<Credibility, number>;
+};
+
+export function getFrictionStats(friction: Tier): FrictionStats {
+  const all = getAllListings();
+  const tier = all.filter((l) => l.onboardingFriction === friction);
+
+  const railTally = new Map<string, number>();
+  for (const l of tier) {
+    for (const r of l.paymentRails) {
+      railTally.set(r, (railTally.get(r) ?? 0) + 1);
+    }
+  }
+  const sortedRails = [...railTally.entries()].sort((a, b) => b[1] - a[1]);
+  const topRail = sortedRails[0] ? prettyRail([sortedRails[0][0]]) : "—";
+  const topRailCount = sortedRails[0]?.[1] ?? 0;
+
+  const categoryMix: Record<string, number> = {};
+  for (const l of tier) {
+    for (const c of l.categories) {
+      categoryMix[c] = (categoryMix[c] ?? 0) + 1;
+    }
+  }
+
+  const credibilityMix: Record<Credibility, number> = {
+    established: 0,
+    growing: 0,
+    early: 0,
+    "self-reported": 0,
+  };
+  for (const l of tier) credibilityMix[l.credibility]++;
+
+  return {
+    count: tier.length,
+    welcomedCount: tier.filter((l) => l.agentWelcomed).length,
+    topRail,
+    topRailCount,
+    categoryMix,
+    credibilityMix,
+  };
+}
+
 function prettyRail(rails: string[]): string {
   if (!rails.length) return "—";
   const first = rails[0];

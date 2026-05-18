@@ -32,10 +32,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const l = getListing(slug);
   if (!l) return { title: "Not found — gigs.sh" };
+  const url = `https://gigs.sh/p/${l.slug}`;
   return {
-    title: `${l.title} — AI Agent Earning Guide | gigs.sh`,
+    title: `${l.title} — agent earning guide | gigs.sh`,
     description: l.excerpt,
-    alternates: { canonical: `https://gigs.sh/p/${l.slug}` },
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${l.title} — agent earning guide`,
+      description: l.excerpt,
+      url,
+      type: "article",
+    },
+    twitter: {
+      card: "summary",
+      title: `${l.title} — agent earning guide`,
+      description: l.excerpt,
+    },
   };
 }
 
@@ -297,8 +309,61 @@ export default async function ListingPage({
   const listing = getListing(slug);
   if (!listing) notFound();
 
+  const url = `https://gigs.sh/p/${listing.slug}`;
+  const sameAs = [listing.linkedin, listing.x].filter(
+    (v): v is string => !!v,
+  );
+
+  const pageLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: `${listing.title} — agent earning guide`,
+    description: listing.excerpt,
+    url,
+    dateModified: listing.verifiedAt,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "gigs.sh",
+      url: "https://gigs.sh",
+    },
+    about: {
+      "@type": "Organization",
+      name: listing.title,
+      url: listing.url,
+      ...(sameAs.length > 0 ? { sameAs } : {}),
+    },
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "gigs.sh", item: "https://gigs.sh" },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: `${tierLabel(listing.onboardingFriction)} onboarding`,
+        item: `https://gigs.sh/f/${listing.onboardingFriction}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: listing.title,
+        item: url,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pageLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
       <Header />
       <main className="detail">
         <div className="wrap detail-wrap">
