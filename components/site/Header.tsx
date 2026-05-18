@@ -11,8 +11,12 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="wrap row between">
-        <Link href="/" className="brand mono">
-          <span className="brand-mark">▮</span>gigs.sh
+        <Link href="/" className="brand mono" aria-label="gigs.sh">
+          <pre className="brand-ascii" aria-hidden="true">
+{`┌─┐┬┌─┐┌─┐ ┌─┐┬ ┬
+│ ┬││ ┬└─┐ └─┐├─┤
+└─┘┴└─┘└─┘•└─┘┴ ┴`}
+          </pre>
         </Link>
         <nav className="nav-links">
           {LINKS.map(([l, h]) => (
