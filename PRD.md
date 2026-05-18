@@ -43,7 +43,7 @@ Three distinct audiences, each with a different consumption pattern. Every featu
 
 **Primary jobs-to-be-done:**
 
-1. *Discover* — find platforms relevant to a category (prediction-market, perp-dex, bounty) or payment rail (USDC, x402, lightning).
+1. *Discover* — find platforms relevant to a category (prediction-market, bounty, content) or payment rail (USDC, x402, Stripe).
 2. *Evaluate* — understand realistic earning range, agent-allowed status, risks, last-verified date.
 3. *Act* — fork a working starter and deploy on user-owned infra (v1 = Polymarket only).
 4. *Subscribe* — opt into ongoing intelligence on new platforms (newsletter).
@@ -129,18 +129,15 @@ officialAgentDocs: string | null       # URL to the platform's PUBLISHED agent-f
 
 ```
 prediction-market           # Polymarket, Limitless
-perp-dex                    # Hyperliquid
 agent-task-marketplace      # Clustly, Coinbase Agent.market (x402), Toku, Agent Hansa
-agent-product-marketplace   # Olas Pearl, Virtuals
-mining-protocol             # Bittensor subnets
-security-bounty             # HackerOne, Cantina, Arkham
-dev-bounty                  # Gitcoin
+security-bounty             # HackerOne, Cantina
+dev-bounty                  # Dework
 competition                 # Kaggle, ARC Prize
 content                     # X Creator Revenue Sharing
 api-monetization            # FAL (approval-gated marketplace)
-compute-marketplace         # Akash, IO Net
-depin                       # (v1.5 — pending verified candidates; Grass excluded for ToS reasons)
 ```
+
+Removed in the 2026-05-18 scope cut (token-issuing platforms — see §7): `perp-dex`, `agent-product-marketplace`, `mining-protocol`, `compute-marketplace`. `depin` was always held for v1.5.
 
 **Body template (six required sections):**
 1. What is it
@@ -208,9 +205,9 @@ depin                       # (v1.5 — pending verified candidates; Grass exclu
 ### F4. Programmatic SEO pages
 
 **What.**
-- `/c/[category]/page.tsx` — category index (~11 pages: prediction-market, perp-dex, agent-task-marketplace, agent-product-marketplace, mining-protocol, security-bounty, dev-bounty, competition, content, api-monetization, compute-marketplace)
+- `/c/[category]/page.tsx` — category index (7 pages: prediction-market, agent-task-marketplace, security-bounty, dev-bounty, competition, content, api-monetization)
 - `/f/[friction]/page.tsx` — **NEW** friction-tier index (4 pages: instant / easy / moderate / hard). High-intent SEO target: queries like "ai agent earning no kyc" or "instant ai agent income" land here.
-- `/alternatives/[slug]/page.tsx` — "Alternatives to [Polymarket]" pages (~19 pages, one per listing)
+- `/alternatives/[slug]/page.tsx` — "Alternatives to [Polymarket]" pages (~11 pages, one per listing)
 - `/compare/[pair]/page.tsx` — curated head-to-head pairs (~25 hand-picked pairs, NOT N²)
 
 **Why.** Long-tail SEO. "Alternatives to X" and "X vs Y" are high-intent queries with stable search volume. Cheap to generate from existing listings data.
@@ -482,7 +479,7 @@ We **allow** ClaudeBot, GPTBot, Perplexity, GoogleBot, Google-Extended. We **blo
 | 2 | Hero | Value prop | ASCII-art "GIGS" wordmark, one-line tagline ("the directory for platforms where AI agents earn money"), sub-line ("19 platforms verified · last updated [date]") |
 | 3 | Quick-start command | Conversion moment | `$ npx gigs find "prediction-market"` in a code block with copy button; alt example below: `$ npx gigs view polymarket`. This is the install moment — must be visually dominant. |
 | 4 | Install in your agent | Lower friction for the agent audience | 4-6 client buttons (Claude Desktop, Cursor, ChatGPT, custom MCP via copy-URL); each is a one-click deeplink that registers the gigs.sh MCP endpoint with that client |
-| 5 | Browse the gigs | Discovery surface (the meat) | Search input + **friction-tier segmented control** (Instant / Easy / Moderate / Hard) as the primary filter chip row + secondary category chip row + tier-grouped cards rendering the 19 listings |
+| 5 | Browse the gigs | Discovery surface (the meat) | Search input + **friction-tier segmented control** (Instant / Easy / Moderate / Hard) as the primary filter chip row + secondary category chip row + tier-grouped cards rendering the 11 listings |
 | 6 | Featured: Polymarket starter | Showcase the action loop | Single highlighted card with "Deploy to Railway" button + link to `gigs-sh/polymarket-starter` repo. Sets visitor expectation that templated starters are the differentiator. |
 | 7 | Category index | Topical entry for SEO and discovery | 11 categories as compact cards, each linking to `/c/[category]` |
 | 8 | Trust strip | Editorial credibility | "19 platforms verified · last updated [date] · MIT/CC-BY · No sponsored placement" |
@@ -508,7 +505,7 @@ We **allow** ClaudeBot, GPTBot, Perplexity, GoogleBot, Google-Extended. We **blo
 **Skills.sh patterns to NOT copy:**
 - Their popularity leaderboard (install counts). We don't have volume data at launch; faking it is worse than not having it. Use editorially-curated tiers instead.
 - Their "Trending 24h / Hot / All Time" filter. We use friction tiers as the headline filter.
-- Their dense table of 200+ rows. Our 19 listings work better as cards grouped by tier than as a flat table.
+- Their dense table of 200+ rows. Our 11 listings work better as cards grouped by tier than as a flat table.
 
 **Design brief** (self-contained, copy-paste-able to a design AI): see [`design/landing-page-brief.md`](./design/landing-page-brief.md).
 
@@ -523,9 +520,11 @@ We **allow** ClaudeBot, GPTBot, Perplexity, GoogleBot, Google-Extended. We **blo
 
 ---
 
-## 7. Launch listings (v1 cohort — 19 verified)
+## 7. Launch listings (v1 cohort — 11 verified)
 
-Source data: `research/03-agent-mining.md` + verified May 17–18, 2026 via two parallel research passes. All 19 listings below have **agent posture** and **onboarding friction** confirmed against the platform's own documentation or first-party copy — not inferred.
+Source data: `research/03-agent-mining.md` + verified May 17–18, 2026 via two parallel research passes. All 11 listings below have **agent posture** and **onboarding friction** confirmed against the platform's own documentation or first-party copy — not inferred.
+
+**Scope (2026-05-18):** v1 deliberately excludes platforms whose business model is built around issuing their own token (TAO/OLAS/VIRTUAL/AKT/IO/ARKM/GTC/HYPE). Stablecoin payouts (USDC on any chain) are in scope. The 8 token-issuing platforms originally in the cohort (Hyperliquid, Olas Pearl, Virtuals, HackerOne-via-ARKM was kept on Stripe rail; Arkham, Gitcoin, Bittensor, Akash, IO Net) were removed.
 
 ### Instant onboarding (3) — single API call or one-page signup, first earnings in minutes
 
@@ -539,32 +538,24 @@ Source data: `research/03-agent-mining.md` + verified May 17–18, 2026 via two 
 
 | # | Platform | Category | Welcomed | Payment rail | Notes |
 |---|---|---|---|---|---|
-| 3 | **Polymarket** (+ Polystrat) | prediction-market | ✗ no (allowed, not invited — 14/20 top wallets are bots de facto) | USDC on Polygon | **Ships with `gigs-sh/polymarket-starter` — see F8** |
-| 4 | **Limitless Exchange** | prediction-market | ✓ yes — docs explicitly target bots: *"You do not need to apply for the Programmatic API"*; ships official Go/Python/Rust/TS SDKs + Polymarket migration guide | USDC on Base | $298M/30d volume; 100% maker-rebate program (better for MM bots than Polymarket); US geo-blocked; higher taker fees (up to 3%) than Polymarket |
-| 5 | **Toku.agency** | agent-task-marketplace | ✓ yes — *"agent-to-agent commerce is the product"* | Stripe Connect → USD (KYC required at payout, not at registration) | 15% platform fee; US-only Stripe payouts likely |
-| 6 | **Dework** | dev-bounty | ⚪ tolerated (no policy explicitly inviting or banning agents; wallet-only onboarding) | DAO-chosen token on 20+ chains (Ethereum, Polygon, Optimism, Arbitrum, Gnosis Chain commonly); Gnosis Safe batched payouts | Better agent fit than Gitcoin: no Passport sybil-defense, no KYC. Per-DAO human review at task-claim time. Platform-maintenance signal is moderate (last raise was 2022 seed) |
-| 7 | **X Creator Revenue Sharing** | content | ✗ no (allowed by ToS; ad-share based on engagement) | Stripe → USD | Already in original v1 cohort |
+| 4 | **Polymarket** (+ Polystrat) | prediction-market | ✗ no (allowed, not invited — 14/20 top wallets are bots de facto) | USDC on Polygon | **Ships with `gigs-sh/polymarket-starter` — see F8** |
+| 5 | **Limitless Exchange** | prediction-market | ✓ yes — docs explicitly target bots: *"You do not need to apply for the Programmatic API"*; ships official Go/Python/Rust/TS SDKs + Polymarket migration guide | USDC on Base | $298M/30d volume; 100% maker-rebate program (better for MM bots than Polymarket); US geo-blocked; higher taker fees (up to 3%) than Polymarket |
+| 6 | **Toku.agency** | agent-task-marketplace | ✓ yes — *"agent-to-agent commerce is the product"* | Stripe Connect → USD (KYC required at payout, not at registration) | 15% platform fee; US-only Stripe payouts likely |
+| 7 | **Dework** | dev-bounty | ⚪ tolerated (no policy explicitly inviting or banning agents; wallet-only onboarding) | USDC on 20+ chains (Ethereum, Polygon, Optimism, Arbitrum, Gnosis Chain commonly); Gnosis Safe batched payouts | No Passport sybil-defense, no KYC. Per-DAO human review at task-claim time. Platform-maintenance signal is moderate (last raise was 2022 seed). Custom DAO tokens supported but not required. |
+| 8 | **X Creator Revenue Sharing** | content | ✗ no (allowed by ToS; ad-share based on engagement) | Stripe → USD | Already in original v1 cohort |
 
-### Moderate onboarding (7) — KYC, review, or non-trivial setup
-
-| # | Platform | Category | Welcomed | Payment rail | Notes |
-|---|---|---|---|---|---|
-| 9 | **Hyperliquid** | perp-dex | ✗ no (allowed; bot-heavy in practice) | USDC on Hyperliquid L1 | Already in original v1 cohort |
-| 10 | **Olas Pearl** | agent-product-marketplace | ✓ yes (agent operators are the explicit user) | OLAS + USDC | Already in original v1 cohort |
-| 11 | **Virtuals Protocol** | agent-product-marketplace | ✓ yes | VIRTUAL on Base | Already in original v1 cohort |
-| 12 | **HackerOne / Cantina** | security-bounty | ✗ no (allowed; bot-submitted reports common) | Stripe / wire / PayPal | Already in original v1 cohort |
-| 13 | **Arkham Intel Exchange** | security-bounty | ✗ no (allowed) | ARKM + USDC | Already in original v1 cohort |
-| 14 | **Gitcoin** | dev-bounty | ✗ no (allowed; Passport sybil-defense may flag agents) | GTC + DAI/USDC/ETH on Ethereum / L2s | Product has shifted toward grants; Dework (listing #6) is the easier-onboarding counterpart in this category |
-| 15 | **FAL** | api-monetization | ✗ no (allowed; marketplace publishing is approval-gated) | Stripe → USD (rail not publicly documented; treat as TBD until creator agreement reviewed) | Email-the-team to get listed; rev split % not public |
-
-### Hard onboarding (4) — application, partnership, or deep technical work
+### Moderate onboarding (2) — KYC, review, or non-trivial setup
 
 | # | Platform | Category | Welcomed | Payment rail | Notes |
 |---|---|---|---|---|---|
-| 16 | **Bittensor (Chutes SN64, Numinous SN6)** | mining-protocol | ✓ yes (mining roles are agent-friendly) | TAO on Bittensor | Already in original v1 cohort |
-| 17 | **Kaggle + ARC Prize 2026** | competition | ✗ no (allowed; agent submissions explicitly permitted in ARC Prize) | Bank transfer / Stripe → USD | Already in original v1 cohort |
-| 18 | **Akash Network** | compute-marketplace | ✓ yes (provider mode is permissionless) | AKT + USDC | Requires K8s/k3s cluster + static IP + GPU. ~$20/day per NVIDIA GPU baseline (Messari Q3 2025) |
-| 19 | **IO Net** | compute-marketplace | ✓ yes (worker registration is open) | IO on Solana | Requires GPU + ≥250 Mbps + IO stake (~200 IO base). Consumer GPUs may not qualify for higher-paying jobs |
+| 9 | **HackerOne / Cantina** | security-bounty | ✗ no (allowed; bot-submitted reports common) | Stripe / wire / PayPal | Already in original v1 cohort |
+| 10 | **FAL** | api-monetization | ✗ no (allowed; marketplace publishing is approval-gated) | Stripe → USD (rail not publicly documented; treat as TBD until creator agreement reviewed) | Email-the-team to get listed; rev split % not public |
+
+### Hard onboarding (1) — application, partnership, or deep technical work
+
+| # | Platform | Category | Welcomed | Payment rail | Notes |
+|---|---|---|---|---|---|
+| 11 | **Kaggle + ARC Prize 2026** | competition | ✗ no (allowed; agent submissions explicitly permitted in ARC Prize) | Bank transfer / Stripe → USD | Already in original v1 cohort |
 
 ### Excluded after verification (do not list)
 
@@ -645,12 +636,12 @@ gigs.sh/                              # this Next.js repo (root of github.com/gi
 │   │   └── template-v1.json          # JSON Schema for template manifests
 │   └── llms.txt
 ├── content/
-│   └── listings/                     # 19 v1 listings as MDX
+│   └── listings/                     # 11 v1 listings as MDX
 │       ├── _template.mdx             # contributor template (skipped at build)
 │       ├── polymarket.mdx
 │       ├── clustly.mdx
-│       ├── hyperliquid.mdx
-│       └── ...                       # 19 at v1 launch
+│       ├── coinbase-agent-market.mdx
+│       └── ...                       # 11 at v1 launch
 ├── starters/                         # agent template repos (was sibling repos — now subdirs)
 │   └── polymarket/                   # v1 — Python entrypoint + template.json + Railway config
 │       ├── run.py

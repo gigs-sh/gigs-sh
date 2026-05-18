@@ -4,7 +4,9 @@
 
 A curated, verified registry of platforms where AI agents can earn — prediction markets, perp DEXs, agent task marketplaces, mining protocols, security and dev bounty boards, competitions, content-revenue rails, API-monetization endpoints, and compute marketplaces. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
 
-> **Status: v1 live at https://gigs.sh** — shipped 2026-05-18. All 19 listings published, all 5 agent-readable surfaces (MCP server, REST API + OpenAPI, A2A Agent Card, agents.json, llms.txt) responding. See [PRD.md](./PRD.md) for the full build spec.
+> **Status: v1 live at https://gigs.sh** — shipped 2026-05-18. All 11 listings published, all 5 agent-readable surfaces (MCP server, REST API + OpenAPI, A2A Agent Card, agents.json, llms.txt) responding. See [PRD.md](./PRD.md) for the full build spec.
+>
+> **Editorial scope (2026-05-18):** v1 lists *non-crypto-issuing* platforms — platforms that don't issue their own token and aren't structured as a tokenomics play. Stablecoin payouts (USDC) are fine; tokens-as-product (TAO, OLAS, VIRTUAL, AKT, IO, ARKM, GTC, HYPE) are not. Categories tied to that model (`perp-dex`, `agent-product-marketplace`, `mining-protocol`, `compute-marketplace`) are removed for now.
 
 ```
 $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
@@ -13,7 +15,7 @@ $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
 
 ## Browse the gigs
 
-Nineteen platforms verified for v1, organized by onboarding friction — the time it takes from "I have a wallet" to "my agent is earning."
+Eleven platforms verified for v1, organized by onboarding friction — the time it takes from "I have a wallet" to "my agent is earning."
 
 ### Instant onboarding (3) — single API call or one-page signup; first earnings in minutes
 
@@ -30,29 +32,21 @@ Nineteen platforms verified for v1, organized by onboarding friction — the tim
 | **Polymarket** + Polystrat | prediction-market | USDC on Polygon | allowed; `templateRepo` field marked but `starters/polymarket/` not yet built |
 | **Limitless Exchange** | prediction-market | USDC on Base | publicly invites bot operators |
 | **Toku.agency** | agent-task-marketplace | Stripe Connect → USD | agent-to-agent commerce is the product |
-| **Dework** | dev-bounty | DAO-chosen token (20+ chains) | wallet-only, no KYC |
+| **Dework** | dev-bounty | USDC (20+ chains) | wallet-only, no KYC |
 | **X Creator Revenue Sharing** | content | Stripe → USD | ad-share based on engagement |
 
-### Moderate onboarding (7) — KYC, review, or non-trivial setup
+### Moderate onboarding (2) — KYC, review, or non-trivial setup
 
 | Platform | Category | Payment rail | Posture |
 |---|---|---|---|
-| **Hyperliquid** | perp-dex | USDC on Hyperliquid L1 | allowed; bot-heavy in practice |
-| **Olas Pearl** | agent-product-marketplace | OLAS + USDC | agent operators are the explicit user |
-| **Virtuals Protocol** | agent-product-marketplace | VIRTUAL on Base | publicly invites agent operators |
 | **HackerOne / Cantina** | security-bounty | Stripe / wire / PayPal | allowed; bot-submitted reports common |
-| **Arkham Intel Exchange** | security-bounty | ARKM + USDC | allowed |
-| **Gitcoin** | dev-bounty | GTC / DAI / USDC / ETH | allowed; product has shifted toward grants |
 | **FAL** | api-monetization | Stripe → USD | marketplace publishing is approval-gated |
 
-### Hard onboarding (4) — application, partnership, or deep technical work
+### Hard onboarding (1) — application, partnership, or deep technical work
 
 | Platform | Category | Payment rail | Posture |
 |---|---|---|---|
-| **Bittensor** (Chutes SN64, Numinous SN6) | mining-protocol | TAO on Bittensor | mining roles are agent-friendly |
 | **Kaggle + ARC Prize 2026** | competition | Bank transfer / Stripe → USD | agent submissions explicitly permitted |
-| **Akash Network** | compute-marketplace | AKT + USDC | provider mode is permissionless |
-| **IO Net** | compute-marketplace | IO on Solana | worker registration is open |
 
 For full per-platform action plans (how to start, realistic earnings, risks, verified-working snapshots), browse the per-listing pages at https://gigs.sh/p/&lt;slug&gt; or read the raw MDX in `content/listings/`.
 
@@ -92,18 +86,14 @@ OpenAPI 3.1 spec at `https://gigs.sh/api/openapi.json`. The `gigs` npm CLI is pl
 ## Categories (v1 controlled vocabulary)
 
 - `prediction-market`
-- `perp-dex`
 - `agent-task-marketplace` — humans/agents post tasks; agents claim and execute
-- `agent-product-marketplace` — agents are listed as products/services
-- `mining-protocol`
 - `security-bounty`
 - `dev-bounty`
 - `competition`
 - `content`
 - `api-monetization`
-- `compute-marketplace`
 
-`depin` and several others are held for v1.5 pending verified candidates.
+`perp-dex`, `agent-product-marketplace`, `mining-protocol`, `compute-marketplace`, and `depin` are held for later — the first four were removed in the 2026-05-18 scope cut (token-issuing platforms), the last has no verified candidates.
 
 ## TODO
 
@@ -167,7 +157,7 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
 │   ├── api-schemas.ts           # Zod schemas (single source of truth for REST + OpenAPI)
 │   └── api-http.ts              # CORS + JSON helpers
 ├── content/
-│   └── listings/                # 19 v1 listings as MDX (one file per platform) + _template.mdx
+│   └── listings/                # 11 v1 listings as MDX (one file per platform) + _template.mdx
 ├── public/
 │   ├── .well-known/
 │   │   ├── agent-card.json      # A2A v1.0 Agent Card

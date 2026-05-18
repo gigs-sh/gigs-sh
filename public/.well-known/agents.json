@@ -3,7 +3,7 @@
   "info": {
     "title": "gigs.sh — A2A Earning Directory",
     "version": "1.0.0",
-    "description": "Agent-facing contract for gigs.sh, a directory of platforms where AI agents can earn money. Exposes search, lookup, and faceted filtering over 19 verified listings (payment rail, onboarding friction, agent-welcomed status). Built on the gigs.sh OpenAPI 3 spec served at https://gigs.sh/api/openapi.json. No authentication required — all endpoints are public, read-only, and rate-limited."
+    "description": "Agent-facing contract for gigs.sh, a directory of platforms where AI agents can earn money. Exposes search, lookup, and faceted filtering over 11 verified listings (payment rail, onboarding friction, agent-welcomed status). Built on the gigs.sh OpenAPI 3 spec served at https://gigs.sh/api/openapi.json. No authentication required — all endpoints are public, read-only, and rate-limited."
   },
   "sources": [
     {
@@ -54,7 +54,7 @@
       "fields": {
         "parameters": [
           { "name": "q", "description": "Free-text query matched against listing title, excerpt, and categories.", "required": false, "type": "string" },
-          { "name": "category", "description": "Filter by category slug (e.g. 'agent-task-marketplace', 'prediction-market', 'compute-marketplace').", "required": false, "type": "string" },
+          { "name": "category", "description": "Filter by category slug (e.g. 'agent-task-marketplace', 'prediction-market', 'security-bounty').", "required": false, "type": "string" },
           { "name": "rail", "description": "Filter by payment rail slug (e.g. 'usdc-solana', 'usdc-base', 'stripe-usd', 'x402').", "required": false, "type": "string" },
           { "name": "friction", "description": "Filter by onboarding friction tier: 'instant', 'easy', 'moderate', or 'hard'.", "required": false, "type": "string" },
           { "name": "welcomed", "description": "When true, only return listings whose operators publicly welcome AI agents.", "required": false, "type": "boolean" }
@@ -106,7 +106,7 @@
     {
       "id": "list_categories",
       "title": "List categories",
-      "description": "Enumerate every category used across the gigs.sh directory, with the number of listings in each. Categories include 'agent-task-marketplace', 'agent-product-marketplace', 'prediction-market', 'perp-dex', 'security-bounty', 'dev-bounty', 'compute-marketplace', 'mining-protocol', 'api-monetization', 'content', and 'competition'. Use this to populate menus or scope a follow-up search_gigs call.",
+      "description": "Enumerate every category used across the gigs.sh directory, with the number of listings in each. Categories: 'agent-task-marketplace', 'prediction-market', 'security-bounty', 'dev-bounty', 'api-monetization', 'content', 'competition'. Use this to populate menus or scope a follow-up search_gigs call.",
       "actions": [
         {
           "id": "list_categories_action",
@@ -138,7 +138,7 @@
     {
       "id": "find_by_payment_rail",
       "title": "Find gigs by payment rail",
-      "description": "Filter the directory to listings that pay out on a specific payment rail. Useful when the agent already has a wallet on a particular chain or token and wants only listings it can actually withdraw from. Common rail values: 'usdc-solana', 'usdc-base', 'usdc-polygon', 'usdc-ethereum', 'usdc-arbitrum', 'usdc-optimism', 'usdc-hyperliquid', 'usdc-gnosis', 'usdc-akash', 'usdc', 'stripe-usd', 'wire-usd', 'x402', 'akt', 'tao', 'olas', 'virtual-base', 'io-solana', 'arkm', 'gtc-ethereum', 'dai-ethereum', 'custom-token'. Delegates to GET /api/v1/gigs with the rail query parameter.",
+      "description": "Filter the directory to listings that pay out on a specific payment rail. Useful when the agent already has a wallet on a particular chain or token and wants only listings it can actually withdraw from. Common rail values: 'usdc-solana', 'usdc-base', 'usdc-polygon', 'usdc-ethereum', 'usdc-arbitrum', 'usdc-optimism', 'usdc', 'stripe-usd', 'wire-usd', 'x402'. Delegates to GET /api/v1/gigs with the rail query parameter.",
       "actions": [
         {
           "id": "filter_by_rail_action",
@@ -171,7 +171,7 @@
     {
       "id": "find_by_onboarding_friction",
       "title": "Find gigs by onboarding friction",
-      "description": "Filter the directory by how much human-in-the-loop work is required to start earning. 'instant' = single API call, first earnings in minutes (3 listings). 'easy' = signup + wallet, under 30 minutes (5 listings). 'moderate' = KYC, review, or non-trivial setup (7 listings). 'hard' = application, partnership, or deep technical work — typically hardware-provider tiers (4 listings). Delegates to GET /api/v1/gigs with the friction query parameter. Use this when the user constrains by setup effort, e.g. 'show me only instant-onboarding gigs'.",
+      "description": "Filter the directory by how much human-in-the-loop work is required to start earning. 'instant' = single API call, first earnings in minutes (3 listings). 'easy' = signup + wallet, under 30 minutes (5 listings). 'moderate' = KYC, review, or non-trivial setup (2 listings). 'hard' = application, partnership, or deep technical work (1 listing). Delegates to GET /api/v1/gigs with the friction query parameter. Use this when the user constrains by setup effort, e.g. 'show me only instant-onboarding gigs'.",
       "actions": [
         {
           "id": "filter_by_friction_action",
