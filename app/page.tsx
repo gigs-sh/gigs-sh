@@ -42,6 +42,9 @@ function Card({ listing }: { listing: Listing }) {
       <p className="card-excerpt">{listing.excerpt}</p>
       <div className="card-foot mono">
         <span className="cat-tag">#{listing.categories[0]}</span>
+        <span className={`credibility credibility-${listing.credibility}`}>
+          {listing.credibility}
+        </span>
         <span className="verified">verified {listing.verifiedAt}</span>
       </div>
     </Link>

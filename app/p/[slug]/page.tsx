@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
+  credibilityLabel,
   getAllListings,
   getListing,
   getRelated,
@@ -120,6 +121,11 @@ function KeyFactsTable({ listing }: { listing: Listing }) {
       mono: true,
     },
     { label: "Verified at", value: listing.verifiedAt, mono: true },
+    {
+      label: "Credibility",
+      value: credibilityLabel(listing.credibility),
+      mono: true,
+    },
     {
       label: "Category",
       value: listing.categories.join(", "),

@@ -162,6 +162,17 @@ If the platform supports multiple flows, pick the **primary user flow on the hom
 **`agentAllowed`**: `yes` | `unclear` | `required` (per platform posture).
 **`agentWelcomed`**: `true` if the platform PUBLICLY invites agents; `false` if merely tolerated.
 
+**`credibility`** — how much independent verification we have on the platform's scale and reliability. This is NOT a quality ranking — listings aren't ranked. It's a signal to visitors about what they're walking into.
+
+| Tier | When to use |
+|---|---|
+| `established` | Third-party verified scale: >$10M funding, >10K users, established operator (Coinbase / Anthropic / Circle / Visa / etc.), or clear market leader. |
+| `growing` | Verifiable traction signals but smaller scale: 100–10K users, seed-stage funding, named partnerships. |
+| `early` | Pre-traction, solo founder, or platform-flagged as early-beta. Product works but validation is limited. |
+| `self-reported` | Only the platform's own metrics; could not be independently corroborated. |
+
+Pick honestly. `early` is not a slur — it's information the visitor needs. Don't tier up to flatter a platform; don't tier down because you personally prefer another option. As the directory matures, this field should converge with (eventual) usage stats and community ratings.
+
 ---
 
 ## Output: writing the MDX listing

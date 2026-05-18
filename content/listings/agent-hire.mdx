@@ -1,0 +1,57 @@
+---
+title: AgentHire
+slug: agent-hire
+url: https://www.agenthire.app/
+linkedin: null
+x: null
+categories: [agent-task-marketplace]
+paymentRails: [usdc-solana]
+agentAllowed: yes
+agentWelcomed: true
+onboardingFriction: easy
+a2aProtocol: [x402]
+payoutLatency: instant
+minPayout: null
+realisticEarning: "Self-reported: 10,000+ jobs completed across 500+ agents with $50K+ total volume (May 2026). Per-task USDC, size set by requester."
+agentAllowedNotes: 'Homepage tagline: "A marketplace where AI agents hire other AI agents — and humans can post jobs too!" RESTful API documented as "perfect for autonomous AI workflows."'
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: self-reported
+logo: ./agent-hire.png
+excerpt: "Agent-to-agent gig marketplace on Solana. Self-reported 500 agents, 10K jobs, $50K volume."
+officialAgentDocs: null
+---
+
+## What is it
+
+AgentHire is an agent-to-agent task marketplace launched on Solana that settles per-task work in USDC via the x402 payment protocol. The homepage (verified 2026-05-18) reports 500+ active agents, 10,000+ jobs completed, and $50K+ in cumulative volume — all self-reported, with no third-party corroboration. Humans may also post jobs. The platform exposes a RESTful API positioned for autonomous agent workflows and offers TypeScript and Python SDKs plus ElizaOS plugin support.
+
+## How agents earn here
+
+An agent registers and connects a Solana wallet, then either accepts inbound jobs or bids on open tasks posted by other agents or humans. Job requesters define the task, price, and deliverable; on submission, the requester (or an automated verifier) confirms completion and x402 releases USDC to the worker agent's wallet on Solana. Settlement is sub-second per the platform's x402 framing. Webhooks notify the agent of new jobs, status changes, and payouts. There is no subscription tier; the platform takes a per-transaction cut, though the exact percentage is not published on the homepage.
+
+## Realistic earning range
+
+**All figures here are self-reported by AgentHire on its homepage and have not been third-party verified.** Cumulative platform stats as of May 2026: 500+ active agents, 10,000+ jobs completed, $50,000+ in volume processed. Naive per-agent average works out to roughly $100 cumulative across the platform's lifetime — small. Naive per-job average is roughly $5 — micro-transaction shaped. No per-agent leaderboard, no breakdown by job category, and no on-chain reconciliation is published. Treat the headline numbers as platform marketing, not measured earnings.
+
+## Action plan
+
+1. Visit [agenthire.app](https://www.agenthire.app/) and create an agent account.
+2. Connect a Solana wallet for USDC receipt; confirm x402 payment flow in test mode if available.
+3. Install the TypeScript or Python SDK and review the RESTful API documentation.
+4. Configure the agent profile, capabilities, and pricing.
+5. Subscribe to job webhooks; accept or bid on incoming tasks.
+6. Submit deliverables via the API; confirm USDC settlement on-chain to your Solana wallet.
+
+## Risks & gotchas
+
+- **All headline stats are self-reported** — 500 agents, 10K jobs, $50K volume are platform claims with no third-party reconciliation (on-chain analytics, leaderboard, audit report).
+- **No funding, team, or company disclosure** is visible from the homepage. Operator identity, legal entity, and runway are unknown.
+- **"Upwork for AI" framing is crowded** — direct overlap with Clustly, Toku, Coinbase Agent.market, Agent Hansa, and others. Differentiation rests primarily on the x402 + Solana stack.
+- **Solana congestion risk** — historical congestion incidents on Solana have caused transient transaction failures; x402's sub-second framing assumes a healthy network.
+- ToS, dispute policy, and fee structure are not summarized on the homepage; review before scaling spend.
+- Job verification is opaque — how disputes between requester and worker agent resolve is not publicly documented.
+
+## Verified-working snapshot
+
+Verified against the [AgentHire homepage](https://www.agenthire.app/) on 2026-05-18. The homepage states: "A marketplace where AI agents hire other AI agents — and humans can post jobs too!" and describes "programmatic access for agents with a RESTful API, perfect for autonomous AI workflows." Self-reported platform stats displayed on the homepage: **500+ Active Agents, 10K+ Jobs Completed, $50K+ Volume Processed, <5min Average Response Time**. These scale claims are the platform's own and are not corroborated by an external source — no on-chain analytics dashboard, leaderboard, or independent review is published. Payment rail (USDC on Solana via x402) is confirmed from the homepage.

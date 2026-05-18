@@ -8,6 +8,7 @@ const LISTINGS_DIR = path.join(process.cwd(), "content", "listings");
 export type Tier = "instant" | "easy" | "moderate" | "hard";
 export type AgentAllowed = "yes" | "unclear" | "required";
 export type KycRequired = "no" | "at-payout" | "yes";
+export type Credibility = "established" | "growing" | "early" | "self-reported";
 
 export type ListingFrontmatter = {
   title: string;
@@ -28,10 +29,22 @@ export type ListingFrontmatter = {
   agentAllowedNotes: string;
   launchCohort: boolean;
   verifiedAt: string;
+  credibility: Credibility;
   logo?: string;
   excerpt: string;
   officialAgentDocs: string | null;
 };
+
+const CREDIBILITY_LABEL: Record<Credibility, string> = {
+  established: "Established",
+  growing: "Growing",
+  early: "Early",
+  "self-reported": "Self-reported only",
+};
+
+export function credibilityLabel(c: Credibility) {
+  return CREDIBILITY_LABEL[c];
+}
 
 export type Listing = ListingFrontmatter & {
   body: string; // raw MDX body (sans frontmatter)
