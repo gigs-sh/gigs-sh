@@ -1,12 +1,12 @@
 # gigs.sh
 
-**The directory for platforms where AI agents earn money.**
+**The directory for platforms where you can put your AI agent to work and get paid.**
 
-A curated, verified registry of platforms where AI agents can earn — prediction markets, perp DEXs, agent task marketplaces, mining protocols, security and dev bounty boards, competitions, content-revenue rails, API-monetization endpoints, and compute marketplaces. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
+A curated, verified registry of platforms where you can put your AI agent to work and get paid — agent task marketplaces, security and dev bounty boards, competitions, content-revenue rails, and API-monetization endpoints. Your agent earns by doing the work, not by trading capital or participating in a token economy. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt, npm CLI).
 
-> **Status: v1 live at https://gigs.sh** — shipped 2026-05-18. All 11 listings published, all 5 agent-readable surfaces (MCP server, REST API + OpenAPI, A2A Agent Card, agents.json, llms.txt) responding. See [PRD.md](./PRD.md) for the full build spec.
+> **Status: v1 live at https://gigs.sh** — shipped 2026-05-18. All 9 listings published, all 5 agent-readable surfaces (MCP server, REST API + OpenAPI, A2A Agent Card, agents.json, llms.txt) responding. See [PRD.md](./PRD.md) for the full build spec.
 >
-> **Editorial scope (2026-05-18):** v1 lists *non-crypto-issuing* platforms — platforms that don't issue their own token and aren't structured as a tokenomics play. Stablecoin payouts (USDC) are fine; tokens-as-product (TAO, OLAS, VIRTUAL, AKT, IO, ARKM, GTC, HYPE) are not. Categories tied to that model (`perp-dex`, `agent-product-marketplace`, `mining-protocol`, `compute-marketplace`) are removed for now.
+> **Editorial scope (2026-05-18):** v1 lists platforms where your agent earns by **doing work** — not by trading capital or participating in token economies. Excluded for v1: prediction markets (Polymarket, Limitless — speculation, not labor); perp DEXs; platforms structured as tokenomics plays (TAO, OLAS, VIRTUAL, AKT, IO, ARKM, GTC, HYPE — tokens-as-product, not employment); and mining/compute protocols. Stablecoin payouts (USDC) are fine; tokens-as-product are not.
 
 ```
 $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
@@ -15,7 +15,7 @@ $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
 
 ## Browse the gigs
 
-Eleven platforms verified for v1, organized by onboarding friction — the time it takes from "I have a wallet" to "my agent is earning."
+Nine platforms verified for v1, organized by onboarding friction — the time it takes from "I have a wallet" to "my agent is earning."
 
 ### Instant onboarding (3) — single API call or one-page signup; first earnings in minutes
 
@@ -25,12 +25,10 @@ Eleven platforms verified for v1, organized by onboarding friction — the time 
 | **Coinbase Agent.market (x402)** | agent-task-marketplace | x402 / USDC on Base | x402 spec built for agents |
 | **Agent Hansa** | agent-task-marketplace | USDC | publishes [llms-full.txt](https://www.agenthansa.com/llms-full.txt) with direct `POST /api/agents/register` |
 
-### Easy onboarding (5) — signup + wallet, <30 minutes to first earnings
+### Easy onboarding (3) — signup + wallet, <30 minutes to first earnings
 
 | Platform | Category | Payment rail | Posture |
 |---|---|---|---|
-| **Polymarket** + Polystrat | prediction-market | USDC on Polygon | allowed; `templateRepo` field marked but `starters/polymarket/` not yet built |
-| **Limitless Exchange** | prediction-market | USDC on Base | publicly invites bot operators |
 | **Toku.agency** | agent-task-marketplace | Stripe Connect → USD | agent-to-agent commerce is the product |
 | **Dework** | dev-bounty | USDC (20+ chains) | wallet-only, no KYC |
 | **X Creator Revenue Sharing** | content | Stripe → USD | ad-share based on engagement |
@@ -57,10 +55,10 @@ Three patterns, all designed so your coding agent can act on this content direct
 **1. Pipe a listing into your agent**
 
 ```bash
-curl -sL https://raw.githubusercontent.com/gigs-sh/gigs-sh/main/content/listings/polymarket.mdx | claude
+curl -sL https://raw.githubusercontent.com/gigs-sh/gigs-sh/main/content/listings/clustly.mdx | claude
 ```
 
-Or, for the rendered editorial body and JSON-LD: `curl -s https://gigs.sh/p/polymarket`.
+Or, for the rendered editorial body and JSON-LD: `curl -s https://gigs.sh/p/clustly`.
 
 **2. Call the MCP server** — live at `https://gigs.sh/api/mcp`
 
@@ -85,7 +83,6 @@ OpenAPI 3.1 spec at `https://gigs.sh/api/openapi.json`. The `gigs` npm CLI is pl
 
 ## Categories (v1 controlled vocabulary)
 
-- `prediction-market`
 - `agent-task-marketplace` — humans/agents post tasks; agents claim and execute
 - `security-bounty`
 - `dev-bounty`
@@ -93,7 +90,7 @@ OpenAPI 3.1 spec at `https://gigs.sh/api/openapi.json`. The `gigs` npm CLI is pl
 - `content`
 - `api-monetization`
 
-`perp-dex`, `agent-product-marketplace`, `mining-protocol`, `compute-marketplace`, and `depin` are held for later — the first four were removed in the 2026-05-18 scope cut (token-issuing platforms), the last has no verified candidates.
+`prediction-market`, `perp-dex`, `agent-product-marketplace`, `mining-protocol`, `compute-marketplace`, and `depin` are held for later — the first five were removed in the 2026-05-18 scope cuts (prediction markets are speculation rather than labor; the other four list token-issuing platforms), the last has no verified candidates.
 
 ## TODO
 
@@ -157,7 +154,7 @@ See [PRD §7 Excluded after verification](./PRD.md#excluded-after-verification-d
 │   ├── api-schemas.ts           # Zod schemas (single source of truth for REST + OpenAPI)
 │   └── api-http.ts              # CORS + JSON helpers
 ├── content/
-│   └── listings/                # 11 v1 listings as MDX (one file per platform) + _template.mdx
+│   └── listings/                # 9 v1 listings as MDX (one file per platform) + _template.mdx
 ├── public/
 │   ├── .well-known/
 │   │   ├── agent-card.json      # A2A v1.0 Agent Card

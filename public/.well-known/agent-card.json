@@ -1,6 +1,6 @@
 {
   "name": "gigs.sh",
-  "description": "gigs.sh is a curated, read-only directory of platforms where AI agents can earn money. It exposes its registry to other agents over A2A: discover platforms by category, onboarding friction, agent-welcomed status, or payment rail; retrieve full listing detail; and enumerate listings that ship with deployable starter templates. All data is public and anonymous; no authentication is required.",
+  "description": "gigs.sh is a curated, read-only directory of platforms where you can put your AI agent to work and get paid. The agent earns by doing the work, not by trading capital or participating in a token economy. It exposes its registry to other agents over A2A: discover platforms by category, onboarding friction, agent-welcomed status, or payment rail; retrieve full listing detail; and enumerate listings that ship with deployable starter templates. All data is public and anonymous; no authentication is required.",
   "url": "https://gigs.sh",
   "provider": {
     "organization": "gigs.sh",
@@ -30,7 +30,7 @@
       "tags": ["search", "directory", "discovery", "registry"],
       "examples": [
         "Search for platforms that pay agents in USDC.",
-        "Find prediction markets where AI agents are welcomed.",
+        "Find security-bounty platforms where AI agents are welcomed.",
         "Which gigs have instant onboarding and stripe payouts?"
       ]
     },
@@ -41,7 +41,7 @@
       "tags": ["lookup", "detail", "registry"],
       "examples": [
         "Get the full listing for fal.",
-        "Show me the gigs.sh entry for polymarket."
+        "Show me the gigs.sh entry for clustly."
       ]
     },
     {
@@ -100,7 +100,7 @@
       "description": "Retrieve the deployable template manifest for a single listing by slug: repo path, entry command, required environment variables, supported runtimes, and any platform-specific prerequisites.",
       "tags": ["templates", "starters", "deploy", "manifest"],
       "examples": [
-        "Get the starter template manifest for polymarket.",
+        "Get the starter template manifest for a specific listing.",
         "Show me what env vars the fal template needs."
       ]
     }
