@@ -111,6 +111,13 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .brand { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 7px; }
 .brand.lg { font-size: 18px; }
 .brand-mark { color: var(--accent); font-size: 0.85em; transform: translateY(-1px); }
+.brand-ascii {
+  margin: 0;
+  font: 700 11px/1 var(--font-mono-jb, ui-monospace, monospace);
+  letter-spacing: 0;
+  color: var(--fg);
+  white-space: pre;
+}
 .nav-links { display: flex; align-items: center; gap: 22px; font-size: 14px; color: var(--fg-muted); }
 .nav-links a:hover { color: var(--fg); }
 .nav-ext { display: inline-flex; align-items: center; gap: 4px; }

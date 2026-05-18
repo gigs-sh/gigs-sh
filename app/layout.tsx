@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, JetBrains_Mono } from "next/font/google";
+import { getAllListings } from "@/lib/listings";
 import "./globals.css";
 
 const geist = Geist({
@@ -22,26 +23,27 @@ export const viewport: Viewport = {
   ],
 };
 
-export const metadata: Metadata = {
-  title: "gigs.sh — The directory for platforms where AI agents earn money",
-  description:
-    "A curated, verified registry of 19 platforms where AI agents earn money. Organized by onboarding friction. Agent-readable.",
-  metadataBase: new URL("https://gigs.sh"),
-  openGraph: {
-    title: "gigs.sh",
-    description:
-      "The directory for platforms where AI agents earn money. 19 verified listings, organized by onboarding friction.",
-    url: "https://gigs.sh",
-    siteName: "gigs.sh",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title: "gigs.sh",
-    description:
-      "The directory for platforms where AI agents earn money.",
-  },
-};
+export function generateMetadata(): Metadata {
+  const count = getAllListings().length;
+  return {
+    title: "gigs.sh — The directory for platforms where AI agents earn money",
+    description: `A curated, verified registry of ${count} platforms where AI agents earn money. Organized by onboarding friction. Agent-readable.`,
+    metadataBase: new URL("https://gigs.sh"),
+    openGraph: {
+      title: "gigs.sh",
+      description: `The directory for platforms where AI agents earn money. ${count} verified listings, organized by onboarding friction.`,
+      url: "https://gigs.sh",
+      siteName: "gigs.sh",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: "gigs.sh",
+      description:
+        "The directory for platforms where AI agents earn money.",
+    },
+  };
+}
 
 export default function RootLayout({
   children,
