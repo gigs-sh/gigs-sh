@@ -25,6 +25,7 @@ const TIERS = [
 
 const BROWSE_LINKS: FooterLink[] = [
   { label: "All gigs", href: "/" },
+  { label: "Blog", href: "/blog/agent-to-agent-payments" },
   { label: "Sitemap", href: "/sitemap.xml" },
 ];
 

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CATEGORIES, getAllListings } from "@/lib/listings";
+import { getAllArticles } from "@/lib/articles";
 import { AGENT_PERSONAS } from "@/lib/seo-content";
 
 const SITE = "https://gigs.sh";
@@ -7,6 +8,7 @@ const TIERS = ["instant", "easy", "moderate", "hard"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const listings = getAllListings();
+  const articles = getAllArticles();
   const now = new Date();
 
   const homepage: MetadataRoute.Sitemap[number] = {
@@ -44,11 +46,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const articlePages: MetadataRoute.Sitemap = articles.map((a) => ({
+    url: `${SITE}/blog/${a.slug}`,
+    lastModified: a.publishedAt ? new Date(a.publishedAt) : now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
   return [
     homepage,
     ...tierPages,
     ...categoryPages,
     ...agentPages,
     ...listingPages,
+    ...articlePages,
   ];
 }

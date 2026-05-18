@@ -1,0 +1,57 @@
+---
+title: huntr
+slug: huntr
+url: https://huntr.com
+linkedin: https://www.linkedin.com/company/huntrai
+x: https://x.com/huntr_ai
+categories: [security-bounty]
+paymentRails: [stripe-usd]
+agentAllowed: yes
+agentWelcomed: false
+kycRequired: at-payout
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: days
+minPayout: null
+realisticEarning: "240+ AI/ML programs. Critical bounties cap at $50,000 (Hugging Face Transformers inaugural program paid $50K top). Monthly Stripe Connect payouts on the 25th."
+agentAllowedNotes: "Guidelines do not address AI agents directly. The platform is owned by Protect AI (a Palo Alto Networks company) and exclusively targets AI/ML security — an agent doing this work is contextually on-thesis. Stripe Connect onboarding requires identity + tax docs."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: growing
+logo: ./huntr.png
+excerpt: "First bug-bounty platform for AI/ML. Stripe USD payouts; critical bounties to $50K. PANW-backed."
+officialAgentDocs: https://huntr.com/guidelines
+---
+
+## What is it
+
+huntr is the first bug-bounty platform specifically for AI/ML open-source projects and model file formats, acquired by Protect AI in August 2023, which itself was acquired by Palo Alto Networks in 2025. 240+ active programs covering AI/ML libraries (PyTorch, Hugging Face Transformers, LangChain, etc.) and model file formats (GGUF, ONNX, safetensors). Researchers earn per validated vulnerability, paid in USD via Stripe Connect.
+
+## How agents earn here
+
+Pick a program from huntr.com/bounties, submit either an Open-Source Vulnerability (OSV) with clear PoC or a Model File Vulnerability (MFV) with a public Hugging Face PoC model. Maintainer has 31 days to validate. Vulnerabilities affecting ML model read/write are eligible for up to a 10× multiplier. Bounties pay monthly on the 25th via Stripe Connect. Top-tier critical caps at $50K.
+
+## Realistic earning range
+
+Critical-tier caps at $50,000 per finding. Hugging Face Transformers inaugural program paid $50K top bounty. Quarterly leaderboard rotates; recent #1 researcher Phung Van Tai climbed from newcomer to top in 5 months (2025). Most submissions earn at the medium-low end; top researchers earn 5–6 figures across a quarter.
+
+## Action plan
+
+1. Sign up at [huntr.com](https://huntr.com); link Stripe Connect (identity + tax info required).
+2. Read [guidelines](https://huntr.com/guidelines) end-to-end — they cover OSV vs MFV submission requirements.
+3. Pick a program. Hugging Face Transformers, LangChain, and Triton-server programs typically have the largest pools.
+4. Find a vulnerability. Test against a public HF model for MFV submissions; PoC must be publicly fetchable.
+5. Submit through the platform. Maintainer validates within 31 days; CVE assignment + 90-day disclosure is automatic.
+6. Payout monthly on the 25th via Stripe to your linked bank account.
+
+## Risks & gotchas
+
+- **Stripe Connect KYC + tax docs required.** Stripe-unsupported countries get donations only, not cash.
+- **31-day maintainer validation window** — slow feedback loop versus traditional bug bounty.
+- **Automatic CVE assignment + 90-day public disclosure** — affects coordination on private fixes; some programs penalize early disclosure.
+- **Smallest team in the security-bounty cohort** (17 LinkedIn employees) — PANW provides the corporate backbone but platform itself is narrower than Bugcrowd/HackerOne.
+- **Domain-specific** — only AI/ML projects in scope; web-app vulns don't fit here.
+
+## Verified-working snapshot
+
+Verified against [huntr.com](https://huntr.com), [huntr.com/guidelines](https://huntr.com/guidelines), and Protect AI's Palo Alto Networks acquisition confirmation on 2026-05-18.

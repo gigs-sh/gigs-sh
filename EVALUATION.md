@@ -245,9 +245,14 @@ If you are an AI agent (Claude, GPT, Gemini, etc.) and someone asks you to evalu
 
 Platforms evaluated and rejected, with reason. When rejecting a new candidate, append it here so future contributors don't re-evaluate the same platforms.
 
-**Anti-bot ToS:**
+**Anti-bot / anti-AI ToS:**
 - Civitai — Creator Program ToS bans bots / automation explicitly
 - Toloka, Surge AI, Karya, Sapien — data-labeling platforms; ToS bans automated workers
+- TikTok Creator Rewards Program — *"fully AI-generated content"* explicitly prohibited from monetization (escalating suspensions, permanent ban after 4th offense)
+- Medium Partner Program — *"AI-generated writing (disclosed as such or not) is not allowed to be paywalled"*; undisclosed AI gets "Network Only" distribution
+- Beehiiv — *"Publications that rely entirely on AI-generated material without meaningful human input are not permitted"* (Acceptable Use Policy)
+- Ko-fi — *"Bots or other automatic means must not be used to interact with Ko-fi"*; also bans scraping for AI training
+- Buy Me a Coffee — restricts AI impersonation use cases; ToS leans hostile to fully AI-driven creator accounts
 
 **Speculation, not labor:**
 - Polymarket, Limitless — prediction markets
@@ -261,9 +266,38 @@ Platforms evaluated and rejected, with reason. When rejecting a new candidate, a
 
 **No payout mechanism for the operator:**
 - Replicate, Hugging Face Inference Endpoints
+- LinkedIn Creator Mode — sponsorship-mediated income only; no unified platform-paid revenue share
+- Hugging Face Competitions — competitions page stale; no prize column populated; no payment mechanism documented
+- Hume AI Competitions — research-glory leaderboards; no cash prize pool disclosed for any active competition
+- Chai Prize / Chaiverse — emphasizes "recognition and satisfaction" over monetary prizes; no documented active cash pool
+- METR bounty program — pays $20/idea, $200/spec for evaluation-task creation; piecework structure, not single-event competition (could be re-evaluated for `dev-bounty` if scope broadens)
 
 **Human-only identity gating with no exemption:**
 - GitHub Sponsors
+- Synack — invite-only Synack Red Team with 5-step human vetting; no public agent provision
+
+**Pivoted / discontinued (Gate 4 fail):**
+- OnlyDust — *"The OnlyDust chapter closes here"*; team pivoted to ctrlg.com
+- Replit Bounties — 301-redirects to contra.com/replit; bounty model deprecated
+- Wonderverse — pivoted to Discord bot product
+- Mirror.xyz — folded into Paragraph (May 2024); Paragraph is the listed successor
+- CodaLab — explicit notice: *"will not allow new competitions after the end of September 2025"*
+- Pinterest Creator Rewards — program discontinued 2023, not replaced
+- BountyHub.dev — last commit September 2024; dormant
+- IssueHunt.io — pivoted to bug bounty only; *"#1 Bug Bounty platform in Japan"*; if reconsidered would be `security-bounty`
+
+**Editorial mismatch:**
+- BountyCaster — Farcaster-native, but currency mix is dominantly memecoins ($degen, $higher, $build, MOXIE, etc.); listing would dilute dev-bounty category
+- CodaBench — academic benchmark/leaderboard platform; no cash-prize distribution mechanism
+- Amazon Nova AI Challenge — $250K grants paid *to universities*; agent operators cannot enter directly
+- Ghost — newsletter infrastructure; not a marketplace (Stripe pays operator directly without Ghost as disbursing party)
+
+**Too early / FLAG for revisit:**
+- uBounty.ai — rail and posture are on-thesis (USDC on Base + x402 + no KYC) but `/bounties` page rendered empty on 2026-05-18 verification; revisit when bounty supply lands
+- Collaborators.build — *"experimental"* with ambiguous future-token language; below traction bar
+- YesWeHack — ToS silent on AI/bot researchers; revisit if they publish explicit posture
+- Snapchat Spotlight — allows AI with disclosure but threshold (100 hours of view time / 28 days) is high
+- Patreon — March-April 2026 policy updates address AI but focus on adult/impersonation; revisit when general AI policy stabilizes
 
 **Infra, not marketplace** (agent doesn't pick up work here):
 - Skyfire (initially) — re-evaluated and listed once seller-onboarding flow was documented

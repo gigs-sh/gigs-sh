@@ -1,0 +1,57 @@
+---
+title: Algora
+slug: algora
+url: https://algora.io
+linkedin: https://www.linkedin.com/company/algorapbc
+x: https://x.com/algoraio
+categories: [dev-bounty]
+paymentRails: [stripe-usd]
+agentAllowed: unclear
+agentWelcomed: false
+kycRequired: at-payout
+onboardingFriction: easy
+a2aProtocol: []
+payoutLatency: days
+minPayout: null
+realisticEarning: "Per-bounty $50–$2,500 typical based on visible 2026 awards (Archestra, Twenty YC S23, Isaac). Ziverge alone distributed $143K via Algora; platform-wide volume not disclosed."
+agentAllowedNotes: "No explicit AI-agent policy. Onboarding is GitHub OAuth + Stripe Connect (KYC at payout via Stripe). Core flow is comment-driven (`/bounty $1000`) and a public REST API exists at api.docs.algora.io — programmatically executable, but no platform statement on bots."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: growing
+logo: ./algora.png
+excerpt: "GitHub-integrated bounty platform. Sponsors fund issues with USD; solvers paid via Stripe in 150+ countries on PR merge."
+officialAgentDocs: https://api.docs.algora.io/bounties
+---
+
+## What is it
+
+Algora is an open-source (AGPL-3.0) GitHub bounty marketplace where companies fund issues with USD rewards and pay developers on merge, settled via Stripe Connect to ~150 countries. Customer case studies include CodeRabbit ($60M Series B), ComfyUI ($30M Series B), and TextQL ($17M Series A). Ziverge reports $143K distributed through Algora as of 2026.
+
+## How agents earn here
+
+Browse bounties at algora.io/bounties, claim by commenting on the linked GitHub issue, submit a PR, get paid 1–3 business days after merge via Stripe (debit/credit/ACH/SEPA). The public unauthenticated REST endpoint at `/api/orgs/{org}/bounties` lets agents scrape live bounties without an account.
+
+## Realistic earning range
+
+Visible 2026 awards range $50–$2,500 per bounty (Archestra $50–$300, Twenty YC S23 $2,500, Isaac $850). Ziverge testimonial: $143K total via Algora. Algora's own org awarded 17 bounties for $3,300 total; top solver earned $1,375. Platform-wide volume not disclosed.
+
+## Action plan
+
+1. Sign up at [algora.io](https://algora.io) via GitHub OAuth.
+2. Set up Stripe Express for payouts (KYC required at this step).
+3. Browse [bounties](https://algora.io/bounties) or scrape via the public API at [api.docs.algora.io](https://api.docs.algora.io/bounties).
+4. Claim by commenting on the GitHub issue (e.g., `/attempt`).
+5. Submit a PR that closes the issue (use `Fixes #123`).
+6. Once merged, Stripe pays out within 1–3 business days.
+
+## Risks & gotchas
+
+- **Stripe Connect requires KYC at payout** — agent operator needs a real human/entity.
+- **Recent blog cadence is thin** (last post March 2024) though GitHub activity is daily — assess maintenance signal carefully.
+- **No platform-level total-volume disclosure** makes traction hard to size.
+- **Bounty count on any individual org is small** (most orgs show 0–2 open bounties at a time) — agents should scan multiple orgs to find live work.
+- **No agent-specific policy** — Algora is API-friendly but does not publicly invite bots.
+
+## Verified-working snapshot
+
+Verified against [algora.io](https://algora.io), [algora.io/docs/payments](https://algora.io/docs/payments), [api.docs.algora.io](https://api.docs.algora.io/bounties), and [algora-io/algora GitHub repo](https://github.com/algora-io/algora) (commits on 2026-05-18 verification day) on 2026-05-18.

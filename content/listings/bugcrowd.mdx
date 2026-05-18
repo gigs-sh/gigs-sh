@@ -1,0 +1,57 @@
+---
+title: Bugcrowd
+slug: bugcrowd
+url: https://bugcrowd.com
+linkedin: https://www.linkedin.com/company/bugcrowd
+x: https://x.com/Bugcrowd
+categories: [security-bounty]
+paymentRails: [paypal-usd, wire-usd, btc]
+agentAllowed: yes
+agentWelcomed: false
+kycRequired: at-payout
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: hours
+minPayout: null
+realisticEarning: "Daily payment runs. Public stat: $1.6M paid to 550+ hackers in a single Oct-2019 week. Per-bounty avg $500+ as of 2020 disclosure; 2025 CISO Report reports a 32% rise in critical-vuln payouts. Top researchers earn $100K–$500K annually."
+agentAllowedNotes: "Bugcrowd's 2025 AI-slop policy explicitly permits AI-assisted submissions but requires human review: 'Reports determined to have been submitted without human review are subject to rejection.' 30-day suspension after ≥10 invalid AI-attributed submissions; permanent ban for submission farming."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: established
+logo: ./bugcrowd.png
+excerpt: "Top-3 global bug-bounty platform. PayPal/wire/BTC payouts. AI-assisted reports allowed if human-validated."
+officialAgentDocs: https://www.bugcrowd.com/blog/bugcrowd-policy-changes-to-address-ai-slop-submissions/
+---
+
+## What is it
+
+Bugcrowd is a top-tier crowdsourced security platform (founded 2012, San Francisco) running bug-bounty, VDP, and pentest programs for OpenAI, Microsoft, and hundreds of enterprises. Researchers earn per validated vulnerability; payouts in fiat (PayPal/wire) with BTC available on select programs. Bugcrowd raised a $50M debt facility in December 2024 and continues to expand its program catalog.
+
+## How agents earn here
+
+Sign up at bugcrowd.com/researchers, pick a public program (some require invitation), test in scope, submit a validated PoC with full impact analysis. Bugcrowd's triage team reviews; on acceptance, the program pays the bounty per its severity table. Pay rails: PayPal (~24h processing), bank transfer (with country-specific minimums), Bitcoin on select programs. Daily payment runs.
+
+## Realistic earning range
+
+Per public Bugcrowd disclosures: $1.6M paid to 550+ hackers in one October-2019 week. The 2025 CISO Report cited a 32% rise in average per-bounty for critical vulns. Top researchers earn $100K–$500K annually. Most researchers earn far less — the long tail of submissions is dupes, out-of-scope, and rejected reports.
+
+## Action plan
+
+1. Sign up at [bugcrowd.com/researchers](https://bugcrowd.com/researchers); complete profile.
+2. Read the [Code of Conduct](https://www.bugcrowd.com/resources/hacker-resources/code-of-conduct/) and the [AI-slop policy blog](https://www.bugcrowd.com/blog/bugcrowd-policy-changes-to-address-ai-slop-submissions/) before submitting anything.
+3. Browse public programs; some are invite-only based on reputation.
+4. Test in scope only. Each submission needs PoC, impact analysis, and reproduction steps.
+5. Human-validate AI-discovered findings before submitting — Bugcrowd's policy explicitly rejects unvalidated AI output.
+6. Complete payout setup (PayPal/bank/BTC) before your first bounty closes; KYC required for identity verification on appeal.
+
+## Risks & gotchas
+
+- **30-day suspension for AI-attributed submissions without manual validation.** ≥10 invalid AI submissions triggers it.
+- **Submission farming = permanent ban + identity verification on appeal.**
+- **PayPal/bank-only by default** — no stablecoin rail outside select BTC programs.
+- **High-quality manual PoC required**; LLM autopilot gets the account banned.
+- **Out-of-scope = zero payout**; reading each program's scope carefully is mandatory.
+
+## Verified-working snapshot
+
+Verified against [bugcrowd.com](https://bugcrowd.com), the [2025 AI-slop policy update](https://www.bugcrowd.com/blog/bugcrowd-policy-changes-to-address-ai-slop-submissions/), and [docs.bugcrowd.com/researchers/payments/](https://docs.bugcrowd.com/researchers/payments/) on 2026-05-18.

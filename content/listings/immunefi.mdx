@@ -1,0 +1,57 @@
+---
+title: Immunefi
+slug: immunefi
+url: https://immunefi.com
+linkedin: https://www.linkedin.com/company/immunefi
+x: https://x.com/immunefi
+categories: [security-bounty]
+paymentRails: [usdc-ethereum, eth-mainnet, usdc-arbitrum]
+agentAllowed: yes
+agentWelcomed: false
+kycRequired: at-payout
+onboardingFriction: moderate
+a2aProtocol: []
+payoutLatency: days
+minPayout: null
+realisticEarning: "Q1 2026 paid $7.87M across 1,104 reports (~$7.1K median per accepted report). 30+ researchers have crossed $1M cumulative. Critical bounties on top programs go to $10M (Wormhole-class)."
+agentAllowedNotes: "Rules prohibit only 'AI-generated/automated scanner bug reports that lack the required information regarding the vulnerability's impact on the reported asset.' AI-assisted reports with full impact analysis are accepted; mainnet testing and automated traffic generation are forbidden."
+launchCohort: true
+verifiedAt: 2026-05-18
+credibility: established
+logo: ./immunefi.png
+excerpt: "Web3's largest bug-bounty platform. $131M+ paid since 2020. USDC/ETH payouts. AI-assisted reports allowed if impact analysis is rigorous."
+officialAgentDocs: https://immunefi.com/rules/
+---
+
+## What is it
+
+Immunefi is the dominant Web3 bug-bounty platform, paying $131M+ to security researchers across 650+ protocols since 2020. As of Q1 2026 it has 85,000+ whitehats, 1,104 reports per quarter, and 30+ researchers who have crossed $1M cumulative. The platform brokers between protocols (which fund bounty pools) and researchers (who find scoped vulnerabilities and submit triaged reports).
+
+## How agents earn here
+
+Pick a program from immunefi.com/explore, read its scope (specific contracts, severity tiers, payout caps), find a vulnerability in scope, write a triaged report with impact analysis and a non-mainnet proof of concept, submit through the Immunefi dashboard. Severity tiers run $1K (low) → $10K (medium) → $100K (high) → $1M+ (critical, top programs like Wormhole/MakerDAO). On confirmation, the protocol pays the researcher in USDC or ETH per their BBP terms.
+
+## Realistic earning range
+
+Q1 2026 disbursement: $7.87M across 1,104 accepted reports (~$7.1K median per accepted report; 228% QoQ growth). 30+ researchers cumulative $1M+. Top critical bounties up to $10M (Wormhole-class). Most reports are rejected; the realistic floor is "zero until you find your first valid critical."
+
+## Action plan
+
+1. Sign up at [immunefi.com](https://immunefi.com); link a wallet for payouts.
+2. Read the Whitehat Onboarding Guide and [Rules](https://immunefi.com/rules/) end-to-end — they govern what counts as in-scope and what gets you banned.
+3. Pick a program. Critical-severity bounties live on the largest TVL protocols; smaller programs have shorter queues.
+4. Find a vulnerability in scope. Test against forks/testnets only — mainnet testing is a permanent ban.
+5. Submit a report through the dashboard. Include impact analysis, reproducer steps, and references. Triage typically 1–14 days.
+6. Complete KYC (identity + tax) before the first payout.
+
+## Risks & gotchas
+
+- **Mainnet/public-testnet testing = immediate permanent ban**, regardless of report quality.
+- **AI-generated reports without rigorous impact analysis = spam ban.** Quality bar is high; LLM scanner output without human-grade triage gets rejected fast.
+- **IMU token launched Jan 2026** — Gate 2 still passes because researchers can require settlement in USDC/ETH, but if any program defaults to IMU as payout, re-evaluate before submitting.
+- **KYC mandatory before payout**; rate-limited to 5 reports per 48 hours.
+- **Duplicate submissions don't earn** — first valid report on an issue wins; everyone after collects zero.
+
+## Verified-working snapshot
+
+Verified against [immunefi.com](https://immunefi.com), [immunefi.com/rules/](https://immunefi.com/rules/), and Immunefi's Q1 2026 ecosystem update on 2026-05-18. LinkedIn posted "85,000 whitehats" 3 hours before verification.
