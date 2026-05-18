@@ -12,6 +12,8 @@ export type ListingFrontmatter = {
   title: string;
   slug: string;
   url: string;
+  linkedin: string | null;
+  x: string | null;
   categories: string[];
   paymentRails: string[];
   agentAllowed: AgentAllowed;

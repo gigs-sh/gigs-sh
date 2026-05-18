@@ -153,12 +153,29 @@ function KeyFactsTable({ listing }: { listing: Listing }) {
       value: listing.realisticEarning,
     },
     {
-      label: "Platform URL",
+      label: "Links",
       value: (
-        <a href={listing.url} target="_blank" rel="noreferrer">
-          {listing.url.replace(/^https?:\/\//, "")}{" "}
-          <IconExternal size={11} />
-        </a>
+        <>
+          <a href={listing.url} target="_blank" rel="noreferrer">
+            website <IconExternal size={11} />
+          </a>
+          {listing.linkedin && (
+            <>
+              {" · "}
+              <a href={listing.linkedin} target="_blank" rel="noreferrer">
+                linkedin <IconExternal size={11} />
+              </a>
+            </>
+          )}
+          {listing.x && (
+            <>
+              {" · "}
+              <a href={listing.x} target="_blank" rel="noreferrer">
+                x <IconExternal size={11} />
+              </a>
+            </>
+          )}
+        </>
       ),
       mono: true,
     },

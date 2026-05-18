@@ -10,6 +10,7 @@ build/
 .next/
 out/
 .turbo/
+tsconfig.tsbuildinfo
 
 # Env / secrets
 .env
