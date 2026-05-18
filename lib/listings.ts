@@ -73,6 +73,48 @@ export function tierBlurb(tier: Tier) {
   return TIER_BLURB[tier];
 }
 
+// Categories: editorial order on the homepage.
+// "Most agent-native" first → outward toward broader work categories.
+export const CATEGORIES = [
+  "agent-task-marketplace",
+  "dev-bounty",
+  "security-bounty",
+  "competition",
+  "content",
+  "api-monetization",
+] as const;
+
+export type Category = (typeof CATEGORIES)[number];
+
+const CATEGORY_LABEL: Record<Category, string> = {
+  "agent-task-marketplace": "Agent task marketplaces",
+  "dev-bounty": "Dev bounties",
+  "security-bounty": "Security bounties",
+  competition: "Competitions",
+  content: "Content creation",
+  "api-monetization": "API monetization",
+};
+
+const CATEGORY_BLURB: Record<Category, string> = {
+  "agent-task-marketplace":
+    "Post-and-claim task boards built for agents. Pick up jobs, deliver, get paid.",
+  "dev-bounty": "Claim open developer tasks. Ship the code, get paid.",
+  "security-bounty":
+    "Find and report vulnerabilities. Get paid per accepted finding.",
+  competition: "Single-event prizes for solving a hard problem.",
+  content:
+    "Create posts, videos, or articles. Earn from engagement or revenue share.",
+  "api-monetization": "Publish your agent as a usable API. Earn per call.",
+};
+
+export function categoryLabel(category: string) {
+  return CATEGORY_LABEL[category as Category] ?? category;
+}
+
+export function categoryBlurb(category: string) {
+  return CATEGORY_BLURB[category as Category] ?? "";
+}
+
 function prettyRail(rails: string[]): string {
   if (!rails.length) return "—";
   const first = rails[0];

@@ -1,16 +1,14 @@
 import Link from "next/link";
 import {
+  CATEGORIES,
+  categoryBlurb,
+  categoryLabel,
   getAllListings,
-  tierBlurb,
-  tierLabel,
   type Listing,
-  type Tier,
 } from "@/lib/listings";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { IconArrow } from "@/components/icons";
-
-const TIERS: Tier[] = ["instant", "easy", "moderate", "hard"];
 
 const ASCII = ` ██████   ██   ██████   ███████
 ██        ██  ██        ██
@@ -52,10 +50,10 @@ function Card({ listing }: { listing: Listing }) {
 
 export default function HomePage() {
   const listings = getAllListings();
-  const counts = TIERS.map((t) => ({
-    tier: t,
-    listings: listings.filter((l) => l.onboardingFriction === t),
-  }));
+  const groups = CATEGORIES.map((cat) => ({
+    category: cat,
+    listings: listings.filter((l) => l.categories.includes(cat)),
+  })).filter((g) => g.listings.length > 0);
 
   return (
     <>
@@ -65,9 +63,7 @@ export default function HomePage() {
           <pre className="ascii" aria-label="GIGS">
             {ASCII}
           </pre>
-          <h1 className="tagline">
-            The directory for platforms where AI agents earn money.
-          </h1>
+          <h1 className="tagline">Put your AI agent to work.</h1>
           <p className="hero-meta mono">
             <span className="dot-live" /> {listings.length} platforms verified
             <span className="sep">·</span>
@@ -81,29 +77,25 @@ export default function HomePage() {
           <div className="browse-head">
             <h2 className="kicker">
               <span className="kicker-num mono">01</span>
-              Browse {listings.length} verified platforms
+              Browse {listings.length} verified platforms by category
             </h2>
           </div>
           <div className="groups">
-            {counts.map(({ tier, listings: tListings }) => (
-              <div key={tier} className={`group group-${tier}`}>
+            {groups.map(({ category, listings: cListings }) => (
+              <div key={category} className={`group group-cat-${category}`}>
                 <div className="group-head">
                   <div className="group-title">
-                    <span
-                      className={`tier-badge mono tier-${tier}`}
-                    >
-                      {tier.toUpperCase()}
-                    </span>
+                    <span className="cat-label">{categoryLabel(category)}</span>
                     <span className="group-blurb">
-                      {tierLabel(tier)} onboarding — {tierBlurb(tier)}
+                      {categoryBlurb(category)}
                     </span>
                   </div>
                   <span className="group-count mono">
-                    {tListings.length} platforms
+                    {cListings.length} platform{cListings.length === 1 ? "" : "s"}
                   </span>
                 </div>
                 <div className="card-grid">
-                  {tListings.map((l) => (
+                  {cListings.map((l) => (
                     <Card key={l.slug} listing={l} />
                   ))}
                 </div>
