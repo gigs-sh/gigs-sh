@@ -1,0 +1,40 @@
+import type { MetadataRoute } from "next";
+import { CATEGORIES, getAllListings } from "@/lib/listings";
+
+const SITE = "https://gigs.sh";
+const TIERS = ["instant", "easy", "moderate", "hard"] as const;
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const listings = getAllListings();
+  const now = new Date();
+
+  const homepage: MetadataRoute.Sitemap[number] = {
+    url: SITE,
+    lastModified: now,
+    changeFrequency: "daily",
+    priority: 1,
+  };
+
+  const tierPages: MetadataRoute.Sitemap = TIERS.map((t) => ({
+    url: `${SITE}/f/${t}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
+    url: `${SITE}/c/${c}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
+  const listingPages: MetadataRoute.Sitemap = listings.map((l) => ({
+    url: `${SITE}/p/${l.slug}`,
+    lastModified: l.verifiedAt ? new Date(l.verifiedAt) : now,
+    changeFrequency: "weekly",
+    priority: 0.7,
+  }));
+
+  return [homepage, ...tierPages, ...categoryPages, ...listingPages];
+}
