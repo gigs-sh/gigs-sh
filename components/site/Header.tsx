@@ -13,9 +13,8 @@ export function Header() {
       <div className="wrap row between">
         <Link href="/" className="brand mono" aria-label="gigs.sh">
           <pre className="brand-ascii" aria-hidden="true">
-{`┌─┐┬┌─┐┌─┐ ┌─┐┬ ┬
-│ ┬││ ┬└─┐ └─┐├─┤
-└─┘┴└─┘└─┘•└─┘┴ ┴`}
+{`█▀▀ █ █▀▀ █▀   █▀ █ █
+█▄█ █ █▄█ ▄█ . ▄█ █▀█`}
           </pre>
         </Link>
         <nav className="nav-links">

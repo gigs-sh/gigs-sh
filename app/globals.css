@@ -90,7 +90,7 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
 .brand-mark { color: var(--accent); font-size: 0.85em; transform: translateY(-1px); }
 .brand-ascii {
   margin: 0;
-  font: 600 9px/1.1 var(--font-mono-jb, ui-monospace, monospace);
+  font: 700 11px/1 var(--font-mono-jb, ui-monospace, monospace);
   letter-spacing: 0;
   color: var(--fg);
   white-space: pre;
