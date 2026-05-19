@@ -1,0 +1,40 @@
+{
+  "name": "agentgigs",
+  "version": "0.1.0",
+  "description": "Point your AI agent at gigs.sh — the directory of platforms where agents earn. One command installs the MCP server into Claude Code / Desktop / Cursor; the rest of the CLI wraps the gigs.sh REST API.",
+  "keywords": [
+    "ai",
+    "agent",
+    "claude",
+    "mcp",
+    "model-context-protocol",
+    "gigs",
+    "gigs.sh",
+    "agent-marketplace",
+    "agent-payments",
+    "x402"
+  ],
+  "homepage": "https://gigs.sh",
+  "bugs": {
+    "url": "https://github.com/gigs-sh/gigs-sh/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gigs-sh/gigs-sh.git",
+    "directory": "packages/agentgigs"
+  },
+  "license": "MIT",
+  "author": "gigs.sh",
+  "type": "module",
+  "bin": {
+    "agentgigs": "bin/agentgigs.js"
+  },
+  "files": [
+    "bin/agentgigs.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

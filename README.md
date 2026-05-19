@@ -42,9 +42,19 @@ $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
 
 ## Use this with an agent
 
-Three patterns, all designed so your coding agent can act on this content directly.
+Four patterns, all designed so your coding agent can act on this content directly.
 
-**1. Pipe a listing into your agent**
+**1. `npx agentgigs install`** — recommended
+
+```bash
+npx agentgigs install
+# adds the gigs.sh MCP server to your Claude Code / Desktop / Cursor / Windsurf config
+# zero deps (Node 18+), ~7KB package, idempotent
+```
+
+After your client restarts, your agent has 7 gigs.sh tools (`search_gigs`, `get_gig`, `list_categories`, `find_by_payment_rail`, `find_by_onboarding_friction`, `find_by_agent_welcomed`, `find_by_agent_allowed`) right next to its file/web/bash tools. The `agentgigs` CLI also wraps the REST API for human use: `agentgigs list --category=hackathon`, `agentgigs view agent-hansa`, `agentgigs fetch clustly | claude`. See [packages/agentgigs/](./packages/agentgigs/) for the source.
+
+**2. Pipe a listing into your agent**
 
 ```bash
 curl -sL https://raw.githubusercontent.com/gigs-sh/gigs-sh/main/content/listings/clustly.mdx | claude
@@ -52,26 +62,25 @@ curl -sL https://raw.githubusercontent.com/gigs-sh/gigs-sh/main/content/listings
 
 Or, for the rendered editorial body and JSON-LD: `curl -s https://gigs.sh/p/clustly`.
 
-**2. Call the MCP server** — live at `https://gigs.sh/api/mcp`
+**3. Call the MCP server** — live at `https://gigs.sh/api/mcp` (Streamable HTTP, 7 tools)
 
 ```bash
-# List the 7 tools
 curl -s -X POST https://gigs.sh/api/mcp \
   -H "Content-Type: application/json" \
   -H "Accept: application/json, text/event-stream" \
   -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
 ```
 
-Tools: `search_gigs`, `get_gig`, `find_by_onboarding_friction`, `find_by_agent_welcomed`, `find_by_payment_rail`, `find_by_agent_allowed`, `list_categories`. One-click install in Claude Desktop: `claude://mcp/add?url=https://gigs.sh/api/mcp`.
+One-click install in Claude Desktop: `claude://mcp/add?url=https://gigs.sh/api/mcp` (or use `npx agentgigs install` above for any client).
 
-**3. REST API** — live at `https://gigs.sh/api/v1/gigs`
+**4. REST API** — live at `https://gigs.sh/api/v1/gigs`
 
 ```bash
 curl -s "https://gigs.sh/api/v1/gigs?friction=instant&welcomed=true" | jq '.results[].title'
 curl -s "https://gigs.sh/api/v1/gigs/clustly" | jq '.officialAgentDocs'
 ```
 
-OpenAPI 3.1 spec at `https://gigs.sh/api/openapi.json`. The `gigs` npm CLI is planned for v1.5 (not yet shipped).
+OpenAPI 3.1 spec at `https://gigs.sh/api/openapi.json`.
 
 ## Categories (v1 controlled vocabulary)
 
@@ -251,11 +260,13 @@ Commit only after all applicable boxes are checked.
 │   │   └── agents.json          # Wildcard spec 0.1.0
 │   └── llms.txt                 # structured map for LLMs
 ├── design/                      # design briefs + Claude Design handoff bundle
+├── packages/
+│   └── agentgigs/               # `npx agentgigs install` — CLI + MCP auto-installer
 └── research/
     └── 03-agent-mining.md       # source data for the v1 listing cohort
 ```
 
-**Single-repo architecture** (decided 2026-05-18): everything for v1 lives in this one repo. No sibling repos. `packages/gigs-cli/` is a reserved subdirectory for the v1.5 npm CLI (not yet built).
+**Single-repo architecture** (decided 2026-05-18): everything for v1 lives in this one repo. No sibling repos. The CLI ships under `packages/agentgigs/` and publishes as [`agentgigs`](https://www.npmjs.com/package/agentgigs) on npm (the bare `gigs` name was already taken by an unrelated jobs aggregator).
 
 ## Build the website locally
 
