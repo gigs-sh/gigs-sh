@@ -10,8 +10,8 @@ This document is written so an AI agent (Claude, GPT, Gemini, …) can run the e
 
 ```
 Gate 0  Check past reviews     — content/reviews/<slug>.md (don't redo work)
-Gate 1  Editorial scope        — agent earns by doing work, not by speculation
-Gate 2  Payout rail            — USDC / fiat — not platform-issued tokens
+Gate 1  Editorial scope        — agent-native + ≤1 human touch to operate
+Gate 2  Payout rail (if earn)  — USDC / fiat for earn-category listings only
 Gate 3  Agent-friendliness     — public ToS / docs / llms.txt explicitly allows agents
 Gate 4  Live and functional    — site loads, recent activity, real endpoints
 Gate 5  Real traction          — users / volume / funding / partnership / commits
@@ -39,53 +39,58 @@ This gate prevents duplicate research on platforms that have already been reject
 
 ---
 
-## The thesis (recap)
+## The thesis (recap — updated 2026-05-20)
 
-gigs.sh lists **platforms where an AI agent earns by doing work** — tasks, bounties, competitions, content creation, API services. It explicitly does NOT list:
+gigs.sh lists **platforms designed for AI agents to onboard themselves and run autonomously**. v1 indexes earn-focused platforms; v2 broadens to infrastructure, tools, social, identity, and other use cases agents need.
 
-- Prediction markets, perp DEXs, sportsbooks → speculation, not labor
-- Platforms whose product is their own token (TAO, OLAS, VIRTUAL, AKT, IO, ARKM, GTC, etc.)
-- Mining or compute-marketplace protocols → capital deployment, not labor
-- Gambling of any kind
+The inclusion test is mechanical, not aspirational:
+
+1. **Agent-native** — the product is *designed* for AI agents to drive (llms.txt, agent docs, API-first onboarding, agent-specific docs). Not a generic web app that grudgingly allows bots.
+2. **≤1 human touch** — a fresh agent moves from "never heard of it" to "operating on it" with zero ideally, at most one manual claim or approval step (e.g., wallet authorization). Anything beyond one touch is out-of-scope for v1/v2.
 
 The one-question test:
 
-> Does the agent get paid for **delivering output**, or for putting **capital / resources at risk**?
+> Can a fresh AI agent, given just the homepage URL, get itself onboarded and operating with zero or one human action in between?
 
-Only the first answer fits.
+If yes → in scope. If no → out of scope (no matter how interesting the platform is).
 
----
-
-## Gate 1 — Editorial scope
-
-**PASS** when:
-- The agent earns by delivering output that someone pays for (a task, an article, a vulnerability report, an API response, etc.).
-- The loop is "agent does work → agent gets paid in stablecoin or fiat."
-
-**FAIL** when:
-- The agent earns by trading, betting, predicting, or holding a position.
-- The platform's primary product is its own token; "earning" is denominated in that token.
-- The agent earns by providing GPU / compute / storage for token rewards.
-
-If FAIL: stop. Record the candidate in `PRD §7 Excluded after verification` with a one-sentence reason.
+**What this changes from the original v1 thesis** (which excluded speculation, tokenomics, mining, and gambling on ethical grounds): those exclusions are dropped. If a prediction market or token-issuing platform is genuinely agent-native and self-onboardable, it qualifies. Operator interest is preserved by clear tagging and per-listing risk notes, not by editorial exclusion. The only platforms still excluded are those that **actively block AI agents** (Civitai, Toloka, Karya, Sapien, Surge AI per their ToS).
 
 ---
 
-## Gate 2 — Payout rail
+## Gate 1 — Editorial scope (agent-native + self-onboard)
+
+**PASS** when both are true:
+- The product is *designed* for AI agents to drive. Concrete signals: published llms.txt or llms-full.txt, an agent-specific docs page, MCP server, dedicated `/api/agents/register` endpoint, or homepage copy that names AI agents as a target user.
+- A fresh agent gets from registration to operating state in ≤1 human action. Zero is ideal; one manual claim/approval (e.g., wallet authorization, social-account binding) is the ceiling.
+
+**FAIL** when any of:
+- The platform's onboarding requires more than one human step (e.g., manual KYC + tax form + manual review).
+- The platform's ToS explicitly prohibits bots / automation / AI agents (Civitai, Toloka, etc.).
+- The "agent support" is a retrofit (e.g., a web app where you happen to be able to script a browser), not a designed-for-agents surface.
+
+**Note on category**: a candidate that passes the inclusion test fits one of the use cases (earn, use, pay, compute, persist, social — taxonomy expanding in v2). Gate 7 picks the specific category.
+
+If FAIL: stop. Record at `content/reviews/<slug>.md` with `verdict: rejected` and the failed gate.
+
+---
+
+## Gate 2 — Payout rail (earn-category listings only)
+
+This gate only applies to candidates classified under earn-type categories (`agent-task-marketplace`, `api-monetization`, `hackathon`, `dev-bounty`, `security-bounty`, `competition`, `content`). For other use cases (infra, tools, social, identity, etc.), payout rail is N/A — skip to Gate 3.
+
+**For earn-type listings:**
 
 **PASS** when:
 - Payouts are in USDC (any chain), USDT, DAI, or another established stablecoin, OR
-- Payouts are in fiat via Stripe, wire, PayPal, Payoneer, or bank transfer.
+- Payouts are in fiat via Stripe, wire, PayPal, Payoneer, or bank transfer, OR
+- Payouts are in a platform-issued token. (Previously a FAIL — now flagged in `agentAllowedNotes` so operators know what they're walking into, but no longer auto-rejected.)
 
-**FAIL** when:
-- Payouts are denominated in the platform's own token, even if a stablecoin off-ramp is offered.
-- "Pre-token" — the platform promises future tokens / airdrops as the primary payout mechanism.
+**Always document in `agentAllowedNotes`:**
+- Token-denominated payouts and the token's liquidity/volatility profile.
+- Off-ramp friction (does the agent need a CEX account to convert?).
 
-**BORDERLINE** (FLAG, do not auto-fail):
-- The parent ecosystem has a token, but the specific marketplace settles in stablecoin (e.g., Daydreams TaskMarket settles in USDC while the parent Daydreams ecosystem has the DAYDREAMS token).
-- The platform has a non-utility token launched for hackathons / airdrops but real settlement is in stablecoin.
-
-In borderline cases: list, but document the token concern in `agentAllowedNotes` and the Risks section of the MDX.
+The point of this gate post-pivot: surface the rail honestly. Operators decide if a token-paid platform is acceptable for their use case — gigs.sh no longer decides for them.
 
 ---
 

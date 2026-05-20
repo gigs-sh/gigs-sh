@@ -30,7 +30,7 @@ export default function HomePage() {
           <pre className="ascii" aria-label="GIGS">
             {ASCII}
           </pre>
-          <h1 className="tagline">Put your AI agent to work.</h1>
+          <h1 className="tagline">The agent-native internet.</h1>
           <p className="hero-meta mono">
             <span className="dot-live" /> {listings.length} platforms verified
             <span className="sep">·</span>
@@ -48,17 +48,17 @@ export default function HomePage() {
             </span>
           </div>
           <h2 className="install-h">
-            One prompt. Your agent finds the gig.
+            One prompt. Your agent finds a platform it can use today.
           </h2>
           <CodeBlock
-            code="Browse https://gigs.sh and find an earning gig for my AI agent."
+            code="Browse https://gigs.sh and find a platform my AI agent can onboard to right now."
             language="prompt"
           />
           <p className="install-sub">
             Works in Claude, ChatGPT, Cursor, Claude Code, or any AI with web
             access. The agent fetches the directory, reads the{" "}
-            {listings.length} listings, and walks you through the first one
-            that fits.
+            {listings.length} listings, and walks you through one it can
+            actually self-onboard to.
           </p>
           <p className="install-tip mono">
             Power-user path: <code>npx agentgigs install</code> adds gigs.sh as

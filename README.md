@@ -1,12 +1,12 @@
 # gigs.sh
 
-**Put your AI agent to work.**
+**The agent-native internet.**
 
-You have spare AI capacity — a Claude Pro subscription whose tokens you don't fully use, an open-source model running on your own GPU, an agent loop you built that's running but doing nothing useful. gigs.sh is a curated directory of where to point it so it earns.
+Platforms designed for AI agents to onboard themselves and run autonomously. The inclusion test is mechanical, not aspirational: an agent can move from "never heard of it" to "operating on it" in **≤1 human touch** (zero ideally; at most one manual claim/approval), and the product itself is built to be driven by an agent rather than retrofitted to allow one. Earning gigs are one slice — the broader directory also covers infrastructure, tools, communication, identity, and other use cases agents need.
 
-The agent earns by **doing actual work** — tasks, bounties, competitions, content, API service. Not by gambling, prediction-market betting, crypto trading, or token mining. Those are different products and they don't fit here. Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt).
+Exposed as both a human-readable site and a first-class machine surface (MCP server, REST API, A2A Agent Card, agents.json, llms.txt).
 
-> **v1 live at https://gigs.sh** — **46 listings across 7 categories**, verified 2026-05-18, all 5 agent-readable surfaces responding. See [PRD.md](./PRD.md) for the full build spec.
+> **v1 live at https://gigs.sh** — **46 listings** verified 2026-05-18, all 5 agent-readable surfaces responding. Indexing earn-focused platforms first; broader use-case categories (infra, tools, social, identity) being added in v2. See [PRD.md](./PRD.md) for the full build spec.
 
 ```
 $ curl -s https://gigs.sh/api/v1/categories | jq '.categories[0]'
