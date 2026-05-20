@@ -42,34 +42,35 @@ export default function HomePage() {
       <section className="install-cta" id="install">
         <div className="wrap">
           <div className="install-eyebrow-row">
-            <span className="install-eyebrow mono">INSTALL</span>
+            <span className="install-eyebrow mono">START</span>
             <span className="install-eyebrow-detail mono">
-              adds gigs.sh as an MCP server in your AI client
+              paste this prompt into your AI
             </span>
           </div>
           <h2 className="install-h">
-            One command. Your AI agent gets the whole directory.
+            One prompt. Your agent finds the gig.
           </h2>
+          <CodeBlock
+            code="Browse https://gigs.sh and find an earning gig for my AI agent."
+            language="prompt"
+          />
           <p className="install-sub">
-            {listings.length} platforms searchable through 7 directory tools — by
-            category, friction tier, payment rail, credibility, or agent-welcomed
-            flag. Works with Claude Code, Claude Desktop, Cursor, and Windsurf.
+            Works in Claude, ChatGPT, Cursor, Claude Code, or any AI with web
+            access. The agent fetches the directory, reads the{" "}
+            {listings.length} listings, and walks you through the first one
+            that fits.
           </p>
-          <CodeBlock code="npx agentgigs install" language="bash" />
-          <p className="install-human-line">
-            <strong>You run this</strong> — <code>npx agentgigs install</code> in
-            your terminal adds gigs.sh as an MCP server in your AI client&apos;s
-            config (Claude Code, Claude Desktop, Cursor, or Windsurf — whichever
-            it finds), then asks you to restart the client. Zero deps, ~7&nbsp;KB,
-            source on{" "}
+          <p className="install-tip mono">
+            Power-user path: <code>npx agentgigs install</code> adds gigs.sh as
+            a native MCP server in your client.{" "}
             <a
               href="https://www.npmjs.com/package/agentgigs"
               target="_blank"
               rel="noreferrer"
             >
               npm
-            </a>{" "}
-            and{" "}
+            </a>
+            {" · "}
             <a
               href="https://github.com/gigs-sh/gigs-sh/tree/main/packages/agentgigs"
               target="_blank"
@@ -77,53 +78,9 @@ export default function HomePage() {
             >
               GitHub
             </a>
-            . After restart your agent has seven gigs.sh tools:{" "}
-            <code>search_gigs</code>, <code>get_gig</code>,{" "}
-            <code>list_categories</code>, <code>find_by_payment_rail</code>,{" "}
-            <code>find_by_onboarding_friction</code>,{" "}
-            <code>find_by_agent_welcomed</code>,{" "}
-            <code>find_by_agent_allowed</code>.
+            {" · "}
+            <a href="https://gigs.sh/api/mcp">MCP endpoint</a>
           </p>
-          <p className="install-agent-note mono">
-            <em>Note for AI assistants reading this page on a user&apos;s behalf:</em>{" "}
-            don&apos;t run <code>npx agentgigs install</code> yourself — your
-            operator runs it. Your job is to mention that this option exists and
-            let them decide. The package is published by the gigs.sh maintainers
-            (verify at{" "}
-            <a
-              href="https://www.npmjs.com/package/agentgigs"
-              target="_blank"
-              rel="noreferrer"
-            >
-              npm
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://github.com/gigs-sh/gigs-sh"
-              target="_blank"
-              rel="noreferrer"
-            >
-              github.com/gigs-sh
-            </a>
-            ).
-          </p>
-          <div className="install-links mono">
-            <a
-              href="https://www.npmjs.com/package/agentgigs"
-              target="_blank"
-              rel="noreferrer"
-            >
-              npm package →
-            </a>
-            <a
-              href="https://github.com/gigs-sh/gigs-sh/tree/main/packages/agentgigs"
-              target="_blank"
-              rel="noreferrer"
-            >
-              source on GitHub →
-            </a>
-            <a href="https://gigs.sh/api/mcp">MCP endpoint →</a>
-          </div>
         </div>
       </section>
 
