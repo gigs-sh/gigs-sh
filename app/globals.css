@@ -178,6 +178,75 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
   50% { box-shadow: 0 0 0 6px transparent; }
 }
 
+/* ── Install CTA (homepage, right after hero) ─────────────────────────────── */
+.install-cta {
+  padding: 48px 0 56px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, transparent 0%, var(--bg-soft) 40%, var(--bg-soft) 60%, transparent 100%);
+  position: relative;
+}
+.install-cta .wrap { max-width: 820px; }
+.install-eyebrow-row {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.install-eyebrow {
+  display: inline-block;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+  color: var(--bg); background: var(--accent);
+  padding: 4px 10px; border-radius: 3px;
+}
+.install-eyebrow-detail {
+  font-size: 12.5px; color: var(--fg-muted); letter-spacing: 0.01em;
+}
+.install-h {
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.22;
+  margin: 0 0 14px;
+  text-wrap: balance;
+  max-width: 720px;
+}
+.install-sub {
+  font-size: 15px; color: var(--fg-muted); line-height: 1.6;
+  margin: 0 0 18px; max-width: 720px; text-wrap: pretty;
+}
+.install-cta .codeblock {
+  margin: 18px 0 14px;
+  box-shadow: 0 4px 14px rgba(12, 12, 13, 0.08);
+}
+.install-agent-hint {
+  font-size: 12.5px; color: var(--fg-muted); line-height: 1.65;
+  margin: 18px 0 0; max-width: 720px; text-wrap: pretty;
+  padding: 12px 14px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 4px;
+  background: color-mix(in oklab, var(--accent) 4%, transparent);
+}
+.install-agent-hint code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: var(--bg-elev);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--fg);
+}
+.install-agent-hint strong { color: var(--fg); font-weight: 600; }
+.install-links {
+  display: flex; flex-wrap: wrap; gap: 22px;
+  margin-top: 22px; font-size: 12.5px;
+}
+.install-links a { color: var(--fg-muted); }
+.install-links a:hover { color: var(--accent); }
+@media (max-width: 720px) {
+  .install-cta { padding: 36px 0 40px; }
+  .install-eyebrow-row { gap: 10px; }
+}
+
 /* ── Browse + card grid (homepage) ────────────────────────────────────────── */
 .browse { padding: 64px 0 40px; border-top: 1px solid var(--border); margin-top: 32px; }
 .browse-head { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
