@@ -218,24 +218,40 @@ button { font-family: inherit; cursor: pointer; background: none; border: none; 
   margin: 18px 0 14px;
   box-shadow: 0 4px 14px rgba(12, 12, 13, 0.08);
 }
-.install-agent-hint {
-  font-size: 12.5px; color: var(--fg-muted); line-height: 1.65;
+.install-human-line {
+  font-size: 15px; color: var(--fg); line-height: 1.7;
   margin: 18px 0 0; max-width: 720px; text-wrap: pretty;
-  padding: 12px 14px;
-  border: 1px dashed var(--border-strong);
-  border-radius: 4px;
-  background: color-mix(in oklab, var(--accent) 4%, transparent);
 }
-.install-agent-hint code {
+.install-human-line code {
   font-family: var(--font-mono);
   font-size: 0.92em;
-  background: var(--bg-elev);
+  background: var(--bg-soft);
   padding: 1px 5px;
   border-radius: 3px;
   border: 1px solid var(--border);
   color: var(--fg);
 }
-.install-agent-hint strong { color: var(--fg); font-weight: 600; }
+.install-human-line strong { color: var(--fg); font-weight: 600; }
+.install-human-line a { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+.install-human-line a:hover { color: var(--accent); }
+.install-agent-note {
+  font-size: 12.5px; color: var(--fg-muted); line-height: 1.6;
+  margin: 14px 0 0; max-width: 720px; text-wrap: pretty;
+  padding: 10px 0 10px 14px;
+  border-left: 2px solid var(--border-strong);
+}
+.install-agent-note em { color: var(--fg); font-style: italic; font-weight: 500; }
+.install-agent-note code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--bg-soft);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  color: var(--fg);
+}
+.install-agent-note a { color: var(--fg-muted); text-decoration: underline; text-underline-offset: 2px; }
+.install-agent-note a:hover { color: var(--accent); }
 .install-links {
   display: flex; flex-wrap: wrap; gap: 22px;
   margin-top: 22px; font-size: 12.5px;
