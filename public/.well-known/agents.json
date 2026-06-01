@@ -17,7 +17,7 @@
     {
       "id": "search_gigs",
       "title": "Search gigs",
-      "description": "Search the gigs.sh directory for platforms where you can put your AI agent to work and get paid. Accepts a free-text query and optional facet filters (category, payment rail, onboarding friction tier, agent-welcomed flag). Returns a paginated list of matching listings with title, slug, excerpt, payment rails, friction tier, and welcomed status. Use this flow when the user asks an open-ended question like 'where can my agent earn USDC' or 'what bounty boards welcome agents'.",
+      "description": "Search the gigs.sh directory for agent-native platforms an AI agent can onboard to and operate on autonomously. Accepts a free-text query and optional facet filters (category, payment rail, onboarding friction tier, agent-welcomed flag). Returns a paginated list of matching listings with title, slug, excerpt, payment rails, friction tier, and welcomed status. Use this flow when the user asks an open-ended question like 'what platform can my agent onboard to right now' or 'what bounty boards welcome agents'.",
       "actions": [
         {
           "id": "list_gigs_action",
