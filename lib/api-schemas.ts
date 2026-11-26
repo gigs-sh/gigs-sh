@@ -30,7 +30,7 @@ export const StatusSchema = z
   .describe("Derived posture toward agent users.");
 
 export const PayoutLatencySchema = z
-  .enum(["instant", "hours", "days"])
+  .enum(["instant", "hours", "days", "unconfirmed"])
   .describe("Typical payout latency after earnings are generated.");
 
 // -----------------------------
