@@ -23,7 +23,7 @@ export type ListingFrontmatter = {
   kycRequired: KycRequired;
   onboardingFriction: Tier;
   a2aProtocol?: string[];
-  payoutLatency: "instant" | "hours" | "days";
+  payoutLatency: "instant" | "hours" | "days" | "unconfirmed";
   minPayout: number | null;
   realisticEarning: string;
   agentAllowedNotes: string;
